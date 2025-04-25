@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 150 62% 20%;
+    --primary-light: 150 62% 30%;
+    --primary-dark: 150 62% 10%;
+    --secondary: 222 68% 33%;
+    --accent: 38 92% 50%;
+    --success: 142 72% 29%;
+    --warning: 36 100% 50%;
+    --error: 0 84% 60%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white px-4 py-2 rounded-md hover:opacity-90 transition-all duration-300;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-foreground px-4 py-2 rounded-md hover:opacity-90 transition-all duration-300;
+  }
+  
+  .btn-outline {
+    @apply border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-card rounded-lg border border-border shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  .input {
+    @apply px-3 py-2 rounded-md border border-border focus:outline-none focus:ring-2 focus:ring-primary/50;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
