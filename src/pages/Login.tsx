@@ -137,10 +137,6 @@ const Login = () => {
               Sign up
             </Link>
           </p>
-          
-          <div className="mt-8 text-xs text-center text-gray-500">
-            For testing, use: <span className="font-medium">admin@example.com</span> / <span className="font-medium">password</span>
-          </div>
         </div>
       </div>
     </div>

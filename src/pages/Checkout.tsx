@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, MapPin, AlertCircle, Check, User, Phone, Mail } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
@@ -27,7 +33,23 @@ const Checkout = () => {
   const [step, setStep] = useState(1);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  
+  const [session, setSession] = useState<any>(null);
+  const stripe = useStripe();
+  const elements = useElements();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/login?redirect=checkout');
+        return;
+      }
+      setSession(session);
+    };
+    checkSession();
+  }, [navigate]);
+
   // Update form data
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -44,9 +66,11 @@ const Checkout = () => {
     setIsProcessing(true);
     
     try {
-      // In a real application, this would make an API call to process payment
-      // For demo purposes, we'll simulate a successful payment
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      if (formData.paymentMethod === 'card') {
+        // Process card payment
+        const cartItemIds = cartItems.map(item => item.id);
+        await handlePayment(cartItemIds[0]); // For now, just handle first item
+      }
       
       setSuccess(true);
       clearCart();
@@ -55,10 +79,58 @@ const Checkout = () => {
       setTimeout(() => {
         navigate('/dashboard/courses');
       }, 3000);
-    } catch (err) {
-      setError('Payment processing failed. Please try again.');
+    } catch (err: any) {
+      setError(err.message || 'Payment processing failed. Please try again.');
     } finally {
       setIsProcessing(false);
+    }
+  };
+  
+  const handlePayment = async (courseId: string) => {
+    if (!session || !stripe || !elements) return;
+
+    try {
+      const { data: { clientSecret }, error: intentError } = await supabase.functions.invoke('create-payment-intent', {
+        body: { courseId }
+      });
+
+      if (intentError) throw new Error(intentError.message);
+
+      const { paymentIntent, error: paymentError } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement)!,
+          billing_details: {
+            name: formData.cardName,
+            email: formData.email,
+            phone: formData.phone,
+            address: {
+              line1: formData.address,
+              city: formData.city,
+              state: formData.state,
+              country: 'NG',
+            }
+          }
+        }
+      });
+
+      if (paymentError) throw new Error(paymentError.message);
+      if (!paymentIntent) throw new Error('Payment failed');
+
+      if (paymentIntent.status === 'succeeded') {
+        // Record purchase in database
+        const { error: purchaseError } = await supabase.from('purchases').insert({
+          user_id: session.user.id,
+          course_id: courseId,
+          amount: paymentIntent.amount,
+          status: 'completed',
+          payment_intent_id: paymentIntent.id
+        });
+
+        if (purchaseError) throw new Error(purchaseError.message);
+      }
+    } catch (error: any) {
+      console.error('Payment failed:', error);
+      throw error;
     }
   };
   

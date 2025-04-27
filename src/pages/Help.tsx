@@ -1,88 +1,135 @@
-import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from 'react';
 
 const Help = () => {
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const faqs = [
     {
-      id: '1',
-      question: 'How do I enroll in a course?',
-      answer: 'To enroll in a course, browse our available courses, select the one you\'re interested in, and click the "Add to Cart" button. Follow the checkout process to complete your enrollment.'
+      id: 1,
+      question: 'How do I book a business trip?',
+      answer: 'To book a business trip, log in to your NBTA account and navigate to the "Book Travel" section. Select your destination, dates, and preferences. Our system will show you available options, and you can complete the booking process in a few simple steps.'
     },
     {
-      id: '2',
-      question: 'What are the payment methods accepted?',
-      answer: 'We accept various payment methods including credit/debit cards and bank transfers. All payments are processed securely through our payment gateway.'
+      id: 2,
+      question: 'What payment methods are accepted?',
+      answer: 'We accept all major credit cards, including Visa, Mastercard, and American Express. We also support corporate payment methods and can set up direct billing for approved accounts.'
     },
     {
-      id: '3',
-      question: 'Can I get a refund?',
-      answer: 'Yes, we offer refunds within 7 days of purchase if you haven\'t attended the physical training session. Contact our support team to initiate the refund process.'
+      id: 3,
+      question: 'How can I modify or cancel a booking?',
+      answer: 'You can modify or cancel your booking through your NBTA account. Go to "My Trips" and select the booking you want to change. Follow the prompts to modify or cancel your reservation. Please note that cancellation policies may vary depending on the service provider.'
     },
-    // Add more FAQs as needed
+    {
+      id: 4,
+      question: 'What is the refund policy?',
+      answer: 'Our refund policy varies depending on the type of booking and the service provider. Generally, refundable bookings can be cancelled for a full refund up to 24 hours before the scheduled time. Non-refundable bookings may be subject to cancellation fees.'
+    },
+    {
+      id: 5,
+      question: 'How do I contact customer support?',
+      answer: 'You can reach our customer support team 24/7 through the following channels: Phone: +234 123 456 7890, Email: support@nbta.com, or through the live chat feature on our website.'
+    }
   ];
 
-  const toggleSection = (id: string) => {
-    setExpandedSection(expandedSection === id ? null : id);
+  const supportResources = [
+    {
+      title: 'User Guide',
+      description: 'Comprehensive guide to using NBTA platform',
+      link: '#'
+    },
+    {
+      title: 'Travel Policy Templates',
+      description: 'Sample travel policies for your organization',
+      link: '#'
+    },
+    {
+      title: 'Video Tutorials',
+      description: 'Step-by-step video guides',
+      link: '#'
+    },
+    {
+      title: 'API Documentation',
+      description: 'Technical documentation for developers',
+      link: '#'
+    }
+  ];
+
+  const toggleFaq = (id: number) => {
+    setExpandedFaq(expandedFaq === id ? null : id);
   };
 
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container-custom">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Help Center</h1>
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Help Center</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Find answers to your questions and get support for your business travel needs.
+          </p>
+        </div>
 
-        {/* Search */}
-        <div className="max-w-2xl mx-auto mb-12">
+        {/* Search Section */}
+        <div className="max-w-3xl mx-auto mb-16">
           <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search for help..."
-              className="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
             />
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           </div>
         </div>
 
-        {/* Popular Topics */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Popular Topics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {faqs.map((faq) => (
-              <div
-                key={faq.id}
-                className="p-6 bg-white rounded-lg shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition-shadow"
-                onClick={() => toggleSection(faq.id)}
-              >
-                <div className="flex justify-between items-start">
-                  <h3 className="font-medium text-gray-900">{faq.question}</h3>
-                  {expandedSection === faq.id ? (
-                    <ChevronUp className="flex-shrink-0 text-gray-500" size={20} />
-                  ) : (
-                    <ChevronDown className="flex-shrink-0 text-gray-500" size={20} />
+        <div className="max-w-4xl mx-auto">
+          {/* FAQs Section */}
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {faqs.map(faq => (
+                <div key={faq.id} className="bg-white rounded-lg shadow-sm">
+                  <button
+                    className="w-full px-6 py-4 text-left flex justify-between items-center"
+                    onClick={() => toggleFaq(faq.id)}
+                  >
+                    <span className="font-medium">{faq.question}</span>
+                    {expandedFaq === faq.id ? (
+                      <ChevronUp size={20} className="text-gray-400" />
+                    ) : (
+                      <ChevronDown size={20} className="text-gray-400" />
+                    )}
+                  </button>
+                  {expandedFaq === faq.id && (
+                    <div className="px-6 pb-4 text-gray-600">
+                      {faq.answer}
+                    </div>
                   )}
                 </div>
-                {expandedSection === faq.id && (
-                  <p className="mt-4 text-gray-600">{faq.answer}</p>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Contact Support */}
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-4">Still need help?</h2>
-          <p className="text-gray-600 mb-6">
-            Our support team is available Monday to Friday, 9am - 5pm WAT
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button className="btn-primary">
-              Contact Support
-            </button>
-            <button className="btn-outline">
-              Submit a Ticket
-            </button>
+          {/* Support Resources */}
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Support Resources</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {supportResources.map((resource, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-2">{resource.title}</h3>
+                  <p className="text-gray-600 mb-4">{resource.description}</p>
+                  <a
+                    href={resource.link}
+                    className="text-primary hover:underline"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

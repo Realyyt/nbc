@@ -1,9 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Filter, ChevronDown } from 'lucide-react';
+import { Search, Filter, ChevronDown, ArrowUpDown, DollarSign, BookOpen } from 'lucide-react';
 import CourseCard from '../components/CourseCard';
-import { Course } from '../contexts/CartContext';
-import { mockCourses, categories } from '../data/mockData';
+import { Course } from '../lib/supabase';
+import { courseService } from '../services/courseService';
+import { mockCourses } from '../data/mockData';
+
+interface Category {
+  id: string;
+  name: string;
+  count: number;
+}
 
 const Courses = () => {
   const location = useLocation();
@@ -14,47 +21,86 @@ const Courses = () => {
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
-  const [sortBy, setSortBy] = useState('default');
+  const [sortBy, setSortBy] = useState<'price' | 'title'>('title');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
-  // Apply filters and sorting to courses
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const categories: Category[] = [
+    { id: 'all', name: 'All Categories', count: 0 },
+    { id: 'beginner', name: 'Beginner', count: 0 },
+    { id: 'intermediate', name: 'Intermediate', count: 0 },
+    { id: 'advanced', name: 'Advanced', count: 0 }
+  ];
+
+  // Fetch courses
   useEffect(() => {
-    let filtered = [...mockCourses];
-    
+    const fetchCourses = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        // Use mockCourses directly instead of fetching
+        console.log('Using mock courses:', mockCourses);
+        setCourses(mockCourses);
+        setFilteredCourses(mockCourses);
+        
+        // Update category counts
+        categories.forEach(category => {
+          if (category.id !== 'all') {
+            category.count = mockCourses.filter(course => course.level === category.id).length;
+          }
+        });
+      } catch (err) {
+        console.error('Error setting up courses:', err);
+        setError('Failed to load courses. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  // Apply filters and sorting
+  useEffect(() => {
+    let result = [...courses];
+    console.log('Applying filters to courses:', result);
+
     // Apply search filter
     if (searchQuery) {
-      filtered = filtered.filter(course => 
+      result = result.filter(course =>
         course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+        course.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-    
+
     // Apply category filter
-    if (selectedCategory) {
-      filtered = filtered.filter(course => 
-        course.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+    if (selectedCategory && selectedCategory !== 'all') {
+      result = result.filter(course => course.level === selectedCategory);
     }
-    
+
     // Apply price range filter
-    filtered = filtered.filter(course => 
+    result = result.filter(course =>
       course.price >= priceRange[0] && course.price <= priceRange[1]
     );
-    
+
     // Apply sorting
-    if (sortBy === 'price-low-high') {
-      filtered.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-high-low') {
-      filtered.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'name-a-z') {
-      filtered.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortBy === 'name-z-a') {
-      filtered.sort((a, b) => b.title.localeCompare(a.title));
-    }
-    
-    setFilteredCourses(filtered);
-  }, [searchQuery, selectedCategory, priceRange, sortBy]);
+    result.sort((a, b) => {
+      if (sortBy === 'price') {
+        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+      } else {
+        return sortOrder === 'asc'
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+    });
+
+    console.log('Filtered courses:', result);
+    setFilteredCourses(result);
+  }, [courses, searchQuery, sortBy, sortOrder, priceRange, selectedCategory]);
   
   // Handle search form submission
   const handleSearch = (e: React.FormEvent) => {
@@ -76,11 +122,11 @@ const Courses = () => {
   
   // Handle category selection
   const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category === selectedCategory ? '' : category);
+    setSelectedCategory(category);
     
     // Update URL to reflect category
     const params = new URLSearchParams(location.search);
-    if (category && category !== selectedCategory) {
+    if (category && category !== 'all') {
       params.set('category', category);
     } else {
       params.delete('category');
@@ -98,6 +144,37 @@ const Courses = () => {
     const value = parseInt(e.target.value);
     setPriceRange([0, value]);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen pt-24 pb-16">
+        <div className="container-custom">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading courses...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen pt-24 pb-16">
+        <div className="container-custom">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="btn-primary"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -141,15 +218,15 @@ const Courses = () => {
             
             <div className="relative inline-block w-full md:w-auto">
               <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+                value={selectedCategory}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="input pr-10 appearance-none w-full"
               >
-                <option value="default">Sort by: Default</option>
-                <option value="price-low-high">Price: Low to High</option>
-                <option value="price-high-low">Price: High to Low</option>
-                <option value="name-a-z">Name: A to Z</option>
-                <option value="name-z-a">Name: Z to A</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name} {category.count > 0 ? `(${category.count})` : ''}
+                  </option>
+                ))}
               </select>
               <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
@@ -162,28 +239,6 @@ const Courses = () => {
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
               <h2 className="font-semibold text-lg mb-4">Filters</h2>
               
-              {/* Categories filter */}
-              <div className="mb-6">
-                <h3 className="font-medium text-gray-800 mb-2">Categories</h3>
-                <div className="space-y-2">
-                  {categories.map((category) => (
-                    <div key={category.id} className="flex items-center">
-                      <button
-                        onClick={() => handleCategoryChange(category.name)}
-                        className={`flex items-center text-sm ${
-                          selectedCategory === category.name 
-                            ? 'font-medium text-primary' 
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        <span>{category.name}</span>
-                        <span className="ml-1 text-xs text-gray-500">({category.count})</span>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
               {/* Price range filter */}
               <div className="mb-6">
                 <h3 className="font-medium text-gray-800 mb-2">Price Range</h3>
@@ -192,7 +247,7 @@ const Courses = () => {
                     type="range"
                     min="0"
                     max="100000"
-                    step="5000"
+                    step="1000"
                     value={priceRange[1]}
                     onChange={handlePriceChange}
                     className="w-full"
@@ -204,12 +259,43 @@ const Courses = () => {
                 </div>
               </div>
               
+              {/* Sort by */}
+              <div className="mb-6">
+                <h3 className="font-medium text-gray-800 mb-2">Sort by</h3>
+                <div className="space-y-2">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as 'price' | 'title')}
+                    className="input pr-10 appearance-none w-full"
+                  >
+                    <option value="title">Title</option>
+                    <option value="price">Price</option>
+                  </select>
+                </div>
+              </div>
+              
+              {/* Sort order */}
+              <div className="mb-6">
+                <h3 className="font-medium text-gray-800 mb-2">Sort order</h3>
+                <div className="space-y-2">
+                  <select
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+                    className="input pr-10 appearance-none w-full"
+                  >
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+                </div>
+              </div>
+              
               {/* Clear filters button */}
               <button
                 onClick={() => {
-                  setSelectedCategory('');
+                  setSelectedCategory('all');
                   setPriceRange([0, 100000]);
-                  setSortBy('default');
+                  setSortBy('title');
+                  setSortOrder('asc');
                   // Clear URL params
                   window.history.replaceState({}, '', location.pathname);
                 }}
@@ -224,9 +310,10 @@ const Courses = () => {
           <div className="flex-1">
             {filteredCourses.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
-                  <CourseCard key={course.id} course={course} />
-                ))}
+                {filteredCourses.map((course) => {
+                  console.log('Rendering course:', course);
+                  return <CourseCard key={course.id} course={course} />;
+                })}
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm p-8 text-center">
@@ -237,8 +324,10 @@ const Courses = () => {
                 <button
                   onClick={() => {
                     setSearchQuery('');
-                    setSelectedCategory('');
+                    setSelectedCategory('all');
                     setPriceRange([0, 100000]);
+                    setSortBy('title');
+                    setSortOrder('asc');
                     // Clear URL params
                     window.history.replaceState({}, '', location.pathname);
                   }}

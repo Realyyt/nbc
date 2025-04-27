@@ -1,18 +1,117 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Users, BookOpen, CreditCard, ShoppingBag,
   TrendingUp, ChevronRight, ArrowUpRight, ArrowDownRight
 } from 'lucide-react';
-import { mockUsers, mockPayments } from '../../data/mockData';
+import { supabase } from '../../lib/supabase';
+import type { Payment } from '../../lib/supabase';
+
+interface DashboardUser {
+  id: string;
+  name: string;
+  email: string;
+  courses_count: number;
+  total_spent: number;
+  last_active: string;
+}
 
 const AdminDashboard = () => {
-  // Calculate overview stats
-  const totalUsers = mockUsers.length;
-  const totalCourses = 10;
-  const totalRevenue = mockPayments.reduce((total, payment) => total + payment.amount, 0);
-  const recentPayments = mockPayments.slice(0, 5);
-  const recentUsers = mockUsers.slice(0, 5);
-  
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalCourses: 0,
+    totalRevenue: 0,
+    totalEnrollments: 0
+  });
+  const [recentPayments, setRecentPayments] = useState<Payment[]>([]);
+  const [recentUsers, setRecentUsers] = useState<DashboardUser[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        // Fetch total users
+        const { count: userCount } = await supabase
+          .from('users')
+          .select('*', { count: 'exact' });
+
+        // Fetch total courses
+        const { count: courseCount } = await supabase
+          .from('courses')
+          .select('*', { count: 'exact' });
+
+        // Fetch total revenue
+        const { data: payments } = await supabase
+          .from('payments')
+          .select('amount')
+          .eq('status', 'completed');
+        const totalRevenue = payments?.reduce((sum, p) => sum + p.amount, 0) || 0;
+
+        // Fetch total enrollments
+        const { count: enrollmentCount } = await supabase
+          .from('user_courses')
+          .select('*', { count: 'exact' });
+
+        setStats({
+          totalUsers: userCount || 0,
+          totalCourses: courseCount || 0,
+          totalRevenue,
+          totalEnrollments: enrollmentCount || 0
+        });
+
+        // Fetch recent payments
+        const { data: recentPaymentsData } = await supabase
+          .from('payments')
+          .select(`
+            *,
+            users (name, email)
+          `)
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        if (recentPaymentsData) {
+          setRecentPayments(recentPaymentsData);
+        }
+
+        // Fetch recent users with their stats
+        const { data: recentUsersData } = await supabase
+          .from('users')
+          .select(`
+            id,
+            name,
+            email,
+            last_active,
+            (
+              SELECT count(*) 
+              FROM user_courses 
+              WHERE user_id = users.id
+            ) as courses_count,
+            (
+              SELECT coalesce(sum(amount), 0) 
+              FROM payments 
+              WHERE user_id = users.id AND status = 'completed'
+            ) as total_spent
+          `)
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        if (recentUsersData) {
+          setRecentUsers(recentUsersData);
+        }
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="mb-8">
@@ -28,7 +127,7 @@ const AdminDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Users</p>
-              <p className="text-2xl font-semibold mt-1">{totalUsers}</p>
+              <p className="text-2xl font-semibold mt-1">{stats.totalUsers}</p>
               <div className="flex items-center mt-2 text-xs text-success">
                 <ArrowUpRight size={14} className="mr-1" />
                 <span>3 new this week</span>
@@ -44,7 +143,7 @@ const AdminDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Courses</p>
-              <p className="text-2xl font-semibold mt-1">{totalCourses}</p>
+              <p className="text-2xl font-semibold mt-1">{stats.totalCourses}</p>
               <div className="flex items-center mt-2 text-xs text-success">
                 <ArrowUpRight size={14} className="mr-1" />
                 <span>2 new this month</span>
@@ -60,7 +159,7 @@ const AdminDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-              <p className="text-2xl font-semibold mt-1">₦{totalRevenue.toLocaleString()}</p>
+              <p className="text-2xl font-semibold mt-1">₦{stats.totalRevenue.toLocaleString()}</p>
               <div className="flex items-center mt-2 text-xs text-success">
                 <ArrowUpRight size={14} className="mr-1" />
                 <span>12% this month</span>
@@ -76,7 +175,7 @@ const AdminDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Enrollments</p>
-              <p className="text-2xl font-semibold mt-1">9</p>
+              <p className="text-2xl font-semibold mt-1">{stats.totalEnrollments}</p>
               <div className="flex items-center mt-2 text-xs text-error">
                 <ArrowDownRight size={14} className="mr-1" />
                 <span>5% this week</span>
@@ -135,11 +234,11 @@ const AdminDashboard = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white">
-                          {payment.user.charAt(0)}
+                          {payment.user.name.charAt(0)}
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-gray-800">{payment.user}</p>
-                          <p className="text-xs text-gray-500">{payment.email}</p>
+                          <p className="text-sm font-medium text-gray-800">{payment.user.name}</p>
+                          <p className="text-xs text-gray-500">{payment.user.email}</p>
                         </div>
                       </div>
                     </td>
@@ -149,7 +248,7 @@ const AdminDashboard = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-800">
-                        {new Date(payment.date).toLocaleDateString('en-NG', {
+                        {new Date(payment.created_at).toLocaleDateString('en-NG', {
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric'
@@ -202,14 +301,14 @@ const AdminDashboard = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-800">{user.courses}</div>
+                      <div className="text-sm text-gray-800">{user.courses_count}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-800">₦{user.totalSpent.toLocaleString()}</div>
+                      <div className="text-sm font-medium text-gray-800">₦{user.total_spent.toLocaleString()}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-800">
-                        {new Date(user.lastActive).toLocaleDateString('en-NG', {
+                        {new Date(user.last_active).toLocaleDateString('en-NG', {
                           day: 'numeric',
                           month: 'short'
                         })}

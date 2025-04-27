@@ -1,14 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-// Course type definition
-export interface Course {
-  id: string;
-  title: string;
-  instructor: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { Course } from '../lib/supabase';
 
 // Cart context type
 interface CartContextType {

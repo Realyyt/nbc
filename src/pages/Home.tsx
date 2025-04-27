@@ -1,8 +1,9 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchIcon, BookOpen, Award, Users, MapPin, Calendar, ChevronRight } from 'lucide-react';
 import CourseCard from '../components/CourseCard';
-import { Course } from '../contexts/CartContext';
+import { Course } from '../lib/supabase';
 import { mockCourses } from '../data/mockData';
 
 const Home = () => {
@@ -10,8 +11,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   
   useEffect(() => {
-    // In a real application, this would be an API call
-    // For now, we'll use the mock data
+    // Get featured courses (first 6 courses)
     setFeaturedCourses(mockCourses.slice(0, 6));
   }, []);
 
@@ -30,11 +30,11 @@ const Home = () => {
           <div className="flex flex-col md:flex-row md:items-center">
             <div className="flex-1 mb-10 md:mb-0 md:pr-8">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight animate-fade-in">
-                Advance Your Career in Nigerian Trade & Customs
+                Advance Your Career with Online Learning
               </h1>
               <p className="mt-4 text-lg text-gray-100 md:text-xl max-w-xl animate-slide-up">
-                Join Nigeria's leading platform for practical training in customs procedures, import/export
-                documentation, and trade regulations. Physical courses taught by industry experts.
+                Join our platform for practical training in web development, data science, and more.
+                Learn from expert instructors and advance your career.
               </p>
               <form onSubmit={handleSearch} className="mt-8 flex animate-slide-up">
                 <div className="relative flex-grow">
@@ -61,7 +61,7 @@ const Home = () => {
               <div className="relative">
                 <img
                   src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="NBTA Training"
+                  alt="Online Learning"
                   className="rounded-lg shadow-xl animate-fade-in"
                 />
                 <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg animate-slide-up">
@@ -71,7 +71,7 @@ const Home = () => {
                     </div>
                     <div>
                       <p className="text-foreground font-medium text-sm">Certified Training</p>
-                      <p className="text-gray-500 text-xs">NBTA Accredited</p>
+                      <p className="text-gray-500 text-xs">Expert Instructors</p>
                     </div>
                   </div>
                 </div>
@@ -84,16 +84,16 @@ const Home = () => {
         <div className="container-custom mt-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">15+</p>
+              <p className="text-2xl md:text-3xl font-bold">50+</p>
               <p className="text-sm text-gray-200">Courses Available</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">20+</p>
+              <p className="text-2xl md:text-3xl font-bold">10+</p>
               <p className="text-sm text-gray-200">Expert Instructors</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">5,000+</p>
-              <p className="text-sm text-gray-200">Trained Professionals</p>
+              <p className="text-2xl md:text-3xl font-bold">NBTA</p>
+              <p className="text-sm text-gray-200">Learning Platforms</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-2xl md:text-3xl font-bold">98%</p>
@@ -136,8 +136,7 @@ const Home = () => {
               How Our Courses Work
             </h2>
             <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
-              Our physical training programs are designed to give you practical, hands-on experience
-              with Nigerian trade and customs procedures
+              Our online courses are designed to help you master in-demand tech skills, from web development to data science, with hands-on projects and expert guidance.
             </p>
           </div>
           
@@ -166,9 +165,9 @@ const Home = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users size={28} className="text-primary" />
               </div>
-              <h3 className="text-xl font-medium text-foreground mb-2">3. Attend Training</h3>
+              <h3 className="text-xl font-medium text-foreground mb-2">3. Start Learning</h3>
               <p className="text-gray-600">
-                Join us at our training center for expert-led sessions with practical demonstrations and networking.
+                Access your course materials and start learning at your own pace with expert guidance.
               </p>
             </div>
           </div>

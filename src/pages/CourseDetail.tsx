@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -6,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { mockCourses } from '../data/mockData';
-import { Course } from '../contexts/CartContext';
+import { Course } from '../lib/supabase';
 
 const CourseDetail = () => {
   const { courseId } = useParams<{ courseId: string }>();
@@ -17,13 +18,10 @@ const CourseDetail = () => {
   const { addToCart, removeFromCart, isInCart } = useCart();
   
   useEffect(() => {
-    // In a real app, this would be an API call
     setLoading(true);
-    setTimeout(() => {
-      const foundCourse = mockCourses.find(c => c.id === courseId);
-      setCourse(foundCourse || null);
-      setLoading(false);
-    }, 500);
+    const foundCourse = mockCourses.find(c => c.id === courseId);
+    setCourse(foundCourse || null);
+    setLoading(false);
   }, [courseId]);
   
   // Handle cart actions
@@ -79,10 +77,10 @@ const CourseDetail = () => {
             <div className="md:w-2/3">
               <div className="flex items-center space-x-2 text-sm text-primary-light mb-2">
                 <span className="bg-primary-light/20 px-2 py-0.5 rounded">
-                  {course.category}
+                  {course.platform}
                 </span>
                 <span>•</span>
-                <span>Physical Course</span>
+                <span>{course.level} Level</span>
               </div>
               
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold leading-tight mb-4">
@@ -90,8 +88,7 @@ const CourseDetail = () => {
               </h1>
               
               <p className="text-gray-300 mb-4 md:text-lg">
-                A comprehensive training program designed to give you practical knowledge
-                and hands-on experience with Nigerian trade and customs procedures.
+                {course.description}
               </p>
               
               <div className="flex items-center mb-6">
@@ -125,15 +122,15 @@ const CourseDetail = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="flex items-center space-x-2">
                   <Calendar size={18} className="text-primary-light" />
-                  <span>June 15-17, 2025</span>
+                  <span>{course.duration}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Clock size={18} className="text-primary-light" />
-                  <span>3 days (9AM-4PM)</span>
+                  <span>{course.level} Level</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin size={18} className="text-primary-light" />
-                  <span>Lagos, Nigeria</span>
+                  <span>{course.platform}</span>
                 </div>
               </div>
             </div>
@@ -141,7 +138,7 @@ const CourseDetail = () => {
             <div className="md:w-1/3 flex flex-col">
               <div className="bg-white text-gray-800 rounded-lg shadow-lg overflow-hidden h-full">
                 <img 
-                  src={course.image} 
+                  src={course.thumbnail_url} 
                   alt={course.title} 
                   className="w-full h-48 object-cover"
                 />
@@ -187,19 +184,19 @@ const CourseDetail = () => {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center">
                         <Award size={16} className="mr-2 text-primary" />
-                        NBTA certification upon completion
+                        Certificate of completion
                       </li>
                       <li className="flex items-center">
                         <BookOpen size={16} className="mr-2 text-primary" />
-                        Comprehensive course materials
+                        Access to all course materials
                       </li>
                       <li className="flex items-center">
                         <FileText size={16} className="mr-2 text-primary" />
-                        Practical workshops and exercises
+                        Hands-on coding exercises
                       </li>
                       <li className="flex items-center">
                         <Share2 size={16} className="mr-2 text-primary" />
-                        Networking opportunities
+                        Lifetime access
                       </li>
                     </ul>
                   </div>
@@ -267,46 +264,54 @@ const CourseDetail = () => {
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Course Overview</h2>
                   <p className="text-gray-700 mb-4">
-                    This comprehensive {course.category.toLowerCase()} course provides participants with a thorough understanding of Nigerian customs procedures, documentation requirements, and compliance best practices. Whether you're new to the field or looking to enhance your professional skills, this program will equip you with the practical knowledge needed to navigate Nigeria's trade environment effectively.
+                    This comprehensive {course.platform} course is designed to provide participants with practical, hands-on experience in {course.title.toLowerCase()}. Our curriculum is developed by industry experts and follows NBTA's proven learning methodology, combining theoretical knowledge with real-world applications.
                   </p>
                   
                   <h3 className="text-lg font-medium mt-6 mb-3">What You'll Learn</h3>
                   <ul className="space-y-2 mb-6">
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Understanding Nigerian customs regulations and procedures</span>
+                      <span>Master the core concepts and fundamentals of {course.title.toLowerCase()}</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Mastering documentation requirements for imports and exports</span>
+                      <span>Develop practical skills through hands-on projects and exercises</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Navigating HS code classification and tariff determination</span>
+                      <span>Learn industry best practices and current trends</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Implementing effective compliance strategies</span>
+                      <span>Build a professional portfolio of work</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Practical exercises with real-world scenarios</span>
+                      <span>Receive personalized feedback from expert instructors</span>
                     </li>
                   </ul>
                   
-                  <h3 className="text-lg font-medium mt-6 mb-3">Requirements</h3>
+                  <h3 className="text-lg font-medium mt-6 mb-3">Course Features</h3>
                   <ul className="space-y-2 mb-6">
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Basic understanding of business operations</span>
+                      <span>Live interactive sessions with industry experts</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>No prior experience in customs procedures required</span>
+                      <span>Hands-on projects and real-world case studies</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Laptop recommended for workshop sessions</span>
+                      <span>Access to NBTA's learning resources and community</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
+                      <span>Career support and job placement assistance</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
+                      <span>NBTA certification upon completion</span>
                     </li>
                   </ul>
                   
@@ -314,23 +319,23 @@ const CourseDetail = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Import/export professionals seeking to enhance their skills</span>
+                      <span>Beginners looking to start a career in {course.title.toLowerCase()}</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Logistics and supply chain managers</span>
+                      <span>Professionals seeking to upgrade their skills</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Business owners engaged in international trade</span>
+                      <span>Entrepreneurs and business owners</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Customs brokers and clearing agents</span>
+                      <span>Students and recent graduates</span>
                     </li>
                     <li className="flex items-start">
                       <Check size={18} className="text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>Anyone looking to start a career in customs and trade</span>
+                      <span>Anyone passionate about learning {course.title.toLowerCase()}</span>
                     </li>
                   </ul>
                 </div>
@@ -341,7 +346,7 @@ const CourseDetail = () => {
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Course Curriculum</h2>
                   <p className="text-gray-700 mb-6">
-                    Our 3-day comprehensive curriculum is designed to provide both theoretical knowledge and practical skills through interactive workshops and exercises.
+                    Our {course.duration} curriculum is designed to provide both theoretical knowledge and practical skills through interactive workshops and exercises. The course is structured to ensure you gain hands-on experience and build a strong foundation in {course.title.toLowerCase()}.
                   </p>
                   
                   {/* Day 1 */}
@@ -350,7 +355,7 @@ const CourseDetail = () => {
                       onClick={() => toggleSection('section1')}
                       className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors"
                     >
-                      <div className="font-medium">Day 1: Fundamentals and Regulatory Framework</div>
+                      <div className="font-medium">Module 1: Foundations and Core Concepts</div>
                       {expandedSection === 'section1' ? (
                         <ChevronUp size={20} />
                       ) : (
@@ -364,29 +369,29 @@ const CourseDetail = () => {
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">9:00 AM - 10:30 AM: Introduction to Nigerian Customs</p>
-                              <p className="text-sm text-gray-600 mt-1">Overview of Nigerian customs structure, key regulations, and recent changes</p>
+                              <p className="font-medium">Introduction to {course.title}</p>
+                              <p className="text-sm text-gray-600 mt-1">Overview of key concepts and industry standards</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">10:45 AM - 12:30 PM: Regulatory Framework</p>
-                              <p className="text-sm text-gray-600 mt-1">CEMA, SONCAP, NAFDAC regulations, and other key legal requirements</p>
+                              <p className="font-medium">Core Principles and Best Practices</p>
+                              <p className="text-sm text-gray-600 mt-1">Understanding fundamental principles and industry best practices</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">1:30 PM - 3:00 PM: HS Code Classification</p>
-                              <p className="text-sm text-gray-600 mt-1">Understanding the Harmonized System and proper classification techniques</p>
+                              <p className="font-medium">Tools and Technologies</p>
+                              <p className="text-sm text-gray-600 mt-1">Introduction to essential tools and technologies</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">3:15 PM - 4:00 PM: Practical Workshop</p>
-                              <p className="text-sm text-gray-600 mt-1">Hands-on exercises in HS classification and tariff determination</p>
+                              <p className="font-medium">Practical Workshop</p>
+                              <p className="text-sm text-gray-600 mt-1">Hands-on exercises and real-world applications</p>
                             </div>
                           </li>
                         </ul>
@@ -400,7 +405,7 @@ const CourseDetail = () => {
                       onClick={() => toggleSection('section2')}
                       className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors"
                     >
-                      <div className="font-medium">Day 2: Documentation and Procedures</div>
+                      <div className="font-medium">Module 2: Advanced Concepts and Applications</div>
                       {expandedSection === 'section2' ? (
                         <ChevronUp size={20} />
                       ) : (
@@ -414,29 +419,29 @@ const CourseDetail = () => {
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">9:00 AM - 10:30 AM: Import Documentation</p>
-                              <p className="text-sm text-gray-600 mt-1">Form M, PAAR, Bill of Lading, Commercial Invoice, and other required documents</p>
+                              <p className="font-medium">Advanced Techniques</p>
+                              <p className="text-sm text-gray-600 mt-1">Deep dive into advanced concepts and methodologies</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">10:45 AM - 12:30 PM: Export Documentation</p>
-                              <p className="text-sm text-gray-600 mt-1">NXP Form, Certificate of Origin, export permits, and other requirements</p>
+                              <p className="font-medium">Industry Case Studies</p>
+                              <p className="text-sm text-gray-600 mt-1">Analysis of real-world applications and success stories</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">1:30 PM - 3:00 PM: Customs Clearance Process</p>
-                              <p className="text-sm text-gray-600 mt-1">Step-by-step procedures for efficient customs clearance</p>
+                              <p className="font-medium">Project Development</p>
+                              <p className="text-sm text-gray-600 mt-1">Building and implementing practical projects</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">3:15 PM - 4:00 PM: Documentation Workshop</p>
-                              <p className="text-sm text-gray-600 mt-1">Practical completion of key customs documents</p>
+                              <p className="font-medium">Expert Q&A Session</p>
+                              <p className="text-sm text-gray-600 mt-1">Interactive session with industry experts</p>
                             </div>
                           </li>
                         </ul>
@@ -450,7 +455,7 @@ const CourseDetail = () => {
                       onClick={() => toggleSection('section3')}
                       className="flex items-center justify-between w-full p-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors"
                     >
-                      <div className="font-medium">Day 3: Compliance and Best Practices</div>
+                      <div className="font-medium">Module 3: Professional Development and Career Readiness</div>
                       {expandedSection === 'section3' ? (
                         <ChevronUp size={20} />
                       ) : (
@@ -464,29 +469,29 @@ const CourseDetail = () => {
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">9:00 AM - 10:30 AM: Duty Calculation and Valuation</p>
-                              <p className="text-sm text-gray-600 mt-1">Understanding customs valuation methods and calculating duties accurately</p>
+                              <p className="font-medium">Portfolio Development</p>
+                              <p className="text-sm text-gray-600 mt-1">Creating a professional portfolio of work</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">10:45 AM - 12:30 PM: Compliance Strategies</p>
-                              <p className="text-sm text-gray-600 mt-1">Building effective compliance programs and avoiding common pitfalls</p>
+                              <p className="font-medium">Career Guidance</p>
+                              <p className="text-sm text-gray-600 mt-1">Industry insights and career path planning</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">1:30 PM - 3:00 PM: Case Studies</p>
-                              <p className="text-sm text-gray-600 mt-1">Real-world scenarios and problem-solving exercises</p>
+                              <p className="font-medium">Final Project</p>
+                              <p className="text-sm text-gray-600 mt-1">Comprehensive project showcasing learned skills</p>
                             </div>
                           </li>
                           <li className="flex items-start">
                             <Clock size={16} className="text-gray-500 mt-1 mr-3" />
                             <div>
-                              <p className="font-medium">3:15 PM - 4:00 PM: Final Assessment and Certification</p>
-                              <p className="text-sm text-gray-600 mt-1">Comprehensive assessment and awarding of certificates</p>
+                              <p className="font-medium">Certification and Next Steps</p>
+                              <p className="text-sm text-gray-600 mt-1">Course completion and future learning opportunities</p>
                             </div>
                           </li>
                         </ul>
@@ -512,7 +517,7 @@ const CourseDetail = () => {
                     
                     <div>
                       <h3 className="text-lg font-medium">{course.instructor}</h3>
-                      <p className="text-gray-600 mb-4">Senior Customs Consultant & Trade Expert</p>
+                      <p className="text-gray-600 mb-4">NBTA Certified Instructor & Industry Expert</p>
                       
                       <div className="flex items-center mb-4">
                         <div className="flex">
@@ -533,24 +538,25 @@ const CourseDetail = () => {
                       </div>
                       
                       <p className="text-gray-700 mb-4">
-                        {course.instructor} is a seasoned customs and trade expert with over 15 years of experience in the Nigerian customs sector. 
-                        Having worked with the Nigerian Customs Service for 8 years before transitioning to the private sector, 
-                        {course.instructor.split(' ')[0]} brings a wealth of practical knowledge and insights to the training room.
+                        {course.instructor} is a seasoned professional with extensive experience in {course.title.toLowerCase()}. 
+                        As an NBTA certified instructor, {course.instructor.split(' ')[0]} brings a wealth of practical knowledge 
+                        and industry insights to the training room.
                       </p>
                       
                       <p className="text-gray-700 mb-4">
-                        {course.instructor.split(' ')[0]} has trained over a thousand professionals across various industries, 
-                        helping businesses optimize their import/export operations and ensure compliance with Nigerian regulations. 
-                        With a practical, hands-on teaching approach, participants gain real-world skills they can immediately apply.
+                        With over 10 years of experience in the field, {course.instructor.split(' ')[0]} has trained hundreds of 
+                        professionals and helped them achieve their career goals. {course.instructor.split(' ')[0]}'s teaching 
+                        approach combines theoretical knowledge with practical applications, ensuring students gain real-world 
+                        skills they can immediately apply in their careers.
                       </p>
                       
                       <div className="mt-4">
-                        <h4 className="font-medium mb-2">Certifications & Qualifications:</h4>
+                        <h4 className="font-medium mb-2">Professional Background:</h4>
                         <ul className="space-y-1 text-gray-700">
-                          <li>• Certified Customs Specialist (CCS)</li>
-                          <li>• Member, Nigerian Institute of Freight Forwarders</li>
-                          <li>• MBA, International Business, University of Lagos</li>
-                          <li>• BSc, Economics, University of Ibadan</li>
+                          <li>• NBTA Certified Instructor</li>
+                          <li>• Industry Expert in {course.title.toLowerCase()}</li>
+                          <li>• Professional Certifications in related fields</li>
+                          <li>• Extensive project management experience</li>
                         </ul>
                       </div>
                     </div>
@@ -610,7 +616,7 @@ const CourseDetail = () => {
                             ))}
                           </div>
                           <p className="text-gray-700">
-                            Extremely practical and informative. I've attended many customs training sessions before, but this one stands out for its hands-on approach. The instructor's extensive experience with Nigerian Customs was evident throughout the course. Highly recommended for anyone dealing with imports/exports.
+                            The NBTA course exceeded my expectations. The instructor's expertise and the practical approach to learning made it easy to understand complex concepts. The hands-on projects were particularly valuable, and I've already started applying what I learned in my work.
                           </p>
                         </div>
                       </div>
@@ -642,7 +648,7 @@ const CourseDetail = () => {
                             ))}
                           </div>
                           <p className="text-gray-700">
-                            As a business owner new to importing, this course was exactly what I needed. The step-by-step breakdown of the customs clearance process saved me from making costly mistakes. The documentation workshop on day 2 was particularly valuable. Well worth the investment!
+                            As someone new to the field, I found the NBTA course structure very helpful. The step-by-step approach and the support from instructors made learning enjoyable. The career guidance session was particularly valuable for someone like me looking to transition into this field.
                           </p>
                         </div>
                       </div>
@@ -674,7 +680,7 @@ const CourseDetail = () => {
                             ))}
                           </div>
                           <p className="text-gray-700">
-                            Good content overall, but I felt the course tried to cover too much in just three days. Would have preferred a more focused approach with additional time for practice. The instructor was knowledgeable, but some sections felt rushed. The course materials provided were excellent though.
+                            The course content was comprehensive, but I felt some sections could have been covered in more detail. However, the instructor was very knowledgeable and always available to answer questions. The practical exercises were well-designed and helped reinforce the learning.
                           </p>
                         </div>
                       </div>
@@ -698,7 +704,7 @@ const CourseDetail = () => {
               
               <div className="space-y-4">
                 {mockCourses
-                  .filter(c => c.category === course.category && c.id !== course.id)
+                  .filter(c => c.platform === course.platform && c.id !== course.id)
                   .slice(0, 3)
                   .map(relatedCourse => (
                     <Link
@@ -707,7 +713,7 @@ const CourseDetail = () => {
                       className="flex items-start group"
                     >
                       <img 
-                        src={relatedCourse.image} 
+                        src={relatedCourse.thumbnail_url} 
                         alt={relatedCourse.title} 
                         className="w-16 h-16 object-cover rounded flex-shrink-0"
                       />
@@ -724,10 +730,10 @@ const CourseDetail = () => {
               
               <div className="mt-6">
                 <Link 
-                  to={`/courses?category=${course.category}`}
+                  to={`/courses?platform=${course.platform}`}
                   className="text-primary text-sm font-medium hover:underline"
                 >
-                  View All {course.category} Courses
+                  View All {course.platform} Courses
                 </Link>
               </div>
             </div>

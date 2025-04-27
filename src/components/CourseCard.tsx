@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Star, ShoppingCart, Check } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { Course as CourseType } from '../contexts/CartContext';
+import { Course } from '../lib/supabase';
 
 interface CourseCardProps {
-  course: CourseType;
+  course: Course;
 }
 
 const CourseCard = ({ course }: CourseCardProps) => {
@@ -20,17 +20,47 @@ const CourseCard = ({ course }: CourseCardProps) => {
     }
   };
 
+  const getPlatformIcon = (platform: string) => {
+    switch (platform) {
+      case 'udemy':
+        return '🎓';
+      case 'coursera':
+        return '📚';
+      case 'edx':
+        return '🎯';
+      default:
+        return '📖';
+    }
+  };
+
+  const getLevelBadge = (level: 'beginner' | 'intermediate' | 'advanced') => {
+    const colors = {
+      beginner: 'bg-green-100 text-green-800',
+      intermediate: 'bg-yellow-100 text-yellow-800',
+      advanced: 'bg-red-100 text-red-800',
+    };
+
+    return (
+      <span className={`px-2 py-1 rounded-full text-xs font-medium ${colors[level]}`}>
+        {level.charAt(0).toUpperCase() + level.slice(1)}
+      </span>
+    );
+  };
+
   return (
     <div className="card overflow-hidden group">
       {/* Course image */}
       <div className="relative h-40 overflow-hidden">
         <img 
-          src={course.image} 
+          src={course.thumbnail_url} 
           alt={course.title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute top-2 right-2 bg-accent text-foreground text-xs font-semibold px-2 py-1 rounded">
-          {course.category}
+          {getPlatformIcon(course.platform)}
+        </div>
+        <div className="absolute top-2 left-2 bg-secondary text-foreground text-xs font-semibold px-2 py-1 rounded">
+          {getLevelBadge(course.level)}
         </div>
       </div>
       

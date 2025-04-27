@@ -1,263 +1,796 @@
-import { Course } from '../contexts/CartContext';
+import { Course } from '../lib/supabase';
 
-// Mock courses data
+export const categories = [
+  'Web Development',
+  'Data Science',
+  'Machine Learning',
+  'Computer Science',
+  'JavaScript',
+  'Python',
+  'Mobile Development',
+  'DevOps',
+  'Artificial Intelligence',
+  'Cloud Computing',
+  'Cybersecurity',
+  'UI/UX Design',
+  'Game Development',
+  'Blockchain'
+];
+
+export const mockEnrollments = [
+  {
+    courseId: '1',
+    title: 'Complete Web Development Bootcamp',
+    instructor: 'Oluwaseun Adebayo',
+    startDate: 'March 15, 2024',
+    location: 'Lagos Training Center',
+    image: 'https://img-c.udemycdn.com/course/750x422/1565838_e54e_16.jpg',
+  },
+  {
+    courseId: '2',
+    title: 'Machine Learning A-Z',
+    instructor: 'Chinedu Okonkwo',
+    startDate: 'March 22, 2024',
+    location: 'Virtual Training',
+    image: 'https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg',
+  }
+];
+
 export const mockCourses: Course[] = [
   {
     id: '1',
-    title: 'Comprehensive Customs Clearing Procedures',
-    instructor: 'Dr. Adebayo Johnson',
-    price: 75000,
-    image: 'https://images.pexels.com/photos/4386366/pexels-photo-4386366.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Customs'
+    title: 'Complete Web Development Bootcamp',
+    description: 'Learn web development from scratch. HTML, CSS, JavaScript, React, Node.js, and more!',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'web-dev-bootcamp',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1565838_e54e_16.jpg',
+    instructor: 'Oluwaseun Adebayo',
+    duration: '60 hours',
+    level: 'beginner',
+    created_at: '2024-01-01T00:00:00Z',
   },
   {
     id: '2',
-    title: 'Export Documentation Masterclass',
-    instructor: 'Mrs. Folake Ademola',
-    price: 60000,
-    image: 'https://images.pexels.com/photos/6694543/pexels-photo-6694543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Export'
+    title: 'Machine Learning A-Z',
+    description: 'Learn Machine Learning from scratch. Python, TensorFlow, and real-world projects.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'ml-az',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '44 hours',
+    level: 'intermediate',
+    created_at: '2024-01-02T00:00:00Z',
   },
   {
     id: '3',
-    title: 'Nigerian Import Guidelines and Compliance',
-    instructor: 'Mr. Emeka Okafor',
-    price: 65000,
-    image: 'https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Import'
+    title: 'Data Science Specialization',
+    description: 'Master data science with Python, R, SQL, and machine learning algorithms.',
+    price: 77987, // ₦77,987
+    platform: 'NBTA',
+    platform_course_id: 'data-science-spec',
+    thumbnail_url: 'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/83/e258e0532611e5a5072321239ff4d4/jhep-coursera-course4.png',
+    instructor: 'Folake Adeleke',
+    duration: '8 months',
+    level: 'intermediate',
+    created_at: '2024-01-03T00:00:00Z',
   },
   {
     id: '4',
-    title: 'Trade Finance for Nigerian Businesses',
-    instructor: 'Dr. Sarah Ahmed',
-    price: 55000,
-    image: 'https://images.pexels.com/photos/936722/pexels-photo-936722.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Trade'
+    title: 'Introduction to Computer Science',
+    description: 'Learn the fundamentals of computer science and programming.',
+    price: 0,
+    platform: 'NBTA',
+    platform_course_id: 'cs50',
+    thumbnail_url: 'https://prod-discovery.edx-cdn.org/media/course/image/0e4a4284-2aa3-4f82-a8f9-2c17b0e4c5b6-837d0758a8b0.small.jpg',
+    instructor: 'Emmanuel Okafor',
+    duration: '12 weeks',
+    level: 'beginner',
+    created_at: '2024-01-04T00:00:00Z',
   },
   {
     id: '5',
-    title: 'Advanced HS Code Classification',
-    instructor: 'Mr. David Olawale',
-    price: 50000,
-    image: 'https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Customs'
+    title: 'Advanced JavaScript Concepts',
+    description: 'Deep dive into JavaScript: closures, prototypes, async programming, and more.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'advanced-js',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/2776760_f176_10.jpg',
+    instructor: 'Aisha Bello',
+    duration: '20 hours',
+    level: 'advanced',
+    created_at: '2024-01-05T00:00:00Z',
   },
   {
     id: '6',
-    title: 'Ports and Terminal Operations in Nigeria',
-    instructor: 'Capt. Michael Ebere',
-    price: 70000,
-    image: 'https://images.pexels.com/photos/2226458/pexels-photo-2226458.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Logistics'
+    title: 'Python for Data Science',
+    description: 'Learn Python programming for data analysis and visualization.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'python-data-science',
+    thumbnail_url: 'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/83/e258e0532611e5a5072321239ff4d4/jhep-coursera-course4.png',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '6 weeks',
+    level: 'beginner',
+    created_at: '2024-01-06T00:00:00Z',
   },
   {
     id: '7',
-    title: 'ECOWAS Trade Regulations and Documentation',
-    instructor: 'Prof. Kwame Mensah',
-    price: 45000,
-    image: 'https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Trade'
+    title: 'Full Stack Web Development',
+    description: 'Build complete web applications with MERN stack (MongoDB, Express, React, Node.js).',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'mern-stack',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1362070_b9a1_2.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '35 hours',
+    level: 'intermediate',
+    created_at: '2024-01-07T00:00:00Z',
   },
   {
     id: '8',
-    title: 'Strategic Supply Chain Management',
-    instructor: 'Ms. Amina Bello',
-    price: 80000,
-    image: 'https://images.pexels.com/photos/6169668/pexels-photo-6169668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Logistics'
+    title: 'Artificial Intelligence',
+    description: 'Explore AI concepts, neural networks, and deep learning.',
+    price: 90987, // ₦90,987
+    platform: 'NBTA',
+    platform_course_id: 'ai-course',
+    thumbnail_url: 'https://prod-discovery.edx-cdn.org/media/course/image/0e4a4284-2aa3-4f82-a8f9-2c17b0e4c5b6-837d0758a8b0.small.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '16 weeks',
+    level: 'advanced',
+    created_at: '2024-01-08T00:00:00Z',
   },
   {
     id: '9',
-    title: 'Customs Valuation and Transfer Pricing',
-    instructor: 'Mr. Vincent Okoro',
-    price: 55000,
-    image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Customs'
+    title: 'Mobile App Development with Flutter',
+    description: 'Build beautiful cross-platform mobile apps using Flutter and Dart.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'flutter-dev',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1708340_7108_5.jpg',
+    instructor: 'Oluwafemi Adebayo',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-01-09T00:00:00Z',
   },
   {
     id: '10',
-    title: 'Export Market Development for SMEs',
-    instructor: 'Dr. Ngozi Okonjo',
-    price: 40000,
-    image: 'https://images.pexels.com/photos/3760529/pexels-photo-3760529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'Export'
+    title: 'DevOps Engineering',
+    description: 'Master DevOps practices, tools, and methodologies for modern software development.',
+    price: 77987, // ₦77,987
+    platform: 'NBTA',
+    platform_course_id: 'devops-eng',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '40 hours',
+    level: 'advanced',
+    created_at: '2024-01-10T00:00:00Z',
+  },
+  {
+    id: '11',
+    title: 'Blockchain Development',
+    description: 'Learn blockchain technology, smart contracts, and decentralized applications.',
+    price: 90987, // ₦90,987
+    platform: 'NBTA',
+    platform_course_id: 'blockchain-dev',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1754098_e0df_3.jpg',
+    instructor: 'Oluwaseun Adebayo',
+    duration: '45 hours',
+    level: 'advanced',
+    created_at: '2024-01-11T00:00:00Z',
+  },
+  {
+    id: '12',
+    title: 'Cloud Computing with AWS',
+    description: 'Master AWS services and cloud architecture for scalable applications.',
+    price: 77987, // ₦77,987
+    platform: 'NBTA',
+    platform_course_id: 'aws-cloud',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseun Adebayo',
+    duration: '35 hours',
+    level: 'intermediate',
+    created_at: '2024-01-12T00:00:00Z',
+  },
+  {
+    id: '13',
+    title: 'Cybersecurity Fundamentals',
+    description: 'Learn essential cybersecurity concepts and best practices.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'cyber-security',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '30 hours',
+    level: 'beginner',
+    created_at: '2024-01-13T00:00:00Z',
+  },
+  {
+    id: '14',
+    title: 'UI/UX Design Masterclass',
+    description: 'Master the art of creating beautiful and user-friendly interfaces.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'ui-ux-design',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Folake Adeleke',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-01-14T00:00:00Z',
+  },
+  {
+    id: '15',
+    title: 'Game Development with Unity',
+    description: 'Create engaging games using Unity and C# programming.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'unity-game-dev',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '40 hours',
+    level: 'intermediate',
+    created_at: '2024-01-15T00:00:00Z',
+  },
+  {
+    id: '16',
+    title: 'Digital Marketing Strategy',
+    description: 'Learn effective digital marketing techniques and strategies.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'digital-marketing',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Aisha Bello',
+    duration: '20 hours',
+    level: 'beginner',
+    created_at: '2024-01-16T00:00:00Z',
+  },
+  {
+    id: '17',
+    title: 'Mobile App UI Design',
+    description: 'Design beautiful and functional mobile app interfaces.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'mobile-ui-design',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-01-17T00:00:00Z',
+  },
+  {
+    id: '18',
+    title: 'Backend Development with Node.js',
+    description: 'Build scalable backend applications using Node.js and Express.',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'nodejs-backend',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-01-18T00:00:00Z',
+  },
+  {
+    id: '19',
+    title: 'Data Visualization with D3.js',
+    description: 'Create interactive and beautiful data visualizations.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'd3-visualization',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '25 hours',
+    level: 'advanced',
+    created_at: '2024-01-19T00:00:00Z',
+  },
+  {
+    id: '20',
+    title: 'Mobile App Development with React Native',
+    description: 'Build cross-platform mobile apps using React Native.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'react-native',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwafemi Adebayo',
+    duration: '35 hours',
+    level: 'intermediate',
+    created_at: '2024-01-20T00:00:00Z',
+  },
+  {
+    id: '21',
+    title: 'Cloud Architecture Design',
+    description: 'Design scalable and resilient cloud architectures.',
+    price: 90987, // ₦90,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-architecture',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '40 hours',
+    level: 'advanced',
+    created_at: '2024-01-21T00:00:00Z',
+  },
+  {
+    id: '22',
+    title: 'Web Security Essentials',
+    description: 'Learn essential web security practices and techniques.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'web-security',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Folake Adeleke',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-01-22T00:00:00Z',
+  },
+  {
+    id: '23',
+    title: 'Mobile App Testing',
+    description: 'Master mobile app testing techniques and tools.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'mobile-testing',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-01-23T00:00:00Z',
+  },
+  {
+    id: '24',
+    title: 'Digital Product Management',
+    description: 'Learn product management for digital products and services.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'product-management',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Aisha Bello',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-01-24T00:00:00Z',
+  },
+  {
+    id: '25',
+    title: 'Web Performance Optimization',
+    description: 'Optimize web applications for speed and performance.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'web-performance',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '25 hours',
+    level: 'advanced',
+    created_at: '2024-01-25T00:00:00Z',
+  },
+  {
+    id: '26',
+    title: 'Mobile App Monetization',
+    description: 'Learn strategies for monetizing mobile applications.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'app-monetization',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-01-26T00:00:00Z',
+  },
+  {
+    id: '27',
+    title: 'Cloud Security Fundamentals',
+    description: 'Learn essential cloud security concepts and practices.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-security',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-01-27T00:00:00Z',
+  },
+  {
+    id: '28',
+    title: 'Mobile App Analytics',
+    description: 'Track and analyze mobile app performance and user behavior.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'app-analytics',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwafemi Adebayo',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-01-28T00:00:00Z',
+  },
+  {
+    id: '29',
+    title: 'Web Accessibility',
+    description: 'Create accessible web applications for all users.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'web-accessibility',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-01-29T00:00:00Z',
+  },
+  {
+    id: '30',
+    title: 'Mobile App Design Patterns',
+    description: 'Learn common design patterns for mobile applications.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'app-design-patterns',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Folake Adeleke',
+    duration: '25 hours',
+    level: 'advanced',
+    created_at: '2024-01-30T00:00:00Z',
+  },
+  {
+    id: '31',
+    title: 'Cloud Cost Optimization',
+    description: 'Optimize cloud infrastructure costs and resources.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-cost',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '30 hours',
+    level: 'advanced',
+    created_at: '2024-01-31T00:00:00Z',
+  },
+  {
+    id: '32',
+    title: 'Mobile App Security',
+    description: 'Secure mobile applications against common threats.',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'app-security',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Aisha Bello',
+    duration: '25 hours',
+    level: 'advanced',
+    created_at: '2024-02-01T00:00:00Z',
+  },
+  {
+    id: '33',
+    title: 'Web Development Best Practices',
+    description: 'Learn industry best practices for web development.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'web-best-practices',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-02T00:00:00Z',
+  },
+  {
+    id: '34',
+    title: 'Mobile App Performance',
+    description: 'Optimize mobile app performance and user experience.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'app-performance',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '25 hours',
+    level: 'advanced',
+    created_at: '2024-02-03T00:00:00Z',
+  },
+  {
+    id: '35',
+    title: 'Cloud Migration Strategies',
+    description: 'Plan and execute successful cloud migration projects.',
+    price: 77987, // ₦77,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-migration',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '35 hours',
+    level: 'advanced',
+    created_at: '2024-02-04T00:00:00Z',
+  },
+  {
+    id: '36',
+    title: 'Mobile App Architecture',
+    description: 'Design scalable and maintainable mobile app architectures.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'app-architecture',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwafemi Adebayo',
+    duration: '30 hours',
+    level: 'advanced',
+    created_at: '2024-02-05T00:00:00Z',
+  },
+  {
+    id: '37',
+    title: 'Web Development Tools',
+    description: 'Master essential tools for modern web development.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'web-tools',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-02-06T00:00:00Z',
+  },
+  {
+    id: '38',
+    title: 'Mobile App Development Tools',
+    description: 'Learn essential tools for mobile app development.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'mobile-tools',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Folake Adeleke',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-07T00:00:00Z',
+  },
+  {
+    id: '39',
+    title: 'Cloud Development Tools',
+    description: 'Master tools for cloud development and deployment.',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'cloud-tools',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-02-08T00:00:00Z',
+  },
+  {
+    id: '40',
+    title: 'Web Development Workflow',
+    description: 'Optimize your web development workflow and productivity.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'web-workflow',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Aisha Bello',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-02-09T00:00:00Z',
+  },
+  {
+    id: '41',
+    title: 'Mobile App Development Workflow',
+    description: 'Streamline your mobile app development process.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'mobile-workflow',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-10T00:00:00Z',
+  },
+  {
+    id: '42',
+    title: 'Cloud Development Workflow',
+    description: 'Optimize your cloud development and deployment process.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-workflow',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-02-11T00:00:00Z',
+  },
+  {
+    id: '43',
+    title: 'Web Development Testing',
+    description: 'Master testing techniques for web applications.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'web-testing',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-12T00:00:00Z',
+  },
+  {
+    id: '44',
+    title: 'Mobile App Development Testing',
+    description: 'Learn comprehensive testing for mobile applications.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'mobile-testing-dev',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwafemi Adebayo',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-13T00:00:00Z',
+  },
+  {
+    id: '45',
+    title: 'Cloud Development Testing',
+    description: 'Test cloud applications and infrastructure effectively.',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'cloud-testing',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Adeola Ogunleye',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-02-14T00:00:00Z',
+  },
+  {
+    id: '46',
+    title: 'Web Development Deployment',
+    description: 'Deploy web applications efficiently and securely.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'web-deployment',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Folake Adeleke',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-02-15T00:00:00Z',
+  },
+  {
+    id: '47',
+    title: 'Mobile App Deployment',
+    description: 'Deploy mobile applications to app stores effectively.',
+    price: 45487, // ₦45,487
+    platform: 'NBTA',
+    platform_course_id: 'mobile-deployment',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chinedu Okonkwo',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-16T00:00:00Z',
+  },
+  {
+    id: '48',
+    title: 'Cloud Development Deployment',
+    description: 'Deploy applications to cloud platforms efficiently.',
+    price: 64987, // ₦64,987
+    platform: 'NBTA',
+    platform_course_id: 'cloud-deployment',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Aisha Bello',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-02-17T00:00:00Z',
+  },
+  {
+    id: '49',
+    title: 'Web Development Maintenance',
+    description: 'Maintain and update web applications effectively.',
+    price: 38987, // ₦38,987
+    platform: 'NBTA',
+    platform_course_id: 'web-maintenance',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwaseyi Johnson',
+    duration: '20 hours',
+    level: 'intermediate',
+    created_at: '2024-02-18T00:00:00Z',
+  },
+  {
+    id: '50',
+    title: 'Mobile App Maintenance',
+    description: 'Maintain and update mobile applications effectively.',
+    price: 51987, // ₦51,987
+    platform: 'NBTA',
+    platform_course_id: 'mobile-maintenance',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Chukwudi Nwachukwu',
+    duration: '25 hours',
+    level: 'intermediate',
+    created_at: '2024-02-19T00:00:00Z',
+  },
+  {
+    id: '51',
+    title: 'Cloud Development Maintenance',
+    description: 'Maintain and update cloud applications effectively.',
+    price: 58487, // ₦58,487
+    platform: 'NBTA',
+    platform_course_id: 'cloud-maintenance',
+    thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
+    instructor: 'Oluwatosin Adeyemi',
+    duration: '30 hours',
+    level: 'intermediate',
+    created_at: '2024-02-20T00:00:00Z',
   }
 ];
 
-// Mock categories
-export const categories = [
-  { id: 1, name: 'Customs', count: 3 },
-  { id: 2, name: 'Export', count: 2 },
-  { id: 3, name: 'Import', count: 1 },
-  { id: 4, name: 'Trade', count: 2 },
-  { id: 5, name: 'Logistics', count: 2 }
-];
-
-// Mock users for admin panel
-export const mockUsers = [
+export const mockPayments = [
   {
     id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '+234123456789',
-    courses: 2,
-    totalSpent: 135000,
-    lastActive: '2025-06-01T10:23:45'
+    user_id: 'user1',
+    course_id: '1',
+    amount: 64987,
+    currency: 'NGN',
+    status: 'completed',
+    payment_method: 'card',
+    created_at: '2024-01-15T10:30:00Z',
+    user: {
+      name: 'John Doe',
+      email: 'john@example.com'
+    },
+    course: {
+      title: 'Complete Web Development Bootcamp',
+      instructor: 'Oluwaseun Adebayo'
+    }
   },
   {
     id: '2',
-    name: 'Mary Smith',
-    email: 'mary@example.com',
-    phone: '+234987654321',
-    courses: 1,
-    totalSpent: 60000,
-    lastActive: '2025-05-28T14:15:20'
+    user_id: 'user2',
+    course_id: '2',
+    amount: 51987,
+    currency: 'NGN',
+    status: 'completed',
+    payment_method: 'card',
+    created_at: '2024-01-16T14:20:00Z',
+    user: {
+      name: 'Jane Smith',
+      email: 'jane@example.com'
+    },
+    course: {
+      title: 'Machine Learning A-Z',
+      instructor: 'Chinedu Okonkwo'
+    }
   },
   {
     id: '3',
-    name: 'Emeka Johnson',
-    email: 'emeka@example.com',
-    phone: '+2348012345678',
-    courses: 3,
-    totalSpent: 190000,
-    lastActive: '2025-06-02T09:10:15'
+    user_id: 'user3',
+    course_id: '3',
+    amount: 77987,
+    currency: 'NGN',
+    status: 'pending',
+    payment_method: 'card',
+    created_at: '2024-01-17T09:15:00Z',
+    user: {
+      name: 'Mike Johnson',
+      email: 'mike@example.com'
+    },
+    course: {
+      title: 'Data Science Specialization',
+      instructor: 'Folake Adeleke'
+    }
   },
   {
     id: '4',
-    name: 'Blessing Okafor',
-    email: 'blessing@example.com',
-    phone: '+2347023456789',
-    courses: 1,
-    totalSpent: 70000,
-    lastActive: '2025-05-30T16:42:10'
+    user_id: 'user4',
+    course_id: '4',
+    amount: 0,
+    currency: 'NGN',
+    status: 'completed',
+    payment_method: 'free',
+    created_at: '2024-01-18T11:45:00Z',
+    user: {
+      name: 'Sarah Williams',
+      email: 'sarah@example.com'
+    },
+    course: {
+      title: 'Introduction to Computer Science',
+      instructor: 'Emmanuel Okafor'
+    }
   },
   {
     id: '5',
-    name: 'Ibrahim Mohammed',
-    email: 'ibrahim@example.com',
-    phone: '+2349087654321',
-    courses: 2,
-    totalSpent: 95000,
-    lastActive: '2025-06-01T11:30:00'
+    user_id: 'user5',
+    course_id: '5',
+    amount: 38987,
+    currency: 'NGN',
+    status: 'failed',
+    payment_method: 'card',
+    created_at: '2024-01-19T16:30:00Z',
+    user: {
+      name: 'David Brown',
+      email: 'david@example.com'
+    },
+    course: {
+      title: 'Advanced JavaScript Concepts',
+      instructor: 'Aisha Bello'
+    }
   }
-];
-
-// Mock payments for admin panel
-export const mockPayments = [
-  {
-    id: 'PAY-1001',
-    user: 'John Doe',
-    email: 'john@example.com',
-    amount: 75000,
-    date: '2025-06-01T10:20:30',
-    status: 'completed',
-    method: 'card',
-    course: 'Comprehensive Customs Clearing Procedures'
-  },
-  {
-    id: 'PAY-1002',
-    user: 'Mary Smith',
-    email: 'mary@example.com',
-    amount: 60000,
-    date: '2025-05-28T14:10:15',
-    status: 'completed',
-    method: 'transfer',
-    course: 'Export Documentation Masterclass'
-  },
-  {
-    id: 'PAY-1003',
-    user: 'Emeka Johnson',
-    email: 'emeka@example.com',
-    amount: 65000,
-    date: '2025-06-02T09:05:10',
-    status: 'completed',
-    method: 'card',
-    course: 'Nigerian Import Guidelines and Compliance'
-  },
-  {
-    id: 'PAY-1004',
-    user: 'John Doe',
-    email: 'john@example.com',
-    amount: 60000,
-    date: '2025-06-01T11:30:45',
-    status: 'completed',
-    method: 'card',
-    course: 'Export Documentation Masterclass'
-  },
-  {
-    id: 'PAY-1005',
-    user: 'Blessing Okafor',
-    email: 'blessing@example.com',
-    amount: 70000,
-    date: '2025-05-30T16:40:20',
-    status: 'completed',
-    method: 'transfer',
-    course: 'Ports and Terminal Operations in Nigeria'
-  },
-  {
-    id: 'PAY-1006',
-    user: 'Ibrahim Mohammed',
-    email: 'ibrahim@example.com',
-    amount: 50000,
-    date: '2025-06-01T11:25:30',
-    status: 'completed',
-    method: 'card',
-    course: 'Advanced HS Code Classification'
-  },
-  {
-    id: 'PAY-1007',
-    user: 'Ibrahim Mohammed',
-    email: 'ibrahim@example.com',
-    amount: 45000,
-    date: '2025-06-01T11:28:45',
-    status: 'completed',
-    method: 'card',
-    course: 'ECOWAS Trade Regulations and Documentation'
-  },
-  {
-    id: 'PAY-1008',
-    user: 'Emeka Johnson',
-    email: 'emeka@example.com',
-    amount: 55000,
-    date: '2025-06-02T09:15:30',
-    status: 'completed',
-    method: 'transfer',
-    course: 'Trade Finance for Nigerian Businesses'
-  },
-  {
-    id: 'PAY-1009',
-    user: 'Emeka Johnson',
-    email: 'emeka@example.com',
-    amount: 70000,
-    date: '2025-06-02T09:20:15',
-    status: 'completed',
-    method: 'transfer',
-    course: 'Ports and Terminal Operations in Nigeria'
-  }
-];
-
-// Mock user enrollments for dashboard
-export const mockEnrollments = [
-  {
-    id: '1',
-    courseId: '1',
-    title: 'Comprehensive Customs Clearing Procedures',
-    instructor: 'Dr. Adebayo Johnson',
-    image: 'https://images.pexels.com/photos/4386366/pexels-photo-4386366.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    enrolledDate: '2025-06-01',
-    startDate: '2025-06-15',
-    location: 'NBTA Training Center, Lagos',
-    status: 'upcoming'
-  },
-  {
-    id: '2',
-    courseId: '2',
-    title: 'Export Documentation Masterclass',
-    instructor: 'Mrs. Folake Ademola',
-    image: 'https://images.pexels.com/photos/6694543/pexels-photo-6694543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    enrolledDate: '2025-06-01',
-    startDate: '2025-07-08',
-    location: 'NBTA Training Center, Abuja',
-    status: 'upcoming'
-  }
-];
+]; 
