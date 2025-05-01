@@ -58,8 +58,7 @@ const Navbar = () => {
             to="/" 
             className={`flex items-center space-x-2 ${textColorClass} hover:opacity-80 transition-opacity`}
           >
-            <BookOpen size={28} className="text-primary" />
-            <span className="font-heading font-bold text-xl">NBTA Learning</span>
+            <img src="./logo.png" alt="NBTA Logo" className="w-20 h-10" />
           </Link>
 
           {/* Desktop Navigation */}

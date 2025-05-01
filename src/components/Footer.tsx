@@ -68,7 +68,9 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <Link to="/" className="text-2xl font-bold text-white">NBTA</Link>
+              <Link to="/" className="text-2xl font-bold text-white">
+              <img src="./logo.png" alt="NBTA Logo" className="w-20 h-10" />
+              </Link>
             </div>
             <div className="text-gray-400 text-sm">
               © {new Date().getFullYear()} NBTA. All rights reserved.
