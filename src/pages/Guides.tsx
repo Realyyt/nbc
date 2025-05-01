@@ -1,5 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Book, Download, Clock, Users, GraduationCap, MapPin } from 'lucide-react';
+import { Book, Download, Clock, Users, GraduationCap, MapPin, Monitor, Award, UserCheck } from 'lucide-react';
 
 const Guides = () => {
   const guides = [
@@ -35,26 +36,38 @@ const Guides = () => {
     }
   ];
 
-  const categories = [
+
+
+  const stats = [
     {
-      title: 'Certification Programs',
-      guides: 8,
-      icon: <GraduationCap size={24} className="text-primary" />
+      value: '3',
+      label: 'Training Platform',
+      sublabel: '(Physical/Online/Blended)',
+      icon: <Monitor size={24} className="text-primary" />
     },
     {
-      title: 'Workshops',
-      guides: 12,
-      icon: <Book size={24} className="text-primary" />
+      value: '10k+',
+      label: 'Trained Professionals',
+      sublabel: '',
+      icon: <UserCheck size={24} className="text-primary" />
     },
     {
-      title: 'Masterclasses',
-      guides: 6,
+      value: '100+',
+      label: 'Instructors/Master',
+      sublabel: 'Craftsmen',
       icon: <Users size={24} className="text-primary" />
     },
     {
-      title: 'Specialized Training',
-      guides: 10,
+      value: '50+',
+      label: 'Real-Life Training',
+      sublabel: 'Workshops',
       icon: <Book size={24} className="text-primary" />
+    },
+    {
+      value: '100+',
+      label: 'Certification Programs',
+      sublabel: '',
+      icon: <Award size={24} className="text-primary" />
     }
   ];
 
@@ -69,21 +82,27 @@ const Guides = () => {
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex items-center mb-4">
-                  {category.icon}
-                  <h3 className="text-xl font-semibold ml-3">{category.title}</h3>
+        {/* Stats Section */}
+        <div className="max-w-7xl mx-auto mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm text-center">
+                <div className="flex justify-center mb-4">
+                  {stat.icon}
                 </div>
-                <p className="text-gray-600">{category.guides} programs available</p>
+                <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
+                <div className="text-gray-600">
+                  {stat.label}
+                  {stat.sublabel && (
+                    <div className="text-sm text-gray-500">{stat.sublabel}</div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </div>
+
+       
 
         {/* Featured Programs */}
         <div className="max-w-6xl mx-auto">

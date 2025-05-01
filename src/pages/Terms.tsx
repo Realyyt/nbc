@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Terms = () => {
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -70,9 +72,9 @@ const Terms = () => {
                 If you have any questions about these terms, please contact us at:
               </p>
               <p>
-                Email: legal@nbta.com<br />
-                Phone: +234 123 456 7890<br />
-                Address: NBTA Headquarters, 123 Trade Avenue, Lagos, Nigeria
+              Email: wecanhelp@nbta.com.ng<br />
+                Phone: +2349019566437<br />
+                Address: Plot 51, Block 5/6, Cadastral Zone C01, Karmo, Abuja, FCT.
               </p>
             </div>
           </div>

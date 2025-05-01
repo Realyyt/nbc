@@ -95,9 +95,9 @@ const Cookies = () => {
                 If you have any questions about our use of cookies, please contact us:
               </p>
               <p>
-                Email: privacy@nbta.com<br />
-                Phone: +234 123 456 7890<br />
-                Address: NBTA Headquarters, 123 Trade Avenue, Lagos, Nigeria
+                Email: wecanhelp@nbta.com.ng<br />
+                Phone: +2349019566437<br />
+                Address: Plot 51, Block 5/6, Cadastral Zone C01, Karmo, Abuja, FCT.
               </p>
             </div>
           </div>

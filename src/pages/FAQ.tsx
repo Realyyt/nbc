@@ -1,42 +1,78 @@
+import React from 'react';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const FAQ = () => {
-  const [expandedSection, setExpandedSection] = useState<string | null>('general');
+  const [expandedSection, setExpandedSection] = useState<string | null>('about');
 
   const faqSections = {
-    general: [
+    about: [
       {
-        question: 'What is NBTA Learning Platform?',
-        answer: 'NBTA Learning Platform is Nigeria\'s premier educational platform for customs, trade, and import/export training. We offer physical courses taught by industry experts.'
+        question: 'What is NBTA?',
+        answer: 'NBTA (NetZero Business and Technical Academy) is a dynamic skills development platform offering dual apprenticeship, hands-on training, simulation-based learning, and expert mentorship across multiple trades and professions — both in-person and online.'
       },
       {
-        question: 'Are the courses online or physical?',
-        answer: 'Our courses are conducted physically at our training centers. This allows for hands-on learning and direct interaction with instructors.'
+        question: 'Who can join NBTA?',
+        answer: 'NBTA is open to women, youth, school leavers, early-career professionals, and anyone seeking to gain or upgrade technical and business skills aligned with global standards.'
       },
-      // Add more general FAQs
+      {
+        question: 'What trades or skills does NBTA offer training in?',
+        answer: 'NBTA offers training in sectors including construction, technology, business, agriculture, hospitality, health, and more. For a full list, visit our Programs page.'
+      }
     ],
-    courses: [
+    enrollment: [
       {
-        question: 'How long are the courses?',
-        answer: 'Course duration varies from 2-5 days depending on the topic and depth of content. Each course schedule is clearly listed on the course details page.'
+        question: 'What are the different platforms I can choose from?',
+        answer: '• Physical (On-site) Platform: Face-to-face, on-the-job training with mentorship.\n• Online/Virtual Platform: Flexible, internet-based learning with remote mentor support.\n• Blended Platform: A mix of physical and virtual learning guided by assigned mentors.'
       },
       {
-        question: 'Do I get a certificate?',
-        answer: 'Yes, upon successful completion of the course, you will receive an NBTA-certified certificate recognized in the industry.'
+        question: 'Can I switch from online to physical training later?',
+        answer: 'Yes, learners on the blended or virtual platform may request to transition to physical training, subject to availability and evaluation.'
       },
-      // Add more course-related FAQs
+      {
+        question: 'How do I enroll in NBTA programs?',
+        answer: 'Simply visit our website and go to the Join NBTA or Apply Now page. Complete the registration form and select your preferred program and platform.'
+      },
+      {
+        question: 'Is there an age limit to join NBTA programs?',
+        answer: 'NBTA welcomes learners aged 14 and above. Some programs may have additional eligibility criteria based on trade or certification requirements.'
+      },
+      {
+        question: 'Are there any fees involved?',
+        answer: 'Yes, a modest training and resource fee may apply depending on the program. However, free programs and scholarships are available in partnership with selected institutions.'
+      }
     ],
-    payment: [
+    experience: [
       {
-        question: 'What payment methods do you accept?',
-        answer: 'We accept various payment methods including credit/debit cards and bank transfers. All transactions are secure and processed through our payment gateway.'
+        question: 'Will I have a mentor assigned to me?',
+        answer: 'Absolutely. Every learner is paired with a dedicated mentor who offers personal guidance, motivation, and career support throughout the program.'
       },
       {
-        question: 'Is there a payment plan available?',
-        answer: 'Yes, we offer flexible payment plans for some of our courses. Contact our support team for more information.'
+        question: 'What kind of support will I receive as a student?',
+        answer: 'Learners receive mentorship, access to expert facilitators, practical assignments, assessments, career development support, and entry into the NBTA alumni network.'
       },
-      // Add more payment FAQs
+      {
+        question: 'How is the NBTA training program structured?',
+        answer: 'NBTA follows a unique 6-day/week blended apprenticeship model:\n• 2 Days/Week: Classroom learning with certified instructors (theory).\n• 3 Days/Week: Real-world, hands-on training under a master craftsman (practice).\n• 1 Day/Week: Team-based contextual project, jointly assessed by instructors and mentors.'
+      },
+      {
+        question: 'Who delivers the training at NBTA?',
+        answer: 'NBTA combines the expertise of certified instructors for classroom sessions and skilled master craftsmen for practical workplace learning.'
+      }
+    ],
+    certification: [
+      {
+        question: 'Will I receive a certificate after completing the training?',
+        answer: 'Yes. Upon successful completion, learners receive a nationally and globally recognized NBTA Certificate of Competency.'
+      },
+      {
+        question: 'Can NBTA help me find a job after training?',
+        answer: 'NBTA actively collaborates with partner industries and employers to connect learners to apprenticeship, internship, and job placement opportunities.'
+      },
+      {
+        question: 'Is NBTA aligned with the National Skills Qualifications Framework (NSQF)?',
+        answer: 'Yes. NBTA operates in full compliance with the NSQF as outlined by the National Board for Technical Education (NBTE). Our programs meet recognized national competency standards.'
+      }
     ]
   };
 
@@ -47,36 +83,46 @@ const FAQ = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h1>
 
           {/* FAQ Categories */}
-          <div className="flex space-x-4 mb-8">
+          <div className="flex flex-wrap gap-4 mb-8">
             <button
-              onClick={() => setExpandedSection('general')}
+              onClick={() => setExpandedSection('about')}
               className={`px-4 py-2 rounded-md ${
-                expandedSection === 'general'
+                expandedSection === 'about'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              General
+              About NBTA
             </button>
             <button
-              onClick={() => setExpandedSection('courses')}
+              onClick={() => setExpandedSection('enrollment')}
               className={`px-4 py-2 rounded-md ${
-                expandedSection === 'courses'
+                expandedSection === 'enrollment'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Courses
+              Enrollment
             </button>
             <button
-              onClick={() => setExpandedSection('payment')}
+              onClick={() => setExpandedSection('experience')}
               className={`px-4 py-2 rounded-md ${
-                expandedSection === 'payment'
+                expandedSection === 'experience'
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Payment
+              Learning Experience
+            </button>
+            <button
+              onClick={() => setExpandedSection('certification')}
+              className={`px-4 py-2 rounded-md ${
+                expandedSection === 'certification'
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Certification
             </button>
           </div>
 
@@ -88,7 +134,7 @@ const FAQ = () => {
                 className="bg-white rounded-lg shadow-sm border border-gray-100 p-6"
               >
                 <h3 className="text-lg font-medium text-gray-900 mb-4">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="text-gray-600 whitespace-pre-line">{faq.answer}</p>
               </div>
             ))}
           </div>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BookOpen, Menu, X, Search, ShoppingCart, User } from 'lucide-react';

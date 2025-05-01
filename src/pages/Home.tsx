@@ -84,16 +84,20 @@ const Home = () => {
         <div className="container-custom mt-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">50+</p>
+              <p className="text-2xl md:text-3xl font-bold">100+</p>
               <p className="text-sm text-gray-200">Courses Available</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-2xl md:text-3xl font-bold">10+</p>
-              <p className="text-sm text-gray-200">Expert Instructors</p>
+              <p className="text-sm text-gray-200">Institutions</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">NBTA</p>
-              <p className="text-sm text-gray-200">Learning Platforms</p>
+              <p className="text-2xl md:text-3xl font-bold">50+</p>
+              <p className="text-sm text-gray-200">Real-Life Training Workshops</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+              <p className="text-2xl md:text-3xl font-bold">100+</p>
+              <p className="text-sm text-gray-200">Instructors/Master Craftsmen</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-2xl md:text-3xl font-bold">98%</p>

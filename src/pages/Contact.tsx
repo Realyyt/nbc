@@ -44,15 +44,15 @@ const Contact = () => {
                   <Mail size={20} className="text-primary mt-1 mr-4" />
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600">support@nbta.com</p>
-                    <p className="text-gray-600">press@nbta.com</p>
+                    <p className="text-gray-600">wecanhelp@nbta.com.ng</p>
+                    <p className="text-gray-600">press@nbta.com.ng</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Phone size={20} className="text-primary mt-1 mr-4" />
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-600">+234 123 456 7890</p>
+                    <p className="text-gray-600">+2349019566437</p>
                     <p className="text-gray-600">Mon-Fri, 9am-5pm WAT</p>
                   </div>
                 </div>
@@ -61,9 +61,9 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Address</h3>
                     <p className="text-gray-600">
-                      NBTA Headquarters<br />
-                      123 Trade Avenue<br />
-                      Lagos, Nigeria
+                      Plot 51, Block 5/6,<br />
+                      Cadastral Zone C01, Karmo,<br />
+                      Abuja, FCT.
                     </p>
                   </div>
                 </div>

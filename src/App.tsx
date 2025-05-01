@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ import Cookies from './pages/Cookies';
 import Press from './pages/Press';
 import Contact from './pages/Contact';
 import Courses from './pages/Courses';
+import Partnerships from './pages/Partnerships';
 import { CartProvider } from './contexts/CartContext';
 
 const App = () => {
@@ -38,6 +40,7 @@ const App = () => {
             <Route path="/press" element={<Press />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/partnerships" element={<Partnerships />} />
           </Routes>
         </main>
         <Footer />
