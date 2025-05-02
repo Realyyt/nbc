@@ -84,6 +84,12 @@ const Navbar = () => {
             >
               Courses
             </Link>
+            <Link 
+              to="/Partnerships" 
+              className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
+            >
+              Patnerships
+            </Link>
             
             {user ? (
               <>

@@ -1,3 +1,5 @@
+// Use the Course type from src/lib/supabase.ts
+
 export interface Course {
   id: string;
   title: string;
@@ -13,4 +15,6 @@ export interface Course {
   students: number;
   createdAt: string;
   updatedAt: string;
+  mode: 'physical' | 'online' | 'hybrid';
+  priceType: 'free' | 'paid' | 'sponsorship';
 } 

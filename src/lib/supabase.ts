@@ -21,6 +21,8 @@ export type Course = {
   duration: string;
   level: 'beginner' | 'intermediate' | 'advanced';
   created_at: string;
+  mode: 'physical' | 'online' | 'hybrid';
+  priceType: 'free' | 'paid' | 'sponsorship';
 };
 
 export type UserCourse = {

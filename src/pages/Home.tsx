@@ -1,27 +1,38 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchIcon, BookOpen, Award, Users, MapPin, Calendar, ChevronRight } from 'lucide-react';
 import CourseCard from '../components/CourseCard';
-import { Course } from '../lib/supabase';
-import { mockCourses } from '../data/mockData';
+import { courses } from '../data/courses';
+
+const MODES = [
+  { label: 'Physical', value: 'physical' },
+  { label: 'Online', value: 'online' },
+  { label: 'Hybrid', value: 'hybrid' },
+];
+const PRICE_TYPES = [
+  { label: 'Free', value: 'free' },
+  { label: 'Paid', value: 'paid' },
+  { label: 'Sponsorship', value: 'sponsorship' },
+];
 
 const Home = () => {
-  const [featuredCourses, setFeaturedCourses] = useState<Course[]>([]);
+  const [selectedMode, setSelectedMode] = useState('physical');
+  const [selectedPriceType, setSelectedPriceType] = useState('paid');
   const [searchQuery, setSearchQuery] = useState('');
-  
-  useEffect(() => {
-    // Get featured courses (first 6 courses)
-    setFeaturedCourses(mockCourses.slice(0, 6));
-  }, []);
+
+  const filteredCourses = courses.filter(
+    (course) =>
+      course.mode === selectedMode &&
+      course.priceType === selectedPriceType &&
+      (searchQuery.trim() === '' ||
+        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        course.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/courses?search=${encodeURIComponent(searchQuery)}`;
-    }
   };
-  
+
   return (
     <div>
       {/* Hero section */}
@@ -30,11 +41,10 @@ const Home = () => {
           <div className="flex flex-col md:flex-row md:items-center">
             <div className="flex-1 mb-10 md:mb-0 md:pr-8">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight animate-fade-in">
-                Advance Your Career with Online Learning
+                Turn Your Passion into a Profession with NBTA!
               </h1>
               <p className="mt-4 text-lg text-gray-100 md:text-xl max-w-xl animate-slide-up">
-                Join our platform for practical training in web development, data science, and more.
-                Learn from expert instructors and advance your career.
+                Step into your future with NBTA's world-class training platforms  whether on-site, online, or blended. Learn from expert mentors, master in-demand trades, and build a career you'll love. Your journey to greatness starts here!
               </p>
               <form onSubmit={handleSearch} className="mt-8 flex animate-slide-up">
                 <div className="relative flex-grow">
@@ -107,72 +117,164 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured courses section */}
+      {/* NBTA Learning Platforms Section */}
+      <section className="py-10 bg-white">
+        <div className="container-custom">
+          <h2 className="text-xl md:text-2xl font-heading font-bold text-center mb-8 text-foreground tracking-tight">
+            NBTA LEARNING PLATFORMS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Physical Platform */}
+            <Link to="/platforms/physical" className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary group">
+              <h3 className="font-bold text-lg mb-2 text-primary group-hover:underline">NBTA Global Gold Platform</h3>
+              <p className="text-gray-700 mb-6">Physical dual apprenticeship, Face to face, on-the-job, handholding, mentorship, and simulation-based.</p>
+              <div className="flex gap-3 mt-auto">
+                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
+                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
+                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
+              </div>
+            </Link>
+            {/* Online/Virtual Platform */}
+            <Link to="/platforms/online" className="rounded-xl border border-yellow-200 bg-yellow-50 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-yellow-400 group">
+              <h3 className="font-bold text-lg mb-2 text-yellow-800 group-hover:underline">Online/Virtual Platform</h3>
+              <p className="text-gray-700 mb-6">Digital system, internet with mentors, remote, flexible, internet based.</p>
+              <div className="flex gap-3 mt-auto">
+                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
+                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
+                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
+              </div>
+            </Link>
+            {/* Blended Platform */}
+            <Link to="/platforms/blended" className="rounded-xl border border-gray-300 bg-gray-100 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-gray-400 group">
+              <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:underline">Hybrid Platform</h3>
+              <p className="text-gray-700 mb-6">Mix of physical and online/virtual platform with assigned mentors.</p>
+              <div className="flex gap-3 mt-auto">
+                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
+                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
+                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Mode Tabs & PriceType Filters */}
       <section className="py-16 bg-gray-50">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
             <div>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-                Featured Courses
+                Explore Our Courses
               </h2>
               <p className="mt-2 text-gray-600">
-                Discover our most popular training programs
+                Filter by learning mode and payment type
               </p>
             </div>
-            <Link to="/courses" className="mt-4 md:mt-0 flex items-center text-primary font-medium hover:underline">
-              View all courses <ChevronRight size={16} className="ml-1" />
-            </Link>
+            <form onSubmit={handleSearch} className="mt-4 md:mt-0 flex animate-slide-up">
+              <div className="relative flex-grow">
+                <input
+                  type="text"
+                  placeholder="Search for courses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-5 py-3 rounded-l-md text-gray-800 focus:outline-none"
+                />
+                <SearchIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              </div>
+              <button type="submit" className="bg-accent text-foreground font-medium px-6 py-3 rounded-r-md hover:opacity-90 transition-opacity">
+                Search
+              </button>
+            </form>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+
+          {/* Tabs for Mode */}
+          <div className="flex gap-4 mb-6">
+            {MODES.map((mode) => (
+              <button
+                key={mode.value}
+                className={`px-6 py-2 rounded-full font-medium border transition-all ${selectedMode === mode.value ? 'bg-primary text-white border-primary' : 'bg-white text-primary border-gray-200 hover:bg-primary/10'}`}
+                onClick={() => setSelectedMode(mode.value)}
+              >
+                {mode.label}
+              </button>
             ))}
+          </div>
+
+          {/* Filters for PriceType */}
+          <div className="flex gap-4 mb-10">
+            {PRICE_TYPES.map((type) => (
+              <button
+                key={type.value}
+                className={`px-5 py-2 rounded-full font-medium border transition-all ${selectedPriceType === type.value ? 'bg-accent text-white border-accent' : 'bg-white text-accent border-gray-200 hover:bg-accent/10'}`}
+                onClick={() => setSelectedPriceType(type.value)}
+              >
+                {type.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Course Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))
+            ) : (
+              <div className="col-span-full text-center text-gray-500 py-12">
+                No courses found for this selection.
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* How it works section */}
+      {/* How NBTA Courses Work section (world-class, visual) */}
       <section className="py-16 bg-white">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-              How Our Courses Work
-            </h2>
-            <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
-              Our online courses are designed to help you master in-demand tech skills, from web development to data science, with hands-on projects and expert guidance.
-            </p>
-          </div>
-          
+        <div className="container-custom max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-10 text-center">
+            How NBTA Courses Work
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar size={28} className="text-primary" />
+            {/* Step 1 */}
+            <div className="bg-gray-50 rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                <span className="text-2xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-xl font-medium text-foreground mb-2">1. Choose a Course</h3>
-              <p className="text-gray-600">
-                Browse our catalog of specialized courses and select the one that matches your career goals.
-              </p>
+              <h3 className="text-xl font-semibold mb-3 text-primary">Choose a Course</h3>
+              <ul className="text-gray-700 text-base space-y-2 text-left">
+                <li>Browse our course catalog and select a program that fits your interest and preferred learning format:</li>
+                <ul className="pl-5 space-y-1">
+                  <li><span className="font-bold text-primary">Physical:</span> Attend in-person classes at our approved training centers.</li>
+                  <li><span className="font-bold text-primary">Online:</span> Learn from anywhere through our interactive digital platform.</li>
+                  <li><span className="font-bold text-primary">Hybrid:</span> Combine the flexibility of online learning with occasional in-person workshops.</li>
+                </ul>
+              </ul>
             </div>
-            
-            <div className="text-center p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen size={28} className="text-primary" />
+            {/* Step 2 */}
+            <div className="bg-gray-50 rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-accent/10 mb-4">
+                <span className="text-2xl font-bold text-accent">2</span>
               </div>
-              <h3 className="text-xl font-medium text-foreground mb-2">2. Register & Pay</h3>
-              <p className="text-gray-600">
-                Complete your registration and payment process online to secure your spot in the class.
-              </p>
+              <h3 className="text-xl font-semibold mb-3 text-accent">Register & Pay</h3>
+              <ul className="text-gray-700 text-base space-y-2 text-left">
+                <li>Complete the registration form for your chosen course.</li>
+                <li>Make payment securely through our online portal or make a transfer to NBTA's Access Bank account-1876883058, and submit proof of payment at any of our approved centres.</li>
+                <li>Once registered, you'll be assigned a dedicated mentor or instructor to guide you through your learning journey, provide feedback, and answer your questions.</li>
+                <li>For <span className="font-bold text-accent">physical and hybrid</span> learners, you'll be linked to a nearby partner school or workshop center for hands-on training and assessments.</li>
+                <li>Online students may also be invited to optional practical sessions based on program, availability and location.</li>
+              </ul>
             </div>
-            
-            <div className="text-center p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users size={28} className="text-primary" />
+            {/* Step 3 */}
+            <div className="bg-gray-50 rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-success/10 mb-4">
+                <span className="text-2xl font-bold text-success">3</span>
               </div>
-              <h3 className="text-xl font-medium text-foreground mb-2">3. Start Learning</h3>
-              <p className="text-gray-600">
-                Access your course materials and start learning at your own pace with expert guidance.
-              </p>
+              <h3 className="text-xl font-semibold mb-3 text-success">Start Learning</h3>
+              <ul className="text-gray-700 text-base space-y-2 text-left">
+                <li>Begin your course on your chosen platform.</li>
+                <li>Access structured lessons, resources, assignments, and support from your mentor or instructor.</li>
+                <li>Engage in assessments and practical sessions as part of your training path.</li>
+              </ul>
             </div>
           </div>
         </div>

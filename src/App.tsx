@@ -17,6 +17,9 @@ import Press from './pages/Press';
 import Contact from './pages/Contact';
 import Courses from './pages/Courses';
 import Partnerships from './pages/Partnerships';
+import PhysicalPlatform from './pages/PhysicalPlatform';
+import OnlinePlatform from './pages/OnlinePlatform';
+import BlendedPlatform from './pages/BlendedPlatform';
 import { CartProvider } from './contexts/CartContext';
 
 const App = () => {
@@ -41,6 +44,9 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/partnerships" element={<Partnerships />} />
+            <Route path="/platforms/physical" element={<PhysicalPlatform />} />
+            <Route path="/platforms/online" element={<OnlinePlatform />} />
+            <Route path="/platforms/blended" element={<BlendedPlatform />} />
           </Routes>
         </main>
         <Footer />
