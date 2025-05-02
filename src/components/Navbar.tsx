@@ -58,7 +58,7 @@ const Navbar = () => {
             to="/" 
             className={`flex items-center space-x-2 ${textColorClass} hover:opacity-80 transition-opacity`}
           >
-            <img src="./logo.png" alt="NBTA Logo" className="w-20 h-10" />
+            <img src="/logo.png" alt="NBTA Logo" className="w-20 h-10" />
           </Link>
 
           {/* Desktop Navigation */}
