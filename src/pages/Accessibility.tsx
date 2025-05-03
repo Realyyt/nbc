@@ -16,20 +16,22 @@ const Accessibility = () => {
             <div className="prose max-w-none">
               <h2>Our Commitment</h2>
               <p>
-                NBTA is committed to ensuring digital accessibility for people of all abilities. We strive to continually improve the user experience for everyone and apply relevant accessibility standards.
+                NBTA Academy is committed to ensuring digital accessibility for people of all abilities. We strive to continually improve the user experience for everyone and apply relevant accessibility standards to ensure equal access to education.
               </p>
 
               <h2>Accessibility Features</h2>
               <p>
-                Our website includes the following accessibility features:
+                Our educational platform includes the following accessibility features:
               </p>
               <ul>
                 <li>Keyboard navigation support</li>
                 <li>Screen reader compatibility</li>
                 <li>High contrast mode</li>
                 <li>Text size adjustment</li>
-                <li>Alt text for images</li>
-                <li>ARIA labels for interactive elements</li>
+                <li>Alt text for educational images and diagrams</li>
+                <li>ARIA labels for interactive learning elements</li>
+                <li>Closed captions for video lectures</li>
+                <li>Transcripts for audio content</li>
               </ul>
 
               <h2>Standards Compliance</h2>
@@ -76,13 +78,14 @@ const Accessibility = () => {
 
               <h2>Alternative Formats</h2>
               <p>
-                We can provide information in alternative formats upon request, including:
+                We can provide educational materials in alternative formats upon request, including:
               </p>
               <ul>
-                <li>Large print</li>
-                <li>Braille</li>
-                <li>Audio format</li>
-                <li>Electronic text</li>
+                <li>Large print textbooks and course materials</li>
+                <li>Braille versions of essential documents</li>
+                <li>Audio recordings of lectures and readings</li>
+                <li>Electronic text with screen reader compatibility</li>
+                <li>Sign language interpretation for live sessions</li>
               </ul>
 
               <h2>Accessibility Statement Updates</h2>

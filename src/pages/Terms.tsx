@@ -17,12 +17,12 @@ const Terms = () => {
             <div className="prose max-w-none">
               <h2>1. Acceptance of Terms</h2>
               <p>
-                By accessing and using the National Business Travel Association (NBTA) website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+                By accessing and using the NBTA Academy website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
               </p>
 
               <h2>2. Use of Services</h2>
               <p>
-                Our services are intended for business travel professionals and organizations. You agree to use our services only for lawful purposes and in accordance with these terms.
+                Our services are intended for students, educators, and educational institutions. You agree to use our services only for lawful purposes and in accordance with these terms.
               </p>
 
               <h2>3. User Accounts</h2>
@@ -32,12 +32,12 @@ const Terms = () => {
 
               <h2>4. Intellectual Property</h2>
               <p>
-                All content, features, and functionality of our services are owned by NBTA and are protected by international copyright, trademark, and other intellectual property laws.
+                All content, features, and functionality of our services, including course materials, educational resources, and digital content, are owned by NBTA Academy and are protected by international copyright, trademark, and other intellectual property laws.
               </p>
 
               <h2>5. User Content</h2>
               <p>
-                You retain ownership of any content you submit to our services. By submitting content, you grant NBTA a worldwide, non-exclusive license to use, reproduce, and distribute your content.
+                You retain ownership of any content you submit to our services, such as assignments and projects. By submitting content, you grant NBTA Academy a worldwide, non-exclusive license to use, reproduce, and distribute your content for educational purposes.
               </p>
 
               <h2>6. Prohibited Activities</h2>
@@ -48,8 +48,9 @@ const Terms = () => {
                 <li>Use our services for any illegal purpose</li>
                 <li>Violate any applicable laws or regulations</li>
                 <li>Infringe upon the rights of others</li>
-                <li>Interfere with the proper functioning of our services</li>
+                <li>Interfere with the proper functioning of our educational services</li>
                 <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Engage in academic dishonesty or plagiarism</li>
               </ul>
 
               <h2>7. Limitation of Liability</h2>

@@ -21,10 +21,10 @@ const Privacy = () => {
               </p>
               <ul>
                 <li>Name and contact information</li>
-                <li>Company and job title</li>
+                <li>Academic history and qualifications</li>
                 <li>Account credentials</li>
                 <li>Payment information</li>
-                <li>Travel preferences and history</li>
+                <li>Educational preferences and interests</li>
               </ul>
 
               <h2>2. How We Use Your Information</h2>
@@ -32,11 +32,11 @@ const Privacy = () => {
                 We use the information we collect to:
               </p>
               <ul>
-                <li>Provide and improve our services</li>
-                <li>Process your transactions</li>
-                <li>Send you important updates and notifications</li>
-                <li>Personalize your experience</li>
-                <li>Analyze and improve our services</li>
+                <li>Process your academic applications and enrollments</li>
+                <li>Manage your educational records</li>
+                <li>Send you important academic updates and notifications</li>
+                <li>Personalize your learning experience</li>
+                <li>Analyze and improve our educational services</li>
               </ul>
 
               <h2>3. Information Sharing</h2>

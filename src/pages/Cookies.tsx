@@ -26,16 +26,16 @@ const Cookies = () => {
               </p>
               <ul>
                 <li>
-                  <strong>Essential Cookies:</strong> Required for the website to function properly. They enable basic features like page navigation and access to secure areas.
+                  <strong>Essential Cookies:</strong> Required for the educational platform to function properly. They enable basic features like course navigation and access to learning materials.
                 </li>
                 <li>
-                  <strong>Functional Cookies:</strong> Remember your preferences and settings to provide a more personalized experience.
+                  <strong>Functional Cookies:</strong> Remember your learning preferences and settings to provide a more personalized educational experience.
                 </li>
                 <li>
-                  <strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website by collecting and reporting information anonymously.
+                  <strong>Analytics Cookies:</strong> Help us understand how students interact with our learning platform by collecting and reporting information anonymously.
                 </li>
                 <li>
-                  <strong>Marketing Cookies:</strong> Used to track visitors across websites to display relevant advertisements.
+                  <strong>Marketing Cookies:</strong> Used to provide information about relevant courses and educational opportunities.
                 </li>
               </ul>
 
@@ -44,11 +44,12 @@ const Cookies = () => {
                 We use cookies for the following purposes:
               </p>
               <ul>
-                <li>Remember your preferences and settings</li>
-                <li>Analyze website traffic and usage patterns</li>
-                <li>Improve our website's performance and functionality</li>
-                <li>Provide personalized content and recommendations</li>
-                <li>Enable social media features</li>
+                <li>Remember your learning preferences and settings</li>
+                <li>Track your progress in courses</li>
+                <li>Analyze platform usage patterns</li>
+                <li>Improve our educational platform's performance</li>
+                <li>Provide personalized course recommendations</li>
+                <li>Enable interactive learning features</li>
               </ul>
 
               <h2>Third-Party Cookies</h2>
