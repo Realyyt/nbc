@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search } from 'lucide-react';
-import CourseCard from '../components/CourseCard';
+import CourseCard from '../components/ProgramCard';
 import { courses } from '../data/courses';
 
 const MODES = [
@@ -104,7 +104,7 @@ const Courses = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+              <CourseCard key={course.id} program={course} />
             ))
           ) : (
             <div className="col-span-full text-center text-gray-500 py-12">

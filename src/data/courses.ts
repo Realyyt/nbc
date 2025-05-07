@@ -1,6 +1,6 @@
-import { Course } from '../lib/supabase';
+import { Program } from '../lib/supabase';
 
-export const courses: Course[] = [
+export const courses: Program[] = [
   {
     id: '1',
     title: 'Complete Web Development Bootcamp',

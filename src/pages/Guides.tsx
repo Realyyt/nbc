@@ -42,7 +42,7 @@ const Guides = () => {
     {
       value: '3',
       label: 'Training Platform',
-      sublabel: '(Physical/Online/Blended)',
+      sublabel: '(Physical/Online/Hybrid)',
       icon: <Monitor size={24} className="text-primary" />
     },
     {

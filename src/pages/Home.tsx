@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchIcon, BookOpen, Award, Users, MapPin, Calendar, ChevronRight } from 'lucide-react';
-import CourseCard from '../components/CourseCard';
+import CourseCard from '../components/ProgramCard';
 import { courses } from '../data/courses';
 
 const MODES = [
@@ -40,17 +40,17 @@ const Home = () => {
         <div className="container-custom relative z-10">
           <div className="flex flex-col md:flex-row md:items-center">
             <div className="flex-1 mb-10 md:mb-0 md:pr-8">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight animate-fade-in">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight animate-fade-in text-center">
                 Turn Your Passion into a Profession with NBTA!
               </h1>
-              <p className="mt-4 text-lg text-gray-100 md:text-xl max-w-xl animate-slide-up">
-                Step into your future with NBTA's world-class training platforms  whether on-site, online, or blended. Learn from expert mentors, master in-demand trades, and build a career you'll love. Your journey to greatness starts here!
+              <p className="mt-4 text-lg text-gray-100 md:text-xl max-w-xl animate-slide-up mx-auto text-center">
+                Step into your future with NBTA's world-class training platforms  whether on-site, online, or hybrid. Learn from expert mentors, master in-demand trades, and build a career you'll love. Your journey to greatness starts here!
               </p>
               <form onSubmit={handleSearch} className="mt-8 flex animate-slide-up">
                 <div className="relative flex-grow">
                   <input
                     type="text"
-                    placeholder="Search for courses..."
+                    placeholder="Search for programs..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-5 py-3 rounded-l-md text-gray-800 focus:outline-none"
@@ -62,8 +62,8 @@ const Home = () => {
                 </button>
               </form>
               <div className="mt-8 animate-slide-up">
-                <Link to="/courses" className="btn-outline bg-white/10 text-white border-white hover:bg-white hover:text-primary transition-all">
-                  Browse All Courses
+                <Link to="/programs" className="btn-outline bg-white/10 text-white border-white hover:bg-white hover:text-primary transition-all">
+                  Browse All Programs
                 </Link>
               </div>
             </div>
@@ -95,7 +95,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-2xl md:text-3xl font-bold">100+</p>
-              <p className="text-sm text-gray-200">Courses Available</p>
+              <p className="text-sm text-gray-200">Programs Available</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
               <p className="text-2xl md:text-3xl font-bold">10+</p>
@@ -126,7 +126,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Physical Platform */}
             <Link to="/platforms/physical" className="rounded-xl border border-gray-200 bg-white shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary group">
-              <h3 className="font-bold text-lg mb-2 text-primary group-hover:underline">NBTA Global Gold Platform</h3>
+              <h3 className="font-bold text-lg mb-2 text-primary group-hover:underline">Physical Platform</h3>
               <p className="text-gray-700 mb-6">Physical dual apprenticeship, Face to face, on-the-job, handholding, mentorship, and simulation-based.</p>
               <div className="flex gap-3 mt-auto">
                 <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
@@ -136,7 +136,7 @@ const Home = () => {
             </Link>
             {/* Online/Virtual Platform */}
             <Link to="/platforms/online" className="rounded-xl border border-yellow-200 bg-yellow-50 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-yellow-400 group">
-              <h3 className="font-bold text-lg mb-2 text-yellow-800 group-hover:underline">Online/Virtual Platform</h3>
+              <h3 className="font-bold text-lg mb-2 text-yellow-800 group-hover:underline">Online Platform</h3>
               <p className="text-gray-700 mb-6">Digital system, internet with mentors, remote, flexible, internet based.</p>
               <div className="flex gap-3 mt-auto">
                 <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
@@ -144,8 +144,8 @@ const Home = () => {
                 <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
               </div>
             </Link>
-            {/* Blended Platform */}
-            <Link to="/platforms/blended" className="rounded-xl border border-gray-300 bg-gray-100 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-gray-400 group">
+            {/* Hybrid Platform */}
+            <Link to="/platforms/hybrid" className="rounded-xl border border-gray-300 bg-gray-100 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-gray-400 group">
               <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:underline">Hybrid Platform</h3>
               <p className="text-gray-700 mb-6">Mix of physical and online/virtual platform with assigned mentors.</p>
               <div className="flex gap-3 mt-auto">
@@ -164,7 +164,7 @@ const Home = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
             <div>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-                Explore Our Courses
+                Explore Our Programs
               </h2>
               <p className="mt-2 text-gray-600">
                 Filter by learning mode and payment type
@@ -174,7 +174,7 @@ const Home = () => {
               <div className="relative flex-grow">
                 <input
                   type="text"
-                  placeholder="Search for courses..."
+                  placeholder="Search for programs..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full px-5 py-3 rounded-l-md text-gray-800 focus:outline-none"
@@ -217,22 +217,22 @@ const Home = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
-                <CourseCard key={course.id} course={course} />
+                <CourseCard key={course.id} program={course} />
               ))
             ) : (
               <div className="col-span-full text-center text-gray-500 py-12">
-                No courses found for this selection.
+                No programs found for this selection.
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* How NBTA Courses Work section (world-class, visual) */}
+      {/* How NBTA Programs Work section (world-class, visual) */}
       <section className="py-16 bg-white">
         <div className="container-custom max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-10 text-center">
-            How NBTA Courses Work
+            How NBTA Programs Work
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
@@ -240,9 +240,9 @@ const Home = () => {
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-primary">Choose a Course</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">Choose a Program</h3>
               <ul className="text-gray-700 text-base space-y-2 text-left">
-                <li>Browse our course catalog and select a program that fits your interest and preferred learning format:</li>
+                <li>Browse our program catalog and select a program that fits your interest and preferred learning format:</li>
                 <ul className="pl-5 space-y-1">
                   <li><span className="font-bold text-primary">Physical:</span> Attend in-person classes at our approved training centers.</li>
                   <li><span className="font-bold text-primary">Online:</span> Learn from anywhere through our interactive digital platform.</li>
@@ -257,8 +257,8 @@ const Home = () => {
               </div>
               <h3 className="text-xl font-semibold mb-3 text-accent">Register & Pay</h3>
               <ul className="text-gray-700 text-base space-y-2 text-left">
-                <li>Complete the registration form for your chosen course.</li>
-                <li>Make payment securely through our online portal or make a transfer to NBTA's Access Bank account-1876883058, and submit proof of payment at any of our approved centres.</li>
+                <li>Complete the registration form for your chosen Program.</li>
+                <li>Make payment securely through our online portal or make a transfer to NBTA's Access Bank account-1876883058, and submit proof of payment at any of our approved centres or email to wecanhelp@nbta.com.ng.</li>
                 <li>Once registered, you'll be assigned a dedicated mentor or instructor to guide you through your learning journey, provide feedback, and answer your questions.</li>
                 <li>For <span className="font-bold text-accent">physical and hybrid</span> learners, you'll be linked to a nearby partner school or workshop center for hands-on training and assessments.</li>
                 <li>Online students may also be invited to optional practical sessions based on program, availability and location.</li>
@@ -271,7 +271,7 @@ const Home = () => {
               </div>
               <h3 className="text-xl font-semibold mb-3 text-success">Start Learning</h3>
               <ul className="text-gray-700 text-base space-y-2 text-left">
-                <li>Begin your course on your chosen platform.</li>
+                <li>Begin your program on your chosen platform.</li>
                 <li>Access structured lessons, resources, assignments, and support from your mentor or instructor.</li>
                 <li>Engage in assessments and practical sessions as part of your training path.</li>
               </ul>
@@ -317,7 +317,7 @@ const Home = () => {
                 
                 <div className="mt-6 flex justify-between items-center">
                   <span className="font-semibold text-lg">₦75,000</span>
-                  <Link to="/courses/customs-clearing" className="btn-primary">
+                  <Link to="/programs/customs-clearing" className="btn-primary">
                     Register Now
                   </Link>
                 </div>
@@ -348,7 +348,7 @@ const Home = () => {
                 
                 <div className="mt-6 flex justify-between items-center">
                   <span className="font-semibold text-lg">₦60,000</span>
-                  <Link to="/courses/export-documentation" className="btn-primary">
+                  <Link to="/programs/export-documentation" className="btn-primary">
                     Register Now
                   </Link>
                 </div>
@@ -357,7 +357,7 @@ const Home = () => {
           </div>
           
           <div className="mt-8 text-center">
-            <Link to="/courses" className="btn-outline inline-block">
+            <Link to="/programs" className="btn-outline inline-block">
               View All Upcoming Trainings
             </Link>
           </div>
@@ -376,8 +376,8 @@ const Home = () => {
               practical training programs. Register today for upcoming classes.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link to="/courses" className="btn-accent text-foreground font-medium">
-                Browse Courses
+              <Link to="/programs" className="btn-accent text-foreground font-medium">
+                Browse Programs
               </Link>
               <Link to="/register" className="btn-outline bg-white/10 text-white border-white hover:bg-white hover:text-primary">
                 Create Account

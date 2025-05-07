@@ -8,92 +8,79 @@ const Privacy = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Privacy Policy</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Learn how we collect, use, and protect your personal information.
+            Effective Date: 29th April 2025
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <div className="bg-white p-8 rounded-lg shadow-sm">
             <div className="prose max-w-none">
-              <h2>1. Information We Collect</h2>
-              <p>
-                We collect information that you provide directly to us, including:
+              <p className="mb-6">
+                At NetZero Business and Technical Academy (NBTA), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, store, and share your personal information when you use our services — whether through our physical campuses, virtual platforms, or website.
               </p>
+
+              <h2>1. Information We Collect</h2>
+              <p>We collect personal information that you provide directly to us when you register or interact with our services. This may include:</p>
               <ul>
-                <li>Name and contact information</li>
+                <li>Full name and contact information (e.g., phone number, email, address)</li>
                 <li>Academic history and qualifications</li>
-                <li>Account credentials</li>
-                <li>Payment information</li>
-                <li>Educational preferences and interests</li>
+                <li>Account credentials (username, password)</li>
+                <li>Payment and billing information</li>
+                <li>Educational interests, preferences, and program choices</li>
+                <li>Communications and feedback</li>
               </ul>
 
               <h2>2. How We Use Your Information</h2>
-              <p>
-                We use the information we collect to:
-              </p>
+              <p>We use the collected data to:</p>
               <ul>
-                <li>Process your academic applications and enrollments</li>
-                <li>Manage your educational records</li>
-                <li>Send you important academic updates and notifications</li>
-                <li>Personalize your learning experience</li>
-                <li>Analyze and improve our educational services</li>
+                <li>Process applications and manage enrollments</li>
+                <li>Maintain academic records and facilitate training progress</li>
+                <li>Communicate updates, class schedules, and program information</li>
+                <li>Personalize your learning journey and support services</li>
+                <li>Monitor, evaluate, and improve our educational offerings</li>
+                <li>Fulfill legal and regulatory obligations</li>
               </ul>
 
               <h2>3. Information Sharing</h2>
-              <p>
-                We may share your information with:
-              </p>
+              <p>Your data may be shared under the following circumstances:</p>
               <ul>
-                <li>Service providers who assist in our operations</li>
-                <li>Business partners with your consent</li>
-                <li>Legal authorities when required by law</li>
+                <li>With service providers: We work with trusted third parties who help deliver our services (e.g., payment processors, IT support, cloud services).</li>
+                <li>With partners: In some cases, we may share data with our affiliated training centers, industry mentors, or partner institutions — only with your consent.</li>
+                <li>With authorities: We may disclose your information if legally required or to protect the rights, safety, or property of NBTA and its users.</li>
               </ul>
 
               <h2>4. Data Security</h2>
-              <p>
-                We implement appropriate security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.
-              </p>
+              <p>We implement industry-standard safeguards to protect your information from unauthorized access, alteration, disclosure, or destruction. These include encryption, access control, and secure storage practices.</p>
 
               <h2>5. Your Rights</h2>
-              <p>
-                You have the right to:
-              </p>
+              <p>You have rights regarding your personal data, including the right to:</p>
               <ul>
-                <li>Access your personal information</li>
-                <li>Correct inaccurate data</li>
-                <li>Request deletion of your data</li>
-                <li>Opt-out of marketing communications</li>
-                <li>Object to data processing</li>
+                <li>Access and review your personal information</li>
+                <li>Correct or update inaccurate information</li>
+                <li>Request deletion of your data, where applicable</li>
+                <li>Object to the processing of your data</li>
+                <li>Opt out of non-essential communications</li>
               </ul>
+              <p>To exercise these rights, please contact us via the details provided below.</p>
 
-              <h2>6. Cookies and Tracking</h2>
-              <p>
-                We use cookies and similar tracking technologies to improve your browsing experience and analyze website traffic. You can control cookie preferences through your browser settings.
-              </p>
+              <h2>6. Cookies and Tracking Technologies</h2>
+              <p>We use cookies and similar technologies to enhance user experience and analyze website traffic. You can adjust your browser settings to accept or reject cookies. Note that disabling cookies may affect website functionality.</p>
 
               <h2>7. International Data Transfers</h2>
-              <p>
-                Your information may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place for such transfers.
-              </p>
+              <p>If you access our services from outside Nigeria, please note that your data may be transferred to and processed in Nigeria or other countries with appropriate data protection safeguards.</p>
 
               <h2>8. Children's Privacy</h2>
-              <p>
-                Our services are not intended for children under 13 years of age. We do not knowingly collect personal information from children.
-              </p>
+              <p>NBTA does not knowingly collect data from children under the age of 13. If we become aware that we have inadvertently gathered such information, we will take steps to delete it promptly.</p>
 
-              <h2>9. Changes to Privacy Policy</h2>
-              <p>
-                We may update this privacy policy from time to time. We will notify you of any material changes by posting the new policy on our website.
-              </p>
+              <h2>9. Changes to This Policy</h2>
+              <p>We may revise this Privacy Policy periodically. Any significant updates will be posted on this page with an updated effective date. We encourage users to review the policy regularly.</p>
 
               <h2>10. Contact Us</h2>
+              <p>If you have any questions, concerns, or requests regarding this policy or our data practices, please contact:</p>
               <p>
-                If you have any questions about this privacy policy or our data practices, please contact us at:
-              </p>
-              <p>
-                Email: wecanhelp@nbta.com.ng<br />
-                Phone: +2349019566437<br />
-                Address: Plot 51, Block 5/6, Cadastral Zone C01, Karmo, Abuja, FCT.
+                📧 Email: wecanhelp@nbta.com.ng<br />
+                📞 Phone: +234 901 956 6437<br />
+                📍 Address: Plot 51, Block 5/6, Cadastral Zone C01, Karmo, Abuja, FCT, Nigeria
               </p>
             </div>
           </div>

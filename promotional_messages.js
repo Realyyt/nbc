@@ -2,7 +2,7 @@ const promotionalMessages = {
   homepage: [
     {
       title: "Turn Your Passion into a Profession with NBTA!",
-      description: "Step into your future with NBTA's world-class training platforms — whether on-site, online, or blended. Learn from expert mentors, master in-demand trades, and build a career you'll love. Your journey to greatness starts here!"
+      description: "Step into your future with NBTA's world-class training platforms — whether on-site, online, or hybrid. Learn from expert mentors, master in-demand trades, and build a career you'll love. Your journey to greatness starts here!"
     }
   ],
   globalGold: [
@@ -25,14 +25,14 @@ const promotionalMessages = {
       description: "Learn on your terms with flexible, internet-based training, real-time mentorship, and a digital system built for your success. Wherever you are, we bring the skills to you."
     }
   ],
-  blended: [
+  hybrid: [
     {
       title: "The Best of Both Worlds — Learning That Fits Your Life!",
-      description: "NBTA's Blended Platform combines hands-on experience with the power of online learning. With dedicated mentors by your side, you'll gain real-world skills — in person and online — wherever life takes you."
+      description: "NBTA's Hybrid Platform combines hands-on experience with the power of online learning. With dedicated mentors by your side, you'll gain real-world skills — in person and online — wherever life takes you."
     },
     {
       title: "Flexible. Personal. Powerful.",
-      description: "NBTA's Blended Platform gives you the perfect balance of face-to-face training and digital flexibility. With assigned mentors guiding your journey, you'll learn, grow, and thrive — both online and on the ground."
+      description: "NBTA's Hybrid Platform gives you the perfect balance of face-to-face training and digital flexibility. With assigned mentors guiding your journey, you'll learn, grow, and thrive — both online and on the ground."
     }
   ]
 };

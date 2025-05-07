@@ -20,35 +20,22 @@ const About = () => {
         </div>
 
         {/* Facts Section */}
-        <div className="max-w-4xl mx-auto mb-20 transform hover:scale-[1.02] transition-transform duration-300">
-          <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-            <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              FACTS
-            </h2>
-            <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              The future you've dreamed of is within reach at NBTA! With hundreds of programs across 21 career fields, we cater to your interests. Our supportive learning environment is committed to your success, offering a skill learning experience that can transform your life.
-            </p>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Developing entrepreneurial skills through vocational education and training can lead to sustainable social enterprises that benefit society as a whole. These enterprises often address social, human, and environmental issues more effectively.
-            </p>
-          </div>
-        </div>
-
+        
         {/* Welcome Section */}
         <div className="max-w-4xl mx-auto mb-20 transform hover:scale-[1.02] transition-transform duration-300">
           <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
             <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              WELCOME TO NBTA!
+              About NBTA
             </h2>
             <div className="space-y-6">
               <p className="text-gray-600 text-lg leading-relaxed">
-                Knowledge is Nigeria's primary resource, and education is essential for acquiring it. The constantly evolving demands for skills in Nigeria and everywhere ongoing development and competency enhancement remains crucial.
+                NetZero Business and Technical Academy (NBTA) is a registered institution under the Corporate Affairs Commission (CAC) of Nigeria, with RC 7471717. We are committed to delivering world-class vocational and technical education that aligns with Nigeria's development priorities and the evolving global workforce needs.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                NBTA understands the importance of high-quality training to meet the ever-changing labor market demands. By engaging with policymakers, interest groups, and businesses, NBTA stays informed on societal developments to offer pertinent training for Nigeria's future.
+                NBTA is maintaining a strong relationship with National Board for Technical Education (NBTE) to deliver trainings in total compliance with the National Skills Qualification Framework (NSQF). This ensures that our programs meet nationally and globally recognized standards of quality and relevance.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                As a proactive collaborator, NBTA provides a wide array of vocational, technical, and business training opportunities. Our goal is to offer attractive, dynamic training opportunities for everyone seeking new skills and knowledge.
+                Our mission is to Inspire, Equip, Connect, and Empower individuals and communities through inclusive, hands-on learning that fosters sustainable economic development, social equity, and lifelong employability.
               </p>
             </div>
           </div>
@@ -106,32 +93,20 @@ const About = () => {
               <h3 className="text-2xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                 Training Modes
               </h3>
-              <ul className="space-y-6 text-gray-600">
-                <li className="flex items-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <BookOpen size={24} className="text-primary" />
-                  </div>
-                  <span>Instructor-Led Training (ILT): 20% classroom training</span>
-                </li>
-                <li className="flex items-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <Users size={24} className="text-primary" />
-                  </div>
-                  <span>Hands-On Workshops and Labs: 30% practical sessions</span>
-                </li>
-                <li className="flex items-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <GraduationCap size={24} className="text-primary" />
-                  </div>
-                  <span>Mentorship and Peer Learning: 20% guided learning</span>
-                </li>
-                <li className="flex items-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <Building size={24} className="text-primary" />
-                  </div>
-                  <span>Project-Based Learning: 30% real-world application</span>
-                </li>
-              </ul>
+              {/* Training Philosophy Section */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-bold mb-4 text-[#22325d]">Our Training Philosophy</h3>
+                <p className="mb-4 text-lg text-gray-800">
+                  NBTA blends academic rigor with real-world application to ensure our students are career-ready and future-proof. We partner with private workshops, industries, and public institutions to create a hands-on, work-integrated training ecosystem.
+                </p>
+                <p className="mb-6 text-lg text-gray-800">Our flexible learning modes include:</p>
+                <ul className="list-disc pl-6 space-y-3 text-black text-base">
+                  <li><strong>20%</strong> classroom-based learning — <span className="font-semibold">Instructor-Led Training (ILT)</span></li>
+                  <li><strong>30%</strong> real-practice in technical environments — <span className="font-semibold">Hands-On Workshops and Labs</span></li>
+                  <li><strong>20%</strong> guided support from industry experts — <span className="font-semibold">Mentorship and Peer Learning</span></li>
+                  <li><strong>30%</strong> contextual, team-based applications — <span className="font-semibold">Project-Based Learning</span></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

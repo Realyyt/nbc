@@ -3,7 +3,7 @@ import ProgramCard from '../components/ProgramCard';
 import { Program } from '../lib/supabase';
 import { programService } from '../services/programService';
 
-const PhysicalPlatform = () => {
+const HybridPlatform = () => {
   const [programs, setPrograms] = useState<Program[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +13,7 @@ const PhysicalPlatform = () => {
     const fetchPrograms = async () => {
       try {
         const data = await programService.getPrograms();
-        setPrograms(data.filter(program => program.mode === 'physical'));
+        setPrograms(data.filter(program => program.mode === 'hybrid'));
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch programs');
@@ -46,7 +46,7 @@ const PhysicalPlatform = () => {
 
   return (
     <div className="container-custom py-8">
-      <h1 className="text-3xl font-bold mb-8">Physical Programs</h1>
+      <h1 className="text-3xl font-bold mb-8">Hybrid Programs</h1>
       
       <div className="space-y-6">
         {/* Level Filter */}
@@ -80,4 +80,4 @@ const PhysicalPlatform = () => {
   );
 };
 
-export default PhysicalPlatform; 
+export default HybridPlatform; 

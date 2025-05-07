@@ -1,4 +1,4 @@
-import { Course } from '../lib/supabase';
+import { Program } from '../lib/supabase';
 
 interface PlatformConfig {
   apiKey: string;
@@ -18,7 +18,7 @@ interface PlatformCourse {
 
 export const platformService = {
   // Udemy API integration
-  async fetchUdemyCourses(config: PlatformConfig): Promise<Course[]> {
+  async fetchUdemyCourses(config: PlatformConfig): Promise<Program[]> {
     try {
       const response = await fetch(`${config.apiUrl}/courses`, {
         headers: {
@@ -52,7 +52,7 @@ export const platformService = {
   },
 
   // Coursera API integration
-  async fetchCourseraCourses(config: PlatformConfig): Promise<Course[]> {
+  async fetchCourseraCourses(config: PlatformConfig): Promise<Program[]> {
     try {
       const response = await fetch(`${config.apiUrl}/courses`, {
         headers: {
@@ -86,7 +86,7 @@ export const platformService = {
   },
 
   // edX API integration
-  async fetchEdxCourses(config: PlatformConfig): Promise<Course[]> {
+  async fetchEdxCourses(config: PlatformConfig): Promise<Program[]> {
     try {
       const response = await fetch(`${config.apiUrl}/courses`, {
         headers: {

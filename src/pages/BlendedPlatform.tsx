@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CourseCard from '../components/CourseCard';
+import CourseCard from '../components/ProgramCard';
 import { courses } from '../data/courses';
 
 const PRICE_TYPES = [
@@ -19,7 +19,7 @@ const HERO_QUOTES = [
   }
 ];
 
-const BlendedPlatform = () => {
+const HybridPlatform = () => {
   const [selectedPriceType, setSelectedPriceType] = useState('paid');
   const [currentQuote, setCurrentQuote] = useState(0);
 
@@ -41,7 +41,7 @@ const BlendedPlatform = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-gray-100 to-gray-50 py-12 mb-10">
       <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4 text-center">
-          Hybrid Platform Courses
+          Hybrid Platform Programs
         </h1>
         <div className="container-custom max-w-3xl mx-auto text-center">
           <div className="transition-all duration-700">
@@ -83,4 +83,4 @@ const BlendedPlatform = () => {
   );
 };
 
-export default BlendedPlatform; 
+export default HybridPlatform; 

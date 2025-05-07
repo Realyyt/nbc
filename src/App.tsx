@@ -20,6 +20,9 @@ import Partnerships from './pages/Partnerships';
 import PhysicalPlatform from './pages/PhysicalPlatform';
 import OnlinePlatform from './pages/OnlinePlatform';
 import BlendedPlatform from './pages/BlendedPlatform';
+import HybridPlatform from './pages/BlendedPlatform';
+import CourseRegistration from './pages/CourseRegistration';
+import RegistrationSuccess from './pages/RegistrationSuccess';
 import { CartProvider } from './contexts/CartContext';
 
 const App = () => {
@@ -43,10 +46,13 @@ const App = () => {
             <Route path="/press" element={<Press />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/register/:courseId" element={<CourseRegistration />} />
+            <Route path="/registration-success" element={<RegistrationSuccess />} />
             <Route path="/partnerships" element={<Partnerships />} />
             <Route path="/platforms/physical" element={<PhysicalPlatform />} />
             <Route path="/platforms/online" element={<OnlinePlatform />} />
             <Route path="/platforms/blended" element={<BlendedPlatform />} />
+            <Route path="/platforms/hybrid" element={<HybridPlatform />} />
           </Routes>
         </main>
         <Footer />

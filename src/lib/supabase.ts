@@ -43,4 +43,29 @@ export type Payment = {
   status: 'pending' | 'completed' | 'failed';
   payment_method: string;
   created_at: string;
+};
+
+export type Program = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  platform: 'udemy' | 'coursera' | 'edx' | 'NBTA' | 'other';
+  platform_course_id: string;
+  thumbnail_url: string;
+  instructor: string;
+  duration: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  created_at: string;
+  mode: 'physical' | 'online' | 'hybrid';
+  priceType: 'free' | 'paid' | 'sponsorship';
+};
+
+export type UserProgram = {
+  id: string;
+  user_id: string;
+  program_id: string;
+  status: string;
+  created_at: string;
+  platform_access_token?: string;
 }; 

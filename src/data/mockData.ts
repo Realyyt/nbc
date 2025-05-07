@@ -36,7 +36,7 @@ export const mockEnrollments = [
   }
 ];
 
-export const mockCourses: Course[] = [
+export const mockPrograms: Program[] = [
   {
     id: '1',
     title: 'Complete Web Development Bootcamp',
@@ -49,6 +49,8 @@ export const mockCourses: Course[] = [
     duration: '60 hours',
     level: 'beginner',
     created_at: '2024-01-01T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '2',
@@ -62,6 +64,8 @@ export const mockCourses: Course[] = [
     duration: '44 hours',
     level: 'intermediate',
     created_at: '2024-01-02T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '3',
@@ -75,6 +79,8 @@ export const mockCourses: Course[] = [
     duration: '8 months',
     level: 'intermediate',
     created_at: '2024-01-03T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '4',
@@ -88,6 +94,8 @@ export const mockCourses: Course[] = [
     duration: '12 weeks',
     level: 'beginner',
     created_at: '2024-01-04T00:00:00Z',
+    mode: 'online',
+    priceType: 'free',
   },
   {
     id: '5',
@@ -101,6 +109,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'advanced',
     created_at: '2024-01-05T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '6',
@@ -114,6 +124,8 @@ export const mockCourses: Course[] = [
     duration: '6 weeks',
     level: 'beginner',
     created_at: '2024-01-06T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '7',
@@ -127,6 +139,8 @@ export const mockCourses: Course[] = [
     duration: '35 hours',
     level: 'intermediate',
     created_at: '2024-01-07T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '8',
@@ -140,6 +154,8 @@ export const mockCourses: Course[] = [
     duration: '16 weeks',
     level: 'advanced',
     created_at: '2024-01-08T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '9',
@@ -153,6 +169,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-01-09T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '10',
@@ -166,6 +184,8 @@ export const mockCourses: Course[] = [
     duration: '40 hours',
     level: 'advanced',
     created_at: '2024-01-10T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '11',
@@ -179,6 +199,8 @@ export const mockCourses: Course[] = [
     duration: '45 hours',
     level: 'advanced',
     created_at: '2024-01-11T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '12',
@@ -192,6 +214,8 @@ export const mockCourses: Course[] = [
     duration: '35 hours',
     level: 'intermediate',
     created_at: '2024-01-12T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '13',
@@ -205,6 +229,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'beginner',
     created_at: '2024-01-13T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '14',
@@ -218,6 +244,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-01-14T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '15',
@@ -231,6 +259,8 @@ export const mockCourses: Course[] = [
     duration: '40 hours',
     level: 'intermediate',
     created_at: '2024-01-15T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '16',
@@ -244,6 +274,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'beginner',
     created_at: '2024-01-16T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '17',
@@ -257,6 +289,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-01-17T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '18',
@@ -270,6 +304,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-01-18T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '19',
@@ -283,6 +319,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'advanced',
     created_at: '2024-01-19T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '20',
@@ -296,6 +334,8 @@ export const mockCourses: Course[] = [
     duration: '35 hours',
     level: 'intermediate',
     created_at: '2024-01-20T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '21',
@@ -309,6 +349,8 @@ export const mockCourses: Course[] = [
     duration: '40 hours',
     level: 'advanced',
     created_at: '2024-01-21T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '22',
@@ -322,6 +364,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-01-22T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '23',
@@ -335,6 +379,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-01-23T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '24',
@@ -348,6 +394,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-01-24T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '25',
@@ -361,6 +409,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'advanced',
     created_at: '2024-01-25T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '26',
@@ -374,6 +424,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-01-26T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '27',
@@ -387,6 +439,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-01-27T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '28',
@@ -400,6 +454,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-01-28T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '29',
@@ -413,6 +469,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-01-29T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '30',
@@ -426,6 +484,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'advanced',
     created_at: '2024-01-30T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '31',
@@ -439,6 +499,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'advanced',
     created_at: '2024-01-31T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '32',
@@ -452,6 +514,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'advanced',
     created_at: '2024-02-01T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '33',
@@ -465,6 +529,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-02T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '34',
@@ -478,6 +544,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'advanced',
     created_at: '2024-02-03T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '35',
@@ -491,6 +559,8 @@ export const mockCourses: Course[] = [
     duration: '35 hours',
     level: 'advanced',
     created_at: '2024-02-04T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '36',
@@ -504,6 +574,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'advanced',
     created_at: '2024-02-05T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '37',
@@ -517,6 +589,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-02-06T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '38',
@@ -530,6 +604,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-07T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '39',
@@ -543,6 +619,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-02-08T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '40',
@@ -556,6 +634,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-02-09T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '41',
@@ -569,6 +649,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-10T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '42',
@@ -582,6 +664,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-02-11T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '43',
@@ -595,6 +679,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-12T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '44',
@@ -608,6 +694,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-13T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '45',
@@ -621,6 +709,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-02-14T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '46',
@@ -634,6 +724,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-02-15T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '47',
@@ -647,6 +739,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-16T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '48',
@@ -660,6 +754,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-02-17T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '49',
@@ -673,6 +769,8 @@ export const mockCourses: Course[] = [
     duration: '20 hours',
     level: 'intermediate',
     created_at: '2024-02-18T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '50',
@@ -686,6 +784,8 @@ export const mockCourses: Course[] = [
     duration: '25 hours',
     level: 'intermediate',
     created_at: '2024-02-19T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   },
   {
     id: '51',
@@ -699,6 +799,8 @@ export const mockCourses: Course[] = [
     duration: '30 hours',
     level: 'intermediate',
     created_at: '2024-02-20T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   }
 ];
 
@@ -793,4 +895,20 @@ export const mockPayments = [
       instructor: 'Aisha Bello'
     }
   }
-]; 
+];
+
+export type Program = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  platform: string;
+  platform_course_id: string;
+  thumbnail_url: string;
+  instructor: string;
+  duration: string;
+  level: string;
+  created_at: string;
+  mode: string;
+  priceType: string;
+}; 

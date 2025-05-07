@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { courseService } from '../services/courseService';
+import { programService } from '../services/programService';
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
@@ -18,11 +18,11 @@ export default function PaymentSuccess() {
 
     const handlePaymentSuccess = async () => {
       try {
-        await courseService.handleSuccessfulPayment(paymentIntentId);
+        await programService.handleSuccessfulPayment(paymentIntentId);
         setStatus('success');
         // Redirect to dashboard after 3 seconds
         setTimeout(() => {
-          navigate('/dashboard/courses');
+          navigate('/dashboard/programs');
         }, 3000);
       } catch (err) {
         setStatus('error');
@@ -47,7 +47,7 @@ export default function PaymentSuccess() {
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4 text-green-600">Payment Successful!</h2>
             <p className="text-gray-600 mb-4">
-              Thank you for your purchase. You will be redirected to your courses shortly.
+              Thank you for your purchase. You will be redirected to your programs shortly.
             </p>
           </div>
         )}
@@ -57,10 +57,10 @@ export default function PaymentSuccess() {
             <h2 className="text-2xl font-bold mb-4 text-red-600">Payment Error</h2>
             <p className="text-gray-600 mb-4">{error}</p>
             <button
-              onClick={() => navigate('/dashboard/courses')}
+              onClick={() => navigate('/dashboard/programs')}
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
             >
-              Return to Dashboard
+              Go to My Programs
             </button>
           </div>
         )}

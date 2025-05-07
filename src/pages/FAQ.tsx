@@ -23,11 +23,11 @@ const FAQ = () => {
     enrollment: [
       {
         question: 'What are the different platforms I can choose from?',
-        answer: '• Physical (On-site) Platform: Face-to-face, on-the-job training with mentorship.\n• Online/Virtual Platform: Flexible, internet-based learning with remote mentor support.\n• Blended Platform: A mix of physical and virtual learning guided by assigned mentors.'
+        answer: '• Physical (On-site) Platform: Face-to-face, on-the-job training with mentorship.\n• Online/Virtual Platform: Flexible, internet-based learning with remote mentor support.\n• Hybrid Platform: A mix of physical and virtual learning guided by assigned mentors.'
       },
       {
         question: 'Can I switch from online to physical training later?',
-        answer: 'Yes, learners on the blended or virtual platform may request to transition to physical training, subject to availability and evaluation.'
+        answer: 'Yes, learners on the hybrid or virtual platform may request to transition to physical training, subject to availability and evaluation.'
       },
       {
         question: 'How do I enroll in NBTA programs?',
@@ -53,7 +53,7 @@ const FAQ = () => {
       },
       {
         question: 'How is the NBTA training program structured?',
-        answer: 'NBTA follows a unique 6-day/week blended apprenticeship model:\n• 2 Days/Week: Classroom learning with certified instructors (theory).\n• 3 Days/Week: Real-world, hands-on training under a master craftsman (practice).\n• 1 Day/Week: Team-based contextual project, jointly assessed by instructors and mentors.'
+        answer: 'NBTA follows a unique 6-day/week hybrid apprenticeship model:\n• 2 Days/Week: Classroom learning with certified instructors (theory).\n• 3 Days/Week: Real-world, hands-on training under a master craftsman (practice).\n• 1 Day/Week: Team-based contextual project, jointly assessed by instructors and mentors.'
       },
       {
         question: 'Who delivers the training at NBTA?',
