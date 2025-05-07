@@ -1,5 +1,3 @@
-import { Course } from '../lib/supabase';
-
 export const categories = [
   'Web Development',
   'Data Science',
@@ -902,13 +900,13 @@ export type Program = {
   title: string;
   description: string;
   price: number;
-  platform: string;
+  platform: 'udemy' | 'coursera' | 'edx' | 'NBTA' | 'other';
   platform_course_id: string;
   thumbnail_url: string;
   instructor: string;
   duration: string;
-  level: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
   created_at: string;
-  mode: string;
-  priceType: string;
+  mode: 'physical' | 'online' | 'hybrid';
+  priceType: 'free' | 'paid' | 'sponsorship';
 }; 

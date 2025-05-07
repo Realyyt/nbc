@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { supabase } from '../lib/supabase';
 import { brevoService } from '../services/brevoService';
 import { courses } from '../data/courses';
 
@@ -63,25 +62,16 @@ const CourseRegistration: React.FC = () => {
     try {
       // Validate form data
       const validatedData = registrationSchema.parse(formData);
-
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('course_registrations')
-        .insert([{
-          course_id: courseId,
-          first_name: validatedData.firstName,
-          last_name: validatedData.lastName,
-          email: validatedData.email,
-          phone_number: validatedData.phoneNumber,
-          address: validatedData.address,
-          education_level: validatedData.educationLevel,
-          previous_experience: validatedData.previousExperience,
-          reason_for_registration: validatedData.reasonForRegistration,
-          status: 'pending',
-          created_at: new Date().toISOString(),
-        }]);
-
-      if (dbError) throw dbError;
+      
+      // Store form data in localStorage for demo purposes
+      const registrations = JSON.parse(localStorage.getItem('courseRegistrations') || '[]');
+      registrations.push({
+        ...validatedData,
+        courseId,
+        courseTitle: course.title,
+        registrationDate: new Date().toISOString(),
+      });
+      localStorage.setItem('courseRegistrations', JSON.stringify(registrations));
 
       try {
         // Send confirmation email to student
@@ -120,15 +110,10 @@ const CourseRegistration: React.FC = () => {
         navigate('/registration-success');
       }
     } catch (error: any) {
-      console.error('Registration error:', error);
       if (error instanceof z.ZodError) {
         setError(error.errors[0].message);
-      } else if (error.message) {
-        setError(error.message);
-      } else if (error.details) {
-        setError(error.details);
       } else {
-        setError('An unexpected error occurred. Please try again later.');
+        setError(error.message || 'An unexpected error occurred. Please try again later.');
       }
     } finally {
       setIsSubmitting(false);

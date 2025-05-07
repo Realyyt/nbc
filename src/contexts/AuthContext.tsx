@@ -1,6 +1,4 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '../lib/supabase';
-import { User as SupabaseUser } from '@supabase/supabase-js';
 
 // Define user type
 export interface AppUser {
@@ -34,50 +32,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   
   // Check if user is already logged in
   useEffect(() => {
-    // Check active session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        setUser({
-          id: session.user.id,
-          email: session.user.email!,
-          name: session.user.user_metadata.name || '',
-          role: session.user.email === SUPER_ADMIN_EMAIL ? 'admin' : 'user',
-          avatar: session.user.user_metadata.avatar
-        });
-      } else {
-        setUser(null);
-      }
-      setIsLoading(false);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setUser({
-          id: session.user.id,
-          email: session.user.email!,
-          name: session.user.user_metadata.name || '',
-          role: session.user.email === SUPER_ADMIN_EMAIL ? 'admin' : 'user',
-          avatar: session.user.user_metadata.avatar
-        });
-      } else {
-        setUser(null);
-      }
-      setIsLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setIsLoading(false);
   }, []);
 
   // Mock login function
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      // In a real app, you would validate credentials against a backend
+      // For demo purposes, we'll just check if the email matches the super admin
+      const isAdmin = email === SUPER_ADMIN_EMAIL;
+      const mockUser: AppUser = {
+        id: Math.random().toString(36).substr(2, 9),
         email,
-        password,
-      });
-      if (error) throw error;
+        name: email.split('@')[0],
+        role: isAdmin ? 'admin' : 'user',
+      };
+      
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      setUser(mockUser);
+    } catch (error) {
+      throw new Error('Invalid credentials');
     } finally {
       setIsLoading(false);
     }
@@ -92,17 +71,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw new Error('This email address is not allowed');
       }
       
-      const { error } = await supabase.auth.signUp({
+      const mockUser: AppUser = {
+        id: Math.random().toString(36).substr(2, 9),
         email,
-        password,
-        options: {
-          data: {
-            name,
-            role: 'user' // Always set new registrations to 'user' role
-          },
-        },
-      });
-      if (error) throw error;
+        name,
+        role: 'user'
+      };
+      
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      setUser(mockUser);
+    } catch (error) {
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +89,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Logout function
   const logout = async () => {
-    await supabase.auth.signOut();
+    localStorage.removeItem('user');
+    setUser(null);
   };
 
   return (

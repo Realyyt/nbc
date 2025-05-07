@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
-import type { Course } from '../lib/supabase';
+import { Program } from '../services/programService';
 
 interface Props {
-  course: Course;
+  course: Program;
 }
 
 const CourseCheckout = ({ course }: Props) => {
@@ -19,32 +18,19 @@ const CourseCheckout = ({ course }: Props) => {
 
     setIsProcessing(true);
     try {
-      // First create a payment record
-      const { error: paymentError } = await supabase
-        .from('payments')
-        .insert({
-          user_id: user.id,
-          course_id: course.id,
-          amount: course.price,
-          currency: 'NGN',
-          status: 'completed', // You should integrate with a payment provider here
-          payment_method: 'card',
-        });
+      // Create user program record in localStorage
+      const userPrograms = JSON.parse(localStorage.getItem('userPrograms') || '[]');
+      const newUserProgram = {
+        id: Math.random().toString(36).substr(2, 9),
+        user_id: user.id,
+        program_id: course.id,
+        status: 'active',
+        created_at: new Date().toISOString(),
+      };
+      userPrograms.push(newUserProgram);
+      localStorage.setItem('userPrograms', JSON.stringify(userPrograms));
 
-      if (paymentError) throw paymentError;
-
-      // Then create the enrollment
-      const { error: enrollmentError } = await supabase
-        .from('user_courses')
-        .insert({
-          user_id: user.id,
-          course_id: course.id,
-          status: 'active',
-        });
-
-      if (enrollmentError) throw enrollmentError;
-
-      // Redirect to success page or course page
+      // Redirect to course page
       window.location.href = `/courses/${course.id}`;
     } catch (error) {
       console.error('Error during enrollment:', error);

@@ -1,11 +1,45 @@
-import { supabase, Program, UserProgram, Payment } from '../lib/supabase';
-import Stripe from 'stripe';
 import { mockPrograms, mockPayments } from '../data/mockData';
 import api from '../lib/api';
 
-const stripe = new Stripe(import.meta.env.VITE_STRIPE_SECRET_KEY, {
-  apiVersion: '2025-03-31.basil',
-});
+// Add type declarations for environment variables
+declare global {
+  interface ImportMeta {
+    env: {
+      VITE_UDEMY_API_KEY: string;
+      VITE_UDEMY_API_URL: string;
+      VITE_COURSERA_API_KEY: string;
+      VITE_COURSERA_API_URL: string;
+      VITE_EDX_API_KEY: string;
+      VITE_EDX_API_URL: string;
+    }
+  }
+}
+
+// Define types
+export type Program = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  platform: 'udemy' | 'coursera' | 'edx' | 'NBTA' | 'other';
+  platform_course_id: string;
+  thumbnail_url: string;
+  instructor: string;
+  duration: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  created_at: string;
+  mode: 'physical' | 'online' | 'hybrid';
+  priceType: 'free' | 'paid' | 'sponsorship';
+};
+
+export type UserProgram = {
+  id: string;
+  user_id: string;
+  program_id: string;
+  status: string;
+  created_at: string;
+  platform_access_token?: string;
+};
 
 // Platform configurations
 const platformConfigs = {
@@ -106,69 +140,18 @@ export const programService = {
     }
   },
 
-  // Create a payment intent for a program
-  async createPaymentIntent(programId: string, userId: string) {
-    const program = await this.getProgramById(programId);
-    
-    if (!program) {
-      throw new Error('Program not found');
-    }
-    
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(program.price * 100), // Convert to cents
-      currency: 'ngn', // Use Naira
-      metadata: {
-        programId,
-        userId,
-      },
-    });
-
-    return paymentIntent;
-  },
-
-  // Handle successful payment
-  async handleSuccessfulPayment(paymentIntentId: string) {
-    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-    const { programId, userId } = paymentIntent.metadata;
-
-    // Create payment record
-    const { error: paymentError } = await supabase
-      .from('payments')
-      .insert({
-        user_id: userId,
-        course_id: programId,
-        amount: paymentIntent.amount / 100,
-        currency: paymentIntent.currency,
-        status: 'completed',
-        payment_method: paymentIntent.payment_method_types[0],
-      });
-
-    if (paymentError) throw paymentError;
-
-    // Create user course record
-    const { error: userCourseError } = await supabase
-      .from('user_programs')
-      .insert({
-        user_id: userId,
-        course_id: programId,
-        status: 'active',
-      });
-
-    if (userCourseError) throw userCourseError;
-  },
-
   // Get user's purchased programs
   async getUserPrograms(userId: string) {
     try {
-      const { data, error } = await supabase
-        .from('user_programs')
-        .select(`
-          *,
-          programs (*)
-        `)
-        .eq('user_id', userId);
-      if (error) throw error;
-      return data as (UserProgram & { programs: Program })[];
+      const userPrograms = JSON.parse(localStorage.getItem('userPrograms') || '[]');
+      const programs = mockPrograms;
+      
+      return userPrograms
+        .filter((up: UserProgram) => up.user_id === userId)
+        .map((up: UserProgram) => ({
+          ...up,
+          programs: programs.find(p => p.id === up.program_id)
+        }));
     } catch (error) {
       console.error('Error fetching user programs:', error);
       throw error;
@@ -177,19 +160,10 @@ export const programService = {
 
   // Get program platform access token
   async getPlatformAccessToken(programId: string, userId: string) {
-    const { data, error } = await supabase
-      .from('user_programs')
-      .select('platform_access_token')
-      .eq('course_id', programId)
-      .eq('user_id', userId)
-      .single();
-    
-    if (error) throw error;
-    return data?.platform_access_token;
-  },
-
-  // Get all payments (for admin)
-  async getPayments() {
-    return mockPayments;
-  },
+    const userPrograms = JSON.parse(localStorage.getItem('userPrograms') || '[]');
+    const userProgram = userPrograms.find(
+      (up: UserProgram) => up.program_id === programId && up.user_id === userId
+    );
+    return userProgram?.platform_access_token;
+  }
 }; 
