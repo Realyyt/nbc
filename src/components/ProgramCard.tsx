@@ -1,28 +1,32 @@
 import React from 'react';
-import { Program } from '../lib/supabase';
 import { Link } from 'react-router-dom';
 import { Star, ShoppingCart, Check } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
+
+interface Program {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  platform: string;
+  platform_course_id: string;
+  thumbnail_url: string;
+  instructor: string;
+  duration: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  created_at: string;
+  mode: 'online' | 'physical' | 'hybrid';
+  priceType: 'paid' | 'free' | 'sponsorship';
+}
 
 interface ProgramCardProps {
   program: Program;
 }
 
 const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
-  const { addToCart, removeFromCart, isInCart } = useCart();
-
   if (!program) {
     return null;
   }
-
-  const handleCartAction = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (isInCart(program.id)) {
-      removeFromCart(program.id);
-    } else {
-      addToCart(program);
-    }
-  };
 
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
@@ -72,24 +76,11 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             <span className="capitalize">{program.level}</span>
           </div>
           <button
-            onClick={handleCartAction}
-            className={`mt-4 w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md transition-colors ${
-              isInCart(program.id)
-                ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                : 'bg-primary text-white hover:bg-primary-dark'
-            }`}
+            type="button"
+            className="mt-4 w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-colors"
           >
-            {isInCart(program.id) ? (
-              <>
-                <Check size={20} />
-                Added to Cart
-              </>
-            ) : (
-              <>
-                <ShoppingCart size={20} />
-                Add to Cart
-              </>
-            )}
+            <ShoppingCart size={20} />
+            Register
           </button>
         </div>
       </div>

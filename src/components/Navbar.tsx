@@ -108,12 +108,7 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/login" className="text-sm font-medium text-primary hover:underline">
-                  Log in
-                </Link>
-                <Link to="/register" className="btn-primary text-sm font-medium">
-                  Sign up
-                </Link>
+                
               </div>
             )}
           </div>
@@ -184,20 +179,7 @@ const Navbar = () => {
               </>
             ) : (
               <div className="space-y-3 pt-2">
-                <Link 
-                  to="/login" 
-                  className="block w-full text-center btn-outline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Log in
-                </Link>
-                <Link 
-                  to="/register" 
-                  className="block w-full text-center btn-primary"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign up
-                </Link>
+                
               </div>
             )}
           </div>

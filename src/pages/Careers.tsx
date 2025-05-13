@@ -50,13 +50,48 @@ const Careers = () => {
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container-custom">
-        {/* Hero Section */}
+        {/* New Content */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Join Our Team</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Join Our Team at NBTA</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Help us shape the future of business travel training and community building.
+            Are you passionate about transforming lives through skills and hands-on learning? We are building a community of forward-thinking professionals who are ready to inspire, equip, and empower the next generation of skilled workers, entrepreneurs, and changemakers.
           </p>
         </div>
+
+         {/* Benefits Section */}
+         <div className="max-w-4xl mx-auto">
+          <h2 className="text-center text-2xl font-bold mb-6">Why Join NBTA?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Our Culture</h3>
+              <ul className="space-y-3 text-gray-600">
+                <li>• Collaborative and supportive environment</li>
+                <li>• Deeply community-centered approach</li>
+                <li>• Healthy work-life balance</li>
+                <li>• Diversity and inclusion</li>
+                <li>• Continuous learning and professional development</li>
+                <li>• Innovation and creative thinking to solve real-world challenges</li>
+                <li>• Lasting impact in the lives of learners and communities</li>
+                <li>• Culture of respect, integrity, and mutual trust</li>
+                <li>• Success measured by tangible, real-world outcomes</li>
+              </ul>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Benefits</h3>
+              <ul className="space-y-3 text-gray-600">
+                <li>• Be part of a mission-driven institution shaping Nigeria's future workforce</li>
+                <li>• Collaborate with industry leaders and institutions</li>
+                <li>• Influence lives through practical, impactful education</li>
+                <li>• Enjoy a flexible, supportive work environment across physical and virtual platforms</li>
+                <li>• Access professional development opportunities in technical and educational advancement</li>
+                <li>• Flexible work arrangements</li>
+                <li>• Health insurance package</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+       
 
         {/* Search Section */}
         <div className="max-w-4xl mx-auto mb-16">
@@ -125,35 +160,13 @@ const Careers = () => {
             ))}
           </div>
         </div>
-
-        {/* Benefits Section */}
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">Why Join NBTA?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Benefits & Perks</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li>• Competitive salary and benefits</li>
-                <li>• Professional development opportunities</li>
-                <li>• Health insurance coverage</li>
-                <li>• Flexible work arrangements</li>
-                <li>• Team building activities</li>
-                <li>• Training and certification support</li>
-              </ul>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Our Culture</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li>• Collaborative environment</li>
-                <li>• Focus on physical training excellence</li>
-                <li>• Community-driven approach</li>
-                <li>• Work-life balance</li>
-                <li>• Diversity and inclusion</li>
-                <li>• Continuous learning</li>
-              </ul>
-            </div>
-          </div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Build the Future Together</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            At NBTA, we don't just teach skills—we build futures. Join us in creating a workforce that is resilient, relevant, and ready for the world.
+          </p>
         </div>
+       
       </div>
     </div>
   );

@@ -1,4 +1,20 @@
-import { Program } from '../lib/supabase';
+// ... existing code ...
+interface Program {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  platform: string;
+  platform_course_id: string;
+  thumbnail_url: string;
+  instructor: string;
+  duration: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  created_at: string;
+  mode: 'online' | 'physical' | 'hybrid';
+  priceType: 'paid' | 'free' | 'sponsorship';
+}
+// ... existing code ...
 
 export const courses: Program[] = [
   {
