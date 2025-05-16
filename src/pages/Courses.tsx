@@ -51,7 +51,7 @@ const Courses = () => {
         {/* Page header */}
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-            Available Courses
+            Available Programs
           </h1>
           <p className="mt-2 text-gray-600">
             Browse our selection of professional training programs
@@ -64,7 +64,7 @@ const Courses = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search courses..."
+                placeholder="Search programs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-5 py-3 rounded-l-md text-gray-800 focus:outline-none"
@@ -108,7 +108,7 @@ const Courses = () => {
             ))
           ) : (
             <div className="col-span-full text-center text-gray-500 py-12">
-              No courses found for this selection.
+              No programs found for this selection.
             </div>
           )}
         </div>

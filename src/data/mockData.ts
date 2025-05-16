@@ -39,7 +39,7 @@ export const mockPrograms: Program[] = [
     id: '1',
     title: 'Complete Web Development Bootcamp',
     description: 'Learn web development from scratch. HTML, CSS, JavaScript, React, Node.js, and more!',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-dev-bootcamp',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1565838_e54e_16.jpg',
@@ -54,7 +54,7 @@ export const mockPrograms: Program[] = [
     id: '2',
     title: 'Machine Learning A-Z',
     description: 'Learn Machine Learning from scratch. Python, TensorFlow, and real-world projects.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'ml-az',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/950390_270f_3.jpg',
@@ -69,7 +69,7 @@ export const mockPrograms: Program[] = [
     id: '3',
     title: 'Data Science Specialization',
     description: 'Master data science with Python, R, SQL, and machine learning algorithms.',
-    price: 77987, // ₦77,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'data-science-spec',
     thumbnail_url: 'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/83/e258e0532611e5a5072321239ff4d4/jhep-coursera-course4.png',
@@ -99,7 +99,7 @@ export const mockPrograms: Program[] = [
     id: '5',
     title: 'Advanced JavaScript Concepts',
     description: 'Deep dive into JavaScript: closures, prototypes, async programming, and more.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'advanced-js',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/2776760_f176_10.jpg',
@@ -114,7 +114,7 @@ export const mockPrograms: Program[] = [
     id: '6',
     title: 'Python for Data Science',
     description: 'Learn Python programming for data analysis and visualization.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'python-data-science',
     thumbnail_url: 'https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/83/e258e0532611e5a5072321239ff4d4/jhep-coursera-course4.png',
@@ -129,7 +129,7 @@ export const mockPrograms: Program[] = [
     id: '7',
     title: 'Full Stack Web Development',
     description: 'Build complete web applications with MERN stack (MongoDB, Express, React, Node.js).',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mern-stack',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1362070_b9a1_2.jpg',
@@ -144,7 +144,7 @@ export const mockPrograms: Program[] = [
     id: '8',
     title: 'Artificial Intelligence',
     description: 'Explore AI concepts, neural networks, and deep learning.',
-    price: 90987, // ₦90,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'ai-course',
     thumbnail_url: 'https://prod-discovery.edx-cdn.org/media/course/image/0e4a4284-2aa3-4f82-a8f9-2c17b0e4c5b6-837d0758a8b0.small.jpg',
@@ -159,7 +159,7 @@ export const mockPrograms: Program[] = [
     id: '9',
     title: 'Mobile App Development with Flutter',
     description: 'Build beautiful cross-platform mobile apps using Flutter and Dart.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'flutter-dev',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1708340_7108_5.jpg',
@@ -174,7 +174,7 @@ export const mockPrograms: Program[] = [
     id: '10',
     title: 'DevOps Engineering',
     description: 'Master DevOps practices, tools, and methodologies for modern software development.',
-    price: 77987, // ₦77,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'devops-eng',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -189,7 +189,7 @@ export const mockPrograms: Program[] = [
     id: '11',
     title: 'Blockchain Development',
     description: 'Learn blockchain technology, smart contracts, and decentralized applications.',
-    price: 90987, // ₦90,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'blockchain-dev',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1754098_e0df_3.jpg',
@@ -204,7 +204,7 @@ export const mockPrograms: Program[] = [
     id: '12',
     title: 'Cloud Computing with AWS',
     description: 'Master AWS services and cloud architecture for scalable applications.',
-    price: 77987, // ₦77,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'aws-cloud',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -219,7 +219,7 @@ export const mockPrograms: Program[] = [
     id: '13',
     title: 'Cybersecurity Fundamentals',
     description: 'Learn essential cybersecurity concepts and best practices.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cyber-security',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -234,7 +234,7 @@ export const mockPrograms: Program[] = [
     id: '14',
     title: 'UI/UX Design Masterclass',
     description: 'Master the art of creating beautiful and user-friendly interfaces.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'ui-ux-design',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -249,7 +249,7 @@ export const mockPrograms: Program[] = [
     id: '15',
     title: 'Game Development with Unity',
     description: 'Create engaging games using Unity and C# programming.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'unity-game-dev',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -264,7 +264,7 @@ export const mockPrograms: Program[] = [
     id: '16',
     title: 'Digital Marketing Strategy',
     description: 'Learn effective digital marketing techniques and strategies.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'digital-marketing',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -279,7 +279,7 @@ export const mockPrograms: Program[] = [
     id: '17',
     title: 'Mobile App UI Design',
     description: 'Design beautiful and functional mobile app interfaces.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-ui-design',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -294,7 +294,7 @@ export const mockPrograms: Program[] = [
     id: '18',
     title: 'Backend Development with Node.js',
     description: 'Build scalable backend applications using Node.js and Express.',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'nodejs-backend',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -309,7 +309,7 @@ export const mockPrograms: Program[] = [
     id: '19',
     title: 'Data Visualization with D3.js',
     description: 'Create interactive and beautiful data visualizations.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'd3-visualization',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -324,7 +324,7 @@ export const mockPrograms: Program[] = [
     id: '20',
     title: 'Mobile App Development with React Native',
     description: 'Build cross-platform mobile apps using React Native.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'react-native',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -339,7 +339,7 @@ export const mockPrograms: Program[] = [
     id: '21',
     title: 'Cloud Architecture Design',
     description: 'Design scalable and resilient cloud architectures.',
-    price: 90987, // ₦90,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-architecture',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -354,7 +354,7 @@ export const mockPrograms: Program[] = [
     id: '22',
     title: 'Web Security Essentials',
     description: 'Learn essential web security practices and techniques.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-security',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -369,7 +369,7 @@ export const mockPrograms: Program[] = [
     id: '23',
     title: 'Mobile App Testing',
     description: 'Master mobile app testing techniques and tools.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-testing',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -384,7 +384,7 @@ export const mockPrograms: Program[] = [
     id: '24',
     title: 'Digital Product Management',
     description: 'Learn product management for digital products and services.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'product-management',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -399,7 +399,7 @@ export const mockPrograms: Program[] = [
     id: '25',
     title: 'Web Performance Optimization',
     description: 'Optimize web applications for speed and performance.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-performance',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -414,7 +414,7 @@ export const mockPrograms: Program[] = [
     id: '26',
     title: 'Mobile App Monetization',
     description: 'Learn strategies for monetizing mobile applications.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-monetization',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -429,7 +429,7 @@ export const mockPrograms: Program[] = [
     id: '27',
     title: 'Cloud Security Fundamentals',
     description: 'Learn essential cloud security concepts and practices.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-security',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -444,7 +444,7 @@ export const mockPrograms: Program[] = [
     id: '28',
     title: 'Mobile App Analytics',
     description: 'Track and analyze mobile app performance and user behavior.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-analytics',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -459,7 +459,7 @@ export const mockPrograms: Program[] = [
     id: '29',
     title: 'Web Accessibility',
     description: 'Create accessible web applications for all users.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-accessibility',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -474,7 +474,7 @@ export const mockPrograms: Program[] = [
     id: '30',
     title: 'Mobile App Design Patterns',
     description: 'Learn common design patterns for mobile applications.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-design-patterns',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -489,7 +489,7 @@ export const mockPrograms: Program[] = [
     id: '31',
     title: 'Cloud Cost Optimization',
     description: 'Optimize cloud infrastructure costs and resources.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-cost',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -504,7 +504,7 @@ export const mockPrograms: Program[] = [
     id: '32',
     title: 'Mobile App Security',
     description: 'Secure mobile applications against common threats.',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-security',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -519,7 +519,7 @@ export const mockPrograms: Program[] = [
     id: '33',
     title: 'Web Development Best Practices',
     description: 'Learn industry best practices for web development.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-best-practices',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -534,7 +534,7 @@ export const mockPrograms: Program[] = [
     id: '34',
     title: 'Mobile App Performance',
     description: 'Optimize mobile app performance and user experience.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-performance',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -549,7 +549,7 @@ export const mockPrograms: Program[] = [
     id: '35',
     title: 'Cloud Migration Strategies',
     description: 'Plan and execute successful cloud migration projects.',
-    price: 77987, // ₦77,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-migration',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -564,7 +564,7 @@ export const mockPrograms: Program[] = [
     id: '36',
     title: 'Mobile App Architecture',
     description: 'Design scalable and maintainable mobile app architectures.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'app-architecture',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -579,7 +579,7 @@ export const mockPrograms: Program[] = [
     id: '37',
     title: 'Web Development Tools',
     description: 'Master essential tools for modern web development.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-tools',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -594,7 +594,7 @@ export const mockPrograms: Program[] = [
     id: '38',
     title: 'Mobile App Development Tools',
     description: 'Learn essential tools for mobile app development.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-tools',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -609,7 +609,7 @@ export const mockPrograms: Program[] = [
     id: '39',
     title: 'Cloud Development Tools',
     description: 'Master tools for cloud development and deployment.',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-tools',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -624,7 +624,7 @@ export const mockPrograms: Program[] = [
     id: '40',
     title: 'Web Development Workflow',
     description: 'Optimize your web development workflow and productivity.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-workflow',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -639,7 +639,7 @@ export const mockPrograms: Program[] = [
     id: '41',
     title: 'Mobile App Development Workflow',
     description: 'Streamline your mobile app development process.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-workflow',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -654,7 +654,7 @@ export const mockPrograms: Program[] = [
     id: '42',
     title: 'Cloud Development Workflow',
     description: 'Optimize your cloud development and deployment process.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-workflow',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -669,7 +669,7 @@ export const mockPrograms: Program[] = [
     id: '43',
     title: 'Web Development Testing',
     description: 'Master testing techniques for web applications.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-testing',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -684,7 +684,7 @@ export const mockPrograms: Program[] = [
     id: '44',
     title: 'Mobile App Development Testing',
     description: 'Learn comprehensive testing for mobile applications.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-testing-dev',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -699,7 +699,7 @@ export const mockPrograms: Program[] = [
     id: '45',
     title: 'Cloud Development Testing',
     description: 'Test cloud applications and infrastructure effectively.',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-testing',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -714,7 +714,7 @@ export const mockPrograms: Program[] = [
     id: '46',
     title: 'Web Development Deployment',
     description: 'Deploy web applications efficiently and securely.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-deployment',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -729,7 +729,7 @@ export const mockPrograms: Program[] = [
     id: '47',
     title: 'Mobile App Deployment',
     description: 'Deploy mobile applications to app stores effectively.',
-    price: 45487, // ₦45,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-deployment',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -744,7 +744,7 @@ export const mockPrograms: Program[] = [
     id: '48',
     title: 'Cloud Development Deployment',
     description: 'Deploy applications to cloud platforms efficiently.',
-    price: 64987, // ₦64,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-deployment',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -759,7 +759,7 @@ export const mockPrograms: Program[] = [
     id: '49',
     title: 'Web Development Maintenance',
     description: 'Maintain and update web applications effectively.',
-    price: 38987, // ₦38,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'web-maintenance',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -774,7 +774,7 @@ export const mockPrograms: Program[] = [
     id: '50',
     title: 'Mobile App Maintenance',
     description: 'Maintain and update mobile applications effectively.',
-    price: 51987, // ₦51,987
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'mobile-maintenance',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',
@@ -789,7 +789,7 @@ export const mockPrograms: Program[] = [
     id: '51',
     title: 'Cloud Development Maintenance',
     description: 'Maintain and update cloud applications effectively.',
-    price: 58487, // ₦58,487
+    price: 70000, // ₦70,000
     platform: 'NBTA',
     platform_course_id: 'cloud-maintenance',
     thumbnail_url: 'https://img-c.udemycdn.com/course/750x422/1428326_9c95_3.jpg',

@@ -25,7 +25,7 @@ const NotFound = () => {
           
           <Link to="/courses" className="btn-outline flex items-center">
             <Search size={18} className="mr-2" />
-            Browse Courses
+            Browse Programs
           </Link>
         </div>
       </div>

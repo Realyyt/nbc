@@ -13,7 +13,7 @@ const DashboardHeader = () => {
   const getPageTitle = () => {
     const path = location.pathname;
     if (path === '/dashboard') return 'Dashboard';
-    if (path === '/dashboard/courses') return 'My Courses';
+    if (path === '/dashboard/courses') return 'My Programs';
     if (path === '/dashboard/profile') return 'Profile';
     return 'Dashboard';
   };

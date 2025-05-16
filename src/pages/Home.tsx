@@ -92,26 +92,26 @@ const Home = () => {
         
         {/* Stats section */}
         <div className="container-custom mt-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">100+</p>
-              <p className="text-sm text-gray-200">Programs Available</p>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 w-40 md:w-48 text-center flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-bold">100+</p>
+              <p className="text-xs md:text-sm text-gray-200">Programs Available</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">10+</p>
-              <p className="text-sm text-gray-200">Institutions</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 w-40 md:w-48 text-center flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-bold">10+</p>
+              <p className="text-xs md:text-sm text-gray-200">Institutions</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">50+</p>
-              <p className="text-sm text-gray-200">Real-Life Training Workshops</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 w-40 md:w-48 text-center flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-bold">50+</p>
+              <p className="text-xs md:text-sm text-gray-200">Real-Life Training Workshops</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">100+</p>
-              <p className="text-sm text-gray-200">Instructors/Master Craftsmen</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 w-40 md:w-48 text-center flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-bold">100+</p>
+              <p className="text-xs md:text-sm text-gray-200">Instructors/Master Craftsmen</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-              <p className="text-2xl md:text-3xl font-bold">98%</p>
-              <p className="text-sm text-gray-200">Satisfaction Rate</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 w-40 md:w-48 text-center flex flex-col items-center">
+              <p className="text-xl md:text-2xl font-bold">98%</p>
+              <p className="text-xs md:text-sm text-gray-200">Satisfaction Rate</p>
             </div>
           </div>
         </div>
@@ -129,9 +129,6 @@ const Home = () => {
               <h3 className="font-bold text-lg mb-2 text-primary group-hover:underline">Physical Platform</h3>
               <p className="text-gray-700 mb-6">Physical dual apprenticeship, Face to face, on-the-job, handholding, mentorship, and simulation-based.</p>
               <div className="flex gap-3 mt-auto">
-                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
-                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
-                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
               </div>
             </Link>
             {/* Online/Virtual Platform */}
@@ -139,20 +136,14 @@ const Home = () => {
               <h3 className="font-bold text-lg mb-2 text-yellow-800 group-hover:underline">Online Platform</h3>
               <p className="text-gray-700 mb-6">Digital system, internet with mentors, remote, flexible, internet based.</p>
               <div className="flex gap-3 mt-auto">
-                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
-                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
-                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
-              </div>
+                </div>
             </Link>
             {/* Hybrid Platform */}
             <Link to="/platforms/hybrid" className="rounded-xl border border-gray-300 bg-gray-100 shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-gray-400 group">
               <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:underline">Hybrid Platform</h3>
               <p className="text-gray-700 mb-6">Mix of physical and online/virtual platform with assigned mentors.</p>
               <div className="flex gap-3 mt-auto">
-                <span className="px-4 py-1 rounded-lg bg-green-100 text-green-800 font-semibold border border-green-200">Free</span>
-                <span className="px-4 py-1 rounded-lg bg-green-200 text-green-900 font-semibold border border-green-300">Pay</span>
-                <span className="px-4 py-1 rounded-lg bg-green-700 text-white font-semibold border border-green-800">Sponsorship</span>
-              </div>
+                </div>
             </Link>
           </div>
         </div>

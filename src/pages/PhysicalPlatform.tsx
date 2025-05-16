@@ -1,80 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import ProgramCard from '../components/ProgramCard';
-import { Program } from '../lib/supabase';
-import { programService } from '../services/programService';
+import React, { useState } from 'react';
+import { courses } from '../data/courses';
+import CourseCard from '../components/ProgramCard';
+
+const PRICE_TYPES = [
+  { label: 'All', value: 'all' },
+  { label: 'Free', value: 'free' },
+  { label: 'Paid', value: 'paid' },
+  { label: 'Sponsorship', value: 'sponsorship' },
+];
 
 const PhysicalPlatform = () => {
-  const [programs, setPrograms] = useState<Program[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedLevel, setSelectedLevel] = useState('all');
+  const [selectedPriceType, setSelectedPriceType] = useState('all');
 
-  useEffect(() => {
-    const fetchPrograms = async () => {
-      try {
-        const data = await programService.getPrograms();
-        setPrograms(data.filter(program => program.mode === 'physical'));
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch programs');
-        setLoading(false);
-      }
-    };
-
-    fetchPrograms();
-  }, []);
-
-  const filteredPrograms = programs.filter(program => 
-    selectedLevel === 'all' || program.level === selectedLevel
+  const filteredCourses = courses.filter(
+    (course) =>
+      course.mode === 'physical' &&
+      (selectedPriceType === 'all' || course.priceType === selectedPriceType)
   );
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center text-red-600 p-4">
-        <p>{error}</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="container-custom py-8">
-      <h1 className="text-3xl font-bold mb-8">Physical Programs</h1>
-      
-      <div className="space-y-6">
-        {/* Level Filter */}
-        <div className="flex flex-wrap gap-4">
-          <select
-            value={selectedLevel}
-            onChange={(e) => setSelectedLevel(e.target.value)}
-            className="px-4 py-2 border rounded-md"
+    <div className="container-custom pt-24 pb-16">
+      <h1 className="text-3xl font-bold mb-8">Physical Platform Courses</h1>
+      <div className="flex gap-4 mb-10">
+        {PRICE_TYPES.map((type) => (
+          <button
+            key={type.value}
+            className={`px-5 py-2 rounded-full font-medium border transition-all ${
+              selectedPriceType === type.value
+                ? 'bg-accent text-white border-accent'
+                : 'bg-white text-accent border-gray-200 hover:bg-accent/10'
+            }`}
+            onClick={() => setSelectedPriceType(type.value)}
           >
-            <option value="all">All Levels</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </div>
-
-        {/* Program Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPrograms.length > 0 ? (
-            filteredPrograms.map((program) => (
-              <ProgramCard key={program.id} program={program} />
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-500 py-12">
-              No programs found for this selection.
-            </div>
-          )}
-        </div>
+            {type.label}
+          </button>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredCourses.length > 0 ? (
+          filteredCourses.map((course) => (
+            <CourseCard key={course.id} program={course} />
+          ))
+        ) : (
+          <div className="col-span-full text-center text-gray-500 py-12">
+            No programs found for this selection.
+          </div>
+        )}
       </div>
     </div>
   );

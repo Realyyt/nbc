@@ -68,7 +68,7 @@ const Navbar = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search for courses..."
+                    placeholder="Search for programs..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="input w-full pl-10 pr-4 py-2 text-sm"
@@ -79,10 +79,22 @@ const Navbar = () => {
             </div>
             
             <Link 
+              to="/" 
+              className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
+            >
+              Home
+            </Link>
+            <Link 
               to="/courses" 
               className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
             >
-              Courses
+              Programs
+            </Link>
+            <Link 
+              to="/affiliate-courses" 
+              className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
+            >
+              Affiliate Courses
             </Link>
             <Link 
               to="/Partnerships" 
@@ -140,7 +152,7 @@ const Navbar = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search for courses..."
+                placeholder="Search for programs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="input w-full pl-10 pr-4 py-2 text-sm"
@@ -151,11 +163,25 @@ const Navbar = () => {
           
           <div className="flex flex-col space-y-3">
             <Link 
+              to="/" 
+              className="text-foreground text-base font-medium hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link 
               to="/courses" 
               className="text-foreground text-base font-medium hover:text-primary"
               onClick={() => setIsMenuOpen(false)}
             >
-              Courses
+              Programs
+            </Link>
+            <Link 
+              to="/affiliate-courses" 
+              className="text-foreground text-base font-medium hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Affiliate Courses
             </Link>
             
             {user ? (

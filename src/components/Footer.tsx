@@ -13,7 +13,6 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/about" className="text-gray-400 hover:text-white">About us</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
-              <li><Link to="/press" className="text-gray-400 hover:text-white">Press</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white">Contact us</Link></li>
             </ul>
           </div>
@@ -24,9 +23,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
               <li><Link to="/help" className="text-gray-400 hover:text-white">Help Center</Link></li>
-              <li><Link to="/guides" className="text-gray-400 hover:text-white">Training Programs</Link></li>
-              <li><Link to="/community" className="text-gray-400 hover:text-white">Community</Link></li>
-            </ul>
+              </ul>
           </div>
 
           {/* Legal */}

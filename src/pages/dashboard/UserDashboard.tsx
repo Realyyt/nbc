@@ -53,7 +53,7 @@ const UserDashboard = () => {
       {/* Stats cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-gray-500 text-sm">Enrolled Courses</h3>
+          <h3 className="text-gray-500 text-sm">Enrolled Programs</h3>
           <p className="text-2xl font-semibold mt-1">{enrolledCourses.length}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm p-6">
@@ -73,14 +73,14 @@ const UserDashboard = () => {
       {/* Enrolled Courses */}
       <div className="bg-white rounded-lg shadow-sm">
         <div className="p-6 border-b">
-          <h2 className="text-lg font-semibold">Your Courses</h2>
+          <h2 className="text-lg font-semibold">Your Programs</h2>
         </div>
         
         {enrolledCourses.length === 0 ? (
           <div className="p-6 text-center">
-            <p className="text-gray-500">You haven't enrolled in any courses yet.</p>
+            <p className="text-gray-500">You haven't enrolled in any programs yet.</p>
             <Link to="/courses" className="text-primary hover:underline mt-2 inline-block">
-              Browse Courses
+              Browse Programs
             </Link>
           </div>
         ) : (

@@ -79,7 +79,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             type="button"
             className="mt-4 w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-colors"
           >
-            <ShoppingCart size={20} />
+            
             Register
           </button>
         </div>
