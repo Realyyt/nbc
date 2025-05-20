@@ -11,7 +11,7 @@ const Blog = () => {
       author: 'John Smith',
       date: 'March 15, 2024',
       category: 'Training Insights',
-      image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      image: '/about1.jpg'
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const Blog = () => {
       author: 'Sarah Johnson',
       date: 'March 10, 2024',
       category: 'Community',
-      image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      image: '/about2.jpg'
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const Blog = () => {
       author: 'Mike Brown',
       date: 'March 5, 2024',
       category: 'Training Methods',
-      image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      image: '/about3.jpg'
     }
   ];
 

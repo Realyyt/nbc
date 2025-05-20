@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Search, MapPin, Briefcase, Clock, Users, GraduationCap, BookOpen } from 'lucide-react';
+import JobApplicationForm from '../components/JobApplicationForm';
 
 const Careers = () => {
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<number | null>(null);
+
   const jobListings = [
     {
       id: 1,
@@ -46,6 +50,18 @@ const Careers = () => {
       ]
     }
   ];
+
+  const handleApplyClick = (jobId: number) => {
+    setSelectedJob(jobId);
+    setShowApplicationForm(true);
+  };
+
+  const handleFormSubmit = async (formData: any) => {
+    // Here you would typically send the form data to your backend
+    console.log('Form submitted:', formData);
+    // For now, we'll just close the form
+    setShowApplicationForm(false);
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -155,7 +171,12 @@ const Careers = () => {
                     ))}
                   </ul>
                 </div>
-                <button className="btn-primary mt-4">Apply Now</button>
+                <button 
+                  className="btn-primary mt-4"
+                  onClick={() => handleApplyClick(job.id)}
+                >
+                  Apply Now
+                </button>
               </div>
             ))}
           </div>
@@ -168,6 +189,13 @@ const Careers = () => {
         </div>
        
       </div>
+
+      {showApplicationForm && (
+        <JobApplicationForm
+          onClose={() => setShowApplicationForm(false)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
     </div>
   );
 };

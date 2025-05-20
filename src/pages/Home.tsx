@@ -360,18 +360,15 @@ const Home = () => {
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4">
-              Ready to Advance Your Career in Nigerian Trade?
+              Ready to Advance Your Career in Nigerian ?
             </h2>
             <p className="text-lg text-gray-100 mb-8">
               Join thousands of professionals who have transformed their careers through NBTA's 
               practical training programs. Register today for upcoming classes.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link to="/programs" className="btn-accent text-foreground font-medium">
+              <Link to="/courses" className="btn-accent text-foreground font-medium">
                 Browse Programs
-              </Link>
-              <Link to="/register" className="btn-outline bg-white/10 text-white border-white hover:bg-white hover:text-primary">
-                Create Account
               </Link>
             </div>
           </div>
