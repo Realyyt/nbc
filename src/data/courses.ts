@@ -369,7 +369,7 @@ export const courses: Program[] = [
     price: 70000,
     platform: 'NBTA',
     platform_course_id: 'furniture',
-    thumbnail_url: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80',
+    thumbnail_url: '/furniture.jpg',
     instructor: 'NBTA Furniture Expert',
     duration: '10 weeks',
     level: 'beginner',
