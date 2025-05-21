@@ -41,19 +41,19 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Connect with us</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <a href="https://web.facebook.com/profile.php?id=61560035187897&sk=about" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Facebook size={24} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <a href="https://x.com/NBT_Acad" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Twitter size={24} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <a href="https://www.instagram.com/nbta_edu" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Instagram size={24} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <a href="https://www.linkedin.com/company/107575390/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Linkedin size={24} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+              <a href="https://www.youtube.com/channel/UCZA4-UHInCcgB3DLLWdeyBQ" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <Youtube size={24} />
               </a>
             </div>
