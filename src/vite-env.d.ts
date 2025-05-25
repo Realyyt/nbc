@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_UDEMY_CLIENT_ID: string;
   readonly VITE_COURSERA_API_KEY: string;
   readonly VITE_GOOGLE_API_KEY: string;
+  readonly VITE_PAYSTACK_PUBLIC_KEY: string;
   readonly [key: string]: string | undefined;
 }
 

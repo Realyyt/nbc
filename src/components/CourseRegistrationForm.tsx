@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Program } from '../lib/supabase';
+import { paystackService } from '../services/paystackService';
 
 interface CourseRegistrationFormProps {
   course: Program;
@@ -53,10 +54,39 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
     currentAddress: '',
   });
   const [step, setStep] = useState(0);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success' | 'failed'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    // Validate email before proceeding
+    if (!formData.emailAddress || !formData.emailAddress.includes('@')) {
+      alert('Please enter a valid email address before proceeding with payment.');
+      return;
+    }
+    
+    try {
+      setPaymentStatus('processing');
+      
+      // Initialize payment
+      await paystackService.initializePayment({
+        email: formData.emailAddress,
+        amount: course.price,
+        reference: paystackService.generateReference(),
+        onSuccess: (reference) => {
+          setPaymentStatus('success');
+          // Submit form data after successful payment
+          onSubmit(formData);
+        },
+        onCancel: () => {
+          setPaymentStatus('failed');
+        }
+      });
+    } catch (error) {
+      console.error('Payment initialization failed:', error);
+      setPaymentStatus('failed');
+      alert('Payment initialization failed. Please check your email address and try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -448,7 +478,7 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"
-              disabled={isSubmitting}
+              disabled={isSubmitting || paymentStatus === 'processing'}
             >
               ✕
             </button>
@@ -468,17 +498,22 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
                 type="button"
                 onClick={isFirstStep ? onClose : () => setStep(step - 1)}
                 className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                disabled={isSubmitting}
+                disabled={isSubmitting || paymentStatus === 'processing'}
               >
                 {isFirstStep ? 'Cancel' : 'Back'}
               </button>
               <button
                 type={isLastStep ? 'submit' : 'button'}
-                disabled={isSubmitting}
+                disabled={isSubmitting || paymentStatus === 'processing'}
                 className="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={!isLastStep ? () => setStep(step + 1) : undefined}
               >
-                {isLastStep ? (isSubmitting ? 'Submitting...' : 'Submit Registration') : 'Next'}
+                {isLastStep ? (
+                  paymentStatus === 'processing' ? 'Processing Payment...' :
+                  paymentStatus === 'success' ? 'Payment Successful!' :
+                  paymentStatus === 'failed' ? 'Payment Failed - Try Again' :
+                  isSubmitting ? 'Submitting...' : 'Pay & Submit Registration'
+                ) : 'Next'}
               </button>
             </div>
           </form>

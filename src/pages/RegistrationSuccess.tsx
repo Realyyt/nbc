@@ -1,8 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
 
 const RegistrationSuccess: React.FC = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const paymentReference = searchParams.get('reference');
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 text-center">
@@ -12,7 +16,15 @@ const RegistrationSuccess: React.FC = () => {
             Registration Successful!
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Thank you for registering. We have sent a confirmation email to your inbox.
+            Thank you for registering. Your payment has been processed successfully.
+            {paymentReference && (
+              <span className="block mt-2">
+                Payment Reference: {paymentReference}
+              </span>
+            )}
+          </p>
+          <p className="mt-4 text-sm text-gray-600">
+            We have sent a confirmation email to your inbox.
             Our team will review your registration and contact you shortly with further details.
           </p>
         </div>
