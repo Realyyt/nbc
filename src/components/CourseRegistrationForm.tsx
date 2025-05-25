@@ -22,6 +22,7 @@ export interface RegistrationFormData {
 
   // Section 2: Educational Background
   educationLevel: string;
+  educationLevelOther?: string;
   lastInstitution: string;
   yearCompleted: string;
 
@@ -29,10 +30,31 @@ export interface RegistrationFormData {
   hasDeviceAccess: boolean;
   hasInternetAccess: boolean;
 
-  // Section 4: Motivation and Commitment
+  // Section 4: Course Details
+  courseOfInterest?: string;
+  preferredLocation?: string;
+  availability?: string;
+
+  // Section 5: Experience
+  hasExperience?: boolean;
+  experienceDetails?: string;
+
+  // Section 6: Employment
+  isEmployed?: boolean;
+  employerName?: string;
+  jobTitle?: string;
+  employmentDuration?: string;
+
+  // Section 7: Emergency Contact
+  emergencyName?: string;
+  emergencyRelationship?: string;
+  emergencyPhone?: string;
+  emergencyAddress?: string;
+
+  // Section 8: Motivation and Commitment
   motivation: string;
 
-  // Section 5: Consent and Declaration
+  // Section 9: Consent and Declaration
   consent: boolean;
   signature: string;
   signatureDate: string;
@@ -44,14 +66,38 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
   onSubmit,
   isSubmitting = false 
 }) => {
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<RegistrationFormData>({
     fullName: '',
     gender: 'male',
     dateOfBirth: '',
     nationality: '',
+    stateOfOrigin: '',
+    currentAddress: '',
     phoneNumber: '',
     emailAddress: '',
-    currentAddress: '',
+    educationLevel: '',
+    educationLevelOther: '',
+    lastInstitution: '',
+    yearCompleted: '',
+    hasDeviceAccess: false,
+    hasInternetAccess: false,
+    courseOfInterest: course.title,
+    preferredLocation: '',
+    availability: '',
+    hasExperience: false,
+    experienceDetails: '',
+    isEmployed: false,
+    employerName: '',
+    jobTitle: '',
+    employmentDuration: '',
+    emergencyName: '',
+    emergencyRelationship: '',
+    emergencyPhone: '',
+    emergencyAddress: '',
+    motivation: '',
+    consent: false,
+    signature: '',
+    signatureDate: new Date().toISOString().split('T')[0]
   });
   const [step, setStep] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success' | 'failed'>('idle');
