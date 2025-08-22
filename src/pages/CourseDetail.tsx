@@ -12,7 +12,7 @@ const ProgramDetail = () => {
     platform: 'NBTA',
     platform_course_id: 'free-skill-training',
     thumbnail_url: '/PHOTO-2025-08-21-18-01-21.jpg',
-    video_url: '/public/VIDEO-2025-08-21-18-01-21.mp4',
+    video_url: '/VIDEO-2025-08-21-18-01-21.mp4',
     instructor: 'NBTA Expert Instructors',
     duration: 'August 25th - September 3rd, 2025',
     level: 'beginner',
