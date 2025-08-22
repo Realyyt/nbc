@@ -12,7 +12,7 @@ const ProgramDetail = () => {
     platform: 'NBTA',
     platform_course_id: 'free-skill-training',
     thumbnail_url: '/p.jpg',
-    video_url: '/VIDEO-2025-08-21-18-01-21.mp4',
+    video_url: null,
     instructor: 'NBTA Expert Instructors',
     duration: 'August 25th - September 3rd, 2025',
     level: 'beginner',
@@ -92,6 +92,26 @@ const ProgramDetail = () => {
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Skills You'll Learn</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-emerald-50 rounded-lg">
+                <h3 className="font-medium text-emerald-900">Eco-Friendly Cosmetological Formulation</h3>
+                <p className="text-emerald-700 text-sm">Sustainable and environmentally friendly cosmetic production techniques</p>
+              </div>
+              <div className="p-4 bg-orange-50 rounded-lg">
+                <h3 className="font-medium text-orange-900">Techniques in Baking, Pastry Production, Decoration and Design</h3>
+                <p className="text-orange-700 text-sm">Advanced baking techniques, pastry making, and artistic decoration</p>
+              </div>
+              <div className="p-4 bg-purple-50 rounded-lg">
+                <h3 className="font-medium text-purple-900">Creating and Managing a Fashion Brand</h3>
+                <p className="text-purple-700 text-sm">Brand development, management, and marketing strategies for fashion businesses</p>
+              </div>
+              <div className="p-4 bg-brown-50 rounded-lg">
+                <h3 className="font-medium text-brown-900">Leather Goods Crafting</h3>
+                <p className="text-brown-700 text-sm">Professional leather crafting and goods production techniques</p>
+              </div>
+              <div className="p-4 bg-cyan-50 rounded-lg md:col-span-2">
+                <h3 className="font-medium text-cyan-900">Online Marketing Strategy and Execution</h3>
+                <p className="text-cyan-700 text-sm">Digital marketing strategies, social media management, and online business promotion</p>
+              </div>
               <div className="p-4 bg-blue-50 rounded-lg">
                 <h3 className="font-medium text-blue-900">Digital Marketing</h3>
                 <p className="text-blue-700 text-sm">Social media marketing and digital promotion strategies</p>
@@ -116,7 +136,7 @@ const ProgramDetail = () => {
                 <h3 className="font-medium text-indigo-900">Footwear Making</h3>
                 <p className="text-indigo-700 text-sm">Shoe and sandal making techniques</p>
               </div>
-              <div className="p-4 bg-pink-50 rounded-lg md:col-span-2">
+              <div className="p-4 bg-pink-50 rounded-lg">
                 <h3 className="font-medium text-pink-900">Fashion Design</h3>
                 <p className="text-pink-700 text-sm">Body measurement, fabric cutting, and sewing skills</p>
               </div>
