@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Star, ShoppingCart, Check } from 'lucide-react';
-import { useCart } from '../contexts/CartContext';
-import { mockPrograms } from '../data/mockData';
-import { Program } from '../lib/supabase';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Star, ExternalLink } from 'lucide-react';
 
 const ProgramDetail = () => {
-  const { id: programId } = useParams<{ id: string }>();
-  const { addToCart, removeFromCart, isInCart } = useCart();
-  const [program, setProgram] = useState<Program | null>(null);
-
-  useEffect(() => {
-    const foundProgram = mockPrograms.find(p => p.id === programId);
-    setProgram(foundProgram || null);
-  }, [programId]);
+  // This is specifically for the NBTA Free Skill Training Program
+  const program = {
+    id: '209',
+    title: 'Free Skill Acquisition Training',
+    description: 'Join NBTA Netzero Business & Technical Academy for our comprehensive FREE skill training program. Learn essential skills including Digital Marketing, Cake Baking, Liquid Soap Production, Air Freshener & Perfume Production, Bag Making & Handbags, Footwear Making, and Fashion Design. Inspire, Equip, Connect and Empower People.',
+    price: 0,
+    platform: 'NBTA',
+    platform_course_id: 'free-skill-training',
+    thumbnail_url: '/PHOTO-2025-08-21-18-01-21.jpg',
+    video_url: '/public/VIDEO-2025-08-21-18-01-21.mp4',
+    instructor: 'NBTA Expert Instructors',
+    duration: 'August 25th - September 3rd, 2025',
+    level: 'beginner',
+    created_at: '2024-12-19T00:00:00Z',
+    mode: 'physical',
+    priceType: 'free',
+  };
 
   if (!program) {
     return (
@@ -21,7 +27,7 @@ const ProgramDetail = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800">Program Not Found</h2>
           <p className="mt-4 text-gray-600">The program you're looking for doesn't exist or has been removed.</p>
-          <Link to="/programs" className="btn-primary mt-8">
+          <Link to="/courses" className="btn-primary mt-8">
             Browse Programs
           </Link>
         </div>
@@ -29,24 +35,31 @@ const ProgramDetail = () => {
     );
   }
 
-  const handleCartAction = () => {
-    if (isInCart(program.id)) {
-      removeFromCart(program.id);
-    } else {
-      addToCart(program);
-    }
-  };
-
   return (
-    <div className="container-custom py-16">
+    <div className="container-custom py-16 pt-32">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Program Image and Basic Info */}
+        {/* Program Image/Video and Basic Info */}
         <div className="lg:col-span-2">
-          <img
-            src={program.thumbnail_url}
-            alt={program.title}
-            className="w-full h-96 object-cover rounded-lg shadow-md"
-          />
+          {program.video_url ? (
+            <div className="relative w-full h-96 rounded-lg shadow-md overflow-hidden">
+              <video
+                src={program.video_url}
+                title={`${program.title} Preview`}
+                className="w-full h-full object-cover"
+                controls
+                preload="metadata"
+                poster={program.thumbnail_url}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : (
+            <img
+              src={program.thumbnail_url}
+              alt={program.title}
+              className="w-full h-96 object-cover rounded-lg shadow-md"
+            />
+          )}
           <div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">{program.title}</h1>
             <p className="mt-4 text-lg text-gray-700">{program.description}</p>
@@ -74,6 +87,41 @@ const ProgramDetail = () => {
               </div>
             </div>
           </div>
+
+          {/* Skills You'll Learn */}
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Skills You'll Learn</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <h3 className="font-medium text-blue-900">Digital Marketing</h3>
+                <p className="text-blue-700 text-sm">Social media marketing and digital promotion strategies</p>
+              </div>
+              <div className="p-4 bg-green-50 rounded-lg">
+                <h3 className="font-medium text-green-900">Cake Baking</h3>
+                <p className="text-green-700 text-sm">Professional cake baking and decoration techniques</p>
+              </div>
+              <div className="p-4 bg-purple-50 rounded-lg">
+                <h3 className="font-medium text-purple-900">Liquid Soap Production</h3>
+                <p className="text-purple-700 text-sm">Manufacturing liquid soap and cleaning products</p>
+              </div>
+              <div className="p-4 bg-yellow-50 rounded-lg">
+                <h3 className="font-medium text-yellow-900">Air Freshener & Perfume</h3>
+                <p className="text-yellow-700 text-sm">Production of air fresheners and perfumes</p>
+              </div>
+              <div className="p-4 bg-red-50 rounded-lg">
+                <h3 className="font-medium text-red-900">Bag Making & Handbags</h3>
+                <p className="text-red-700 text-sm">Design and production of bags and handbags</p>
+              </div>
+              <div className="p-4 bg-indigo-50 rounded-lg">
+                <h3 className="font-medium text-indigo-900">Footwear Making</h3>
+                <p className="text-indigo-700 text-sm">Shoe and sandal making techniques</p>
+              </div>
+              <div className="p-4 bg-pink-50 rounded-lg md:col-span-2">
+                <h3 className="font-medium text-pink-900">Fashion Design</h3>
+                <p className="text-pink-700 text-sm">Body measurement, fabric cutting, and sewing skills</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Pricing and Action Card */}
@@ -81,28 +129,17 @@ const ProgramDetail = () => {
           <div className="sticky top-8">
             <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
               <div className="text-center">
-                <h2 className="text-3xl font-bold text-gray-900">₦{program.price.toLocaleString()}</h2>
+                <h2 className="text-3xl font-bold text-green-600">FREE</h2>
                 <div className="mt-4">
-                  <button
-                    onClick={handleCartAction}
-                    className={`w-full py-3 px-4 rounded-md flex items-center justify-center gap-2 transition-colors ${
-                      isInCart(program.id)
-                        ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                        : 'bg-primary text-white hover:bg-primary-dark'
-                    }`}
+                  <a
+                    href="https://forms.gle/ihywvhxijSEe5JWZ8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 px-4 rounded-md flex items-center justify-center gap-2 transition-colors bg-primary text-white hover:bg-primary-dark"
                   >
-                    {isInCart(program.id) ? (
-                      <>
-                        <Check size={20} />
-                        Added to Cart
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingCart size={20} />
-                        Add to Cart
-                      </>
-                    )}
-                  </button>
+                    <ExternalLink size={20} />
+                    Register Now
+                  </a>
                 </div>
               </div>
 
@@ -111,19 +148,23 @@ const ProgramDetail = () => {
                 <ul className="space-y-2">
                   <li className="flex items-center text-gray-700">
                     <span className="mr-2">✓</span>
-                    Full program access
+                    Free training materials
                   </li>
                   <li className="flex items-center text-gray-700">
                     <span className="mr-2">✓</span>
-                    Mentor support
+                    Expert instructor guidance
                   </li>
                   <li className="flex items-center text-gray-700">
                     <span className="mr-2">✓</span>
-                    Practice materials
+                    Hands-on practical sessions
                   </li>
                   <li className="flex items-center text-gray-700">
                     <span className="mr-2">✓</span>
-                    Certificate upon completion
+                    Certificate of completion
+                  </li>
+                  <li className="flex items-center text-gray-700">
+                    <span className="mr-2">✓</span>
+                    Networking opportunities
                   </li>
                 </ul>
               </div>
@@ -132,50 +173,16 @@ const ProgramDetail = () => {
         </div>
       </div>
 
-      {/* Related Programs */}
+      {/* Location Information */}
       <div className="mt-16">
-        <h2 className="text-2xl font-semibold mb-8">Related Programs</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {mockPrograms
-            .filter(p => p.level === program.level && p.id !== program.id)
-            .slice(0, 3)
-            .map(relatedProgram => (
-              <Link
-                key={relatedProgram.id}
-                to={`/programs/${relatedProgram.id}`}
-                className="block group"
-              >
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 transition-shadow hover:shadow-md">
-                  <img
-                    src={relatedProgram.thumbnail_url}
-                    alt={relatedProgram.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                      {relatedProgram.title}
-                    </h3>
-                    <p className="mt-2 text-gray-600 text-sm line-clamp-2">
-                      {relatedProgram.description}
-                    </p>
-                    <div className="mt-4 flex justify-between items-center">
-                      <span className="text-primary font-medium">
-                        ₦{relatedProgram.price.toLocaleString()}
-                      </span>
-                      <span className="text-sm text-gray-500">{relatedProgram.duration}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Link
-            to={`/programs?platform=${program.platform}`}
-            className="btn-outline inline-block"
-          >
-            View All {program.platform} Programs
-          </Link>
+        <h2 className="text-2xl font-semibold mb-8">Training Location</h2>
+        <div className="bg-blue-50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">Jotti Plaza, Dinyavoh, Jalingo</h3>
+          <p className="text-blue-700 mb-4">Join us at our training center for hands-on learning experience.</p>
+          <div className="flex items-center text-blue-600">
+            <span className="mr-2">📍</span>
+            <span>Physical training location with all necessary equipment provided</span>
+          </div>
         </div>
       </div>
     </div>

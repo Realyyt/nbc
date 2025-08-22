@@ -23,6 +23,7 @@ import HybridPlatform from './pages/HybridPlatform';
 import CourseRegistration from './pages/CourseRegistration';
 import RegistrationSuccess from './pages/RegistrationSuccess';
 import CoursesPage from './pages/CoursesPage';
+import CourseDetail from './pages/CourseDetail';
 import { CartProvider } from './contexts/CartContext';
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/press" element={<Press />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/affiliate-courses" element={<CoursesPage />} />
             <Route path="/register/:courseId" element={<CourseRegistration />} />
             <Route path="/registration-success" element={<RegistrationSuccess />} />

@@ -799,6 +799,22 @@ export const mockPrograms: Program[] = [
     created_at: '2024-02-20T00:00:00Z',
     mode: 'online',
     priceType: 'paid',
+  },
+  {
+    id: '52',
+    title: 'Advanced React Development with TypeScript',
+    description: 'Master React development with TypeScript, advanced patterns, and modern best practices. Learn to build scalable, maintainable applications with type safety and enhanced developer experience.',
+    price: 70000, // ₦70,000
+    platform: 'NBTA',
+    platform_course_id: 'react-typescript-advanced',
+    thumbnail_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80',
+    video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // Preview video URL
+    instructor: 'Oluwaseun Adebayo',
+    duration: '40 hours',
+    level: 'advanced',
+    created_at: '2024-12-19T00:00:00Z',
+    mode: 'online',
+    priceType: 'paid',
   }
 ];
 
@@ -903,6 +919,7 @@ export type Program = {
   platform: 'udemy' | 'coursera' | 'edx' | 'NBTA' | 'other';
   platform_course_id: string;
   thumbnail_url: string;
+  video_url?: string; // Optional preview video URL
   instructor: string;
   duration: string;
   level: 'beginner' | 'intermediate' | 'advanced';
