@@ -97,6 +97,12 @@ const Navbar = () => {
               Affiliate Courses
             </Link>
             <Link 
+              to="/affiliate-application" 
+              className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
+            >
+              Become an Affiliate
+            </Link>
+            <Link 
               to="/Partnerships" 
               className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
             >
@@ -182,6 +188,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Affiliate Courses
+            </Link>
+            <Link 
+              to="/affiliate-application" 
+              className="text-foreground text-base font-medium hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Become an Affiliate
             </Link>
             
             {user ? (

@@ -1,17 +1,49 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { BookOpen, User, Mail, Lock, AlertCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { BookOpen, User, Mail, Lock, AlertCircle, Gift } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { affiliateService } from '../services/affiliateService';
 
 const Register = () => {
+  const [searchParams] = useSearchParams();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [affiliateCode, setAffiliateCode] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [affiliateInfo, setAffiliateInfo] = useState<any>(null);
+  const [isValidatingCode, setIsValidatingCode] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  // Check for affiliate code in URL
+  useEffect(() => {
+    const refCode = searchParams.get('ref');
+    if (refCode) {
+      setAffiliateCode(refCode);
+      validateAffiliateCode(refCode);
+    }
+  }, [searchParams]);
+
+  const validateAffiliateCode = async (code: string) => {
+    setIsValidatingCode(true);
+    try {
+      const result = await affiliateService.validateAffiliateCode(code);
+      if (result.valid && result.affiliate) {
+        setAffiliateInfo(result.affiliate);
+      } else {
+        setError('Invalid affiliate code');
+        setAffiliateCode('');
+      }
+    } catch (err) {
+      setError('Failed to validate affiliate code');
+      setAffiliateCode('');
+    } finally {
+      setIsValidatingCode(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +64,7 @@ const Register = () => {
     setIsLoading(true);
     
     try {
-      await register(name, email, password);
+      await register(name, email, password, affiliateCode);
       navigate('/dashboard');
     } catch (err) {
       if (err instanceof Error) {
@@ -149,6 +181,34 @@ const Register = () => {
                 />
                 <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               </div>
+            </div>
+
+            {/* Affiliate Code Field */}
+            <div>
+              <label htmlFor="affiliateCode" className="block text-sm font-medium text-gray-700 mb-1">
+                Affiliate Code (Optional)
+              </label>
+              <div className="relative">
+                <input
+                  id="affiliateCode"
+                  name="affiliateCode"
+                  type="text"
+                  value={affiliateCode}
+                  onChange={(e) => setAffiliateCode(e.target.value)}
+                  className="input pl-10 w-full"
+                  placeholder="Enter affiliate code"
+                  disabled={isValidatingCode}
+                />
+                <Gift size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              </div>
+              {isValidatingCode && (
+                <p className="mt-1 text-xs text-blue-600">Validating affiliate code...</p>
+              )}
+              {affiliateInfo && (
+                <p className="mt-1 text-xs text-green-600">
+                  ✓ Valid affiliate code - You'll be connected to {affiliateInfo.userId}
+                </p>
+              )}
             </div>
             
             <div className="flex items-center">

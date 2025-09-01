@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Mock register function
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (email: string, password: string, name: string, affiliateCode?: string) => {
     setIsLoading(true);
     try {
       // Don't allow registration with super admin email
@@ -77,6 +77,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         name,
         role: 'user'
       };
+      
+      // If affiliate code is provided, track the referral
+      if (affiliateCode) {
+        try {
+          // This would typically be called after successful user registration
+          // For now, we'll just log it
+          console.log('Affiliate referral tracked:', { affiliateCode, userEmail: email, userName: name });
+        } catch (error) {
+          console.error('Failed to track affiliate referral:', error);
+        }
+      }
       
       localStorage.setItem('user', JSON.stringify(mockUser));
       setUser(mockUser);

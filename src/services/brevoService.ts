@@ -102,4 +102,121 @@ export const brevoService = {
       `,
     };
   },
+
+  generateAffiliateApplicationEmail(applicationData: any) {
+    return {
+      subject: `Affiliate Application Received - ${applicationData.fullName}`,
+      htmlContent: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">Affiliate Application Received</h2>
+          <p>Dear ${applicationData.fullName},</p>
+          <p>Thank you for your interest in becoming an NBTA affiliate! We have received your application and will review it carefully.</p>
+          
+          <h3>Application Details:</h3>
+          <ul>
+            <li><strong>Name:</strong> ${applicationData.fullName}</li>
+            <li><strong>Email:</strong> ${applicationData.email}</li>
+            <li><strong>Phone:</strong> ${applicationData.phone}</li>
+            <li><strong>Audience Size:</strong> ${applicationData.audienceSize.toLocaleString()} followers</li>
+            <li><strong>Website:</strong> ${applicationData.website || 'Not provided'}</li>
+          </ul>
+          
+          <p><strong>Audience Description:</strong></p>
+          <p>${applicationData.audienceDescription}</p>
+          
+          <p><strong>Motivation:</strong></p>
+          <p>${applicationData.motivation}</p>
+          
+          <p>We will review your application within 3-5 business days and get back to you with our decision.</p>
+          
+          <p>Best regards,<br>NBTA Academy Team</p>
+        </div>
+      `,
+    };
+  },
+
+  generateAffiliateApprovalEmail(affiliateData: any) {
+    return {
+      subject: `Congratulations! Your Affiliate Application is Approved`,
+      htmlContent: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">Welcome to NBTA Affiliate Program!</h2>
+          <p>Dear ${affiliateData.fullName},</p>
+          <p>Great news! Your affiliate application has been approved. Welcome to the NBTA affiliate family!</p>
+          
+          <h3>Your Affiliate Details:</h3>
+          <ul>
+            <li><strong>Affiliate Code:</strong> <code style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px;">${affiliateData.affiliateCode}</code></li>
+            <li><strong>Commission Rate:</strong> ${affiliateData.commissionRate}%</li>
+            <li><strong>Dashboard Access:</strong> <a href="${window.location.origin}/affiliate/dashboard" style="color: #2563eb;">Click here to access your dashboard</a></li>
+          </ul>
+          
+          <h3>Next Steps:</h3>
+          <ol>
+            <li>Log into your affiliate dashboard</li>
+            <li>Update your payment information</li>
+            <li>Start sharing your affiliate link</li>
+            <li>Track your earnings and referrals</li>
+          </ol>
+          
+          <p><strong>Your Affiliate Link:</strong></p>
+          <p><code style="background: #f3f4f6; padding: 8px; border-radius: 4px; display: block;">${window.location.origin}/register?ref=${affiliateData.affiliateCode}</code></p>
+          
+          <p>If you have any questions, please don't hesitate to contact us at affiliates@nbta.com.ng</p>
+          
+          <p>Best regards,<br>NBTA Academy Team</p>
+        </div>
+      `,
+    };
+  },
+
+  generateAffiliateRejectionEmail(applicationData: any, rejectionReason: string) {
+    return {
+      subject: `Affiliate Application Update`,
+      htmlContent: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #dc2626;">Affiliate Application Update</h2>
+          <p>Dear ${applicationData.fullName},</p>
+          <p>Thank you for your interest in becoming an NBTA affiliate. After careful review of your application, we regret to inform you that we are unable to approve your application at this time.</p>
+          
+          <h3>Reason for Rejection:</h3>
+          <p>${rejectionReason}</p>
+          
+          <p>We encourage you to address the concerns mentioned above and consider reapplying in the future. We value your interest in our program and hope to work with you in the future.</p>
+          
+          <p>If you have any questions about this decision, please contact us at affiliates@nbta.com.ng</p>
+          
+          <p>Best regards,<br>NBTA Academy Team</p>
+        </div>
+      `,
+    };
+  },
+
+  generateNewReferralEmail(affiliateData: any, referralData: any) {
+    return {
+      subject: `New Referral - Congratulations!`,
+      htmlContent: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">New Referral Alert!</h2>
+          <p>Dear ${affiliateData.userId},</p>
+          <p>Congratulations! You have a new referral through your affiliate link.</p>
+          
+          <h3>Referral Details:</h3>
+          <ul>
+            <li><strong>Student Name:</strong> ${referralData.referredUserName}</li>
+            <li><strong>Student Email:</strong> ${referralData.referredUserEmail}</li>
+            <li><strong>Course:</strong> ${referralData.courseTitle}</li>
+            <li><strong>Course Price:</strong> ₦${referralData.coursePrice.toLocaleString()}</li>
+            <li><strong>Your Commission:</strong> ₦${referralData.commissionAmount.toLocaleString()}</li>
+          </ul>
+          
+          <p>Keep up the great work! Continue sharing your affiliate link to earn more commissions.</p>
+          
+          <p><a href="${window.location.origin}/affiliate/dashboard" style="color: #2563eb;">View your dashboard</a> to track all your referrals and earnings.</p>
+          
+          <p>Best regards,<br>NBTA Academy Team</p>
+        </div>
+      `,
+    };
+  },
 }; 

@@ -24,6 +24,14 @@ import CourseRegistration from './pages/CourseRegistration';
 import RegistrationSuccess from './pages/RegistrationSuccess';
 import CoursesPage from './pages/CoursesPage';
 import CourseDetail from './pages/CourseDetail';
+import AffiliateApplication from './pages/AffiliateApplication';
+import AffiliateApplicationSuccess from './pages/AffiliateApplicationSuccess';
+import AffiliateDashboard from './pages/dashboard/AffiliateDashboard';
+import AdminAffiliates from './pages/admin/AdminAffiliates';
+import AdminLogin from './pages/AdminLogin';
+import AffiliateLogin from './pages/AffiliateLogin';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
+import ProtectedAffiliateRoute from './components/ProtectedAffiliateRoute';
 import { CartProvider } from './contexts/CartContext';
 
 const App = () => {
@@ -55,6 +63,24 @@ const App = () => {
             <Route path="/platforms/physical" element={<PhysicalPlatform />} />
             <Route path="/platforms/online" element={<OnlinePlatform />} />
             <Route path="/platforms/hybrid" element={<HybridPlatform />} />
+            
+            {/* Affiliate Routes */}
+            <Route path="/affiliate-application" element={<AffiliateApplication />} />
+            <Route path="/affiliate-application-success" element={<AffiliateApplicationSuccess />} />
+            <Route path="/affiliate/login" element={<AffiliateLogin />} />
+            <Route path="/affiliate/dashboard" element={
+              <ProtectedAffiliateRoute>
+                <AffiliateDashboard />
+              </ProtectedAffiliateRoute>
+            } />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/affiliates" element={
+              <ProtectedAdminRoute>
+                <AdminAffiliates />
+              </ProtectedAdminRoute>
+            } />
           </Routes>
         </main>
         <Footer />
