@@ -1,148 +1,98 @@
-import api from '../lib/api';
+import axios from '../lib/api';
 import { 
   AffiliateApplication, 
   Affiliate, 
   AffiliateReferral, 
-  AffiliateStats, 
-  AffiliateWithdrawal 
+  AffiliateStats 
 } from '../types';
 
-// Generate unique affiliate code
-const generateAffiliateCode = (): string => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
-  for (let i = 0; i < 8; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-};
+const API_BASE_URL = '/affiliates';
 
 export const affiliateService = {
-  // Affiliate Application
+  // Submit affiliate application
   async submitApplication(application: Omit<AffiliateApplication, 'id' | 'status' | 'createdAt' | 'updatedAt'>): Promise<AffiliateApplication> {
-    const response = await api.post('/affiliates/applications', {
-      ...application,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+    const response = await axios.post(`${API_BASE_URL}/applications`, application);
     return response.data;
   },
 
-  async getApplicationStatus(email: string): Promise<AffiliateApplication | null> {
-    try {
-      const response = await api.get(`/affiliates/applications/status/${email}`);
-      return response.data;
-    } catch (error) {
-      if (error.response?.status === 404) {
-        return null;
-      }
-      throw error;
-    }
+  // Check application status
+  async checkApplicationStatus(email: string): Promise<{ status: string; message?: string }> {
+    const response = await axios.get(`${API_BASE_URL}/applications/status/${email}`);
+    return response.data;
   },
 
-  // Affiliate Management
+  // Get affiliate profile
   async getAffiliateProfile(): Promise<Affiliate> {
-    const response = await api.get('/affiliates/profile');
+    const response = await axios.get(`${API_BASE_URL}/profile`);
     return response.data;
   },
 
-  async updatePaymentInfo(paymentInfo: Affiliate['paymentInfo']): Promise<Affiliate> {
-    const response = await api.put('/affiliates/payment-info', { paymentInfo });
+  // Update payment information
+  async updatePaymentInfo(paymentInfo: { bankName: string; accountNumber: string; accountName: string }): Promise<Affiliate> {
+    const response = await axios.put(`${API_BASE_URL}/payment-info`, paymentInfo);
     return response.data;
   },
 
+  // Get affiliate statistics
   async getAffiliateStats(): Promise<AffiliateStats> {
-    const response = await api.get('/affiliates/stats');
+    const response = await axios.get(`${API_BASE_URL}/stats`);
     return response.data;
   },
 
-  // Referrals
-  async getReferrals(page: number = 1, limit: number = 10): Promise<{
-    referrals: AffiliateReferral[];
-    total: number;
-    page: number;
-    totalPages: number;
-  }> {
-    const response = await api.get(`/affiliates/referrals?page=${page}&limit=${limit}`);
+  // Get affiliate referrals
+  async getAffiliateReferrals(): Promise<AffiliateReferral[]> {
+    const response = await axios.get(`${API_BASE_URL}/referrals`);
     return response.data;
   },
 
-  async getReferralById(referralId: string): Promise<AffiliateReferral> {
-    const response = await api.get(`/affiliates/referrals/${referralId}`);
-    return response.data;
-  },
-
-
-
-  // Admin Functions
-  async getAllApplications(page: number = 1, limit: number = 10): Promise<{
-    applications: AffiliateApplication[];
-    total: number;
-    page: number;
-    totalPages: number;
-  }> {
-    const response = await api.get(`/admin/affiliates/applications?page=${page}&limit=${limit}`);
-    return response.data;
-  },
-
-  async reviewApplication(
-    applicationId: string, 
-    status: 'approved' | 'rejected', 
-    rejectionReason?: string
-  ): Promise<AffiliateApplication> {
-    const response = await api.put(`/admin/affiliates/applications/${applicationId}/review`, {
-      status,
-      rejectionReason,
-      reviewedAt: new Date().toISOString(),
-    });
-    return response.data;
-  },
-
-  async getAllAffiliates(page: number = 1, limit: number = 10): Promise<{
-    affiliates: Affiliate[];
-    total: number;
-    page: number;
-    totalPages: number;
-  }> {
-    const response = await api.get(`/admin/affiliates?page=${page}&limit=${limit}`);
-    return response.data;
-  },
-
-  async updateAffiliateStatus(affiliateId: string, status: 'active' | 'suspended' | 'inactive'): Promise<Affiliate> {
-    const response = await api.put(`/admin/affiliates/${affiliateId}/status`, { status });
-    return response.data;
-  },
-
-
-
-  // Utility Functions
-  generateAffiliateCode,
-  
   // Validate affiliate code
-  async validateAffiliateCode(code: string): Promise<{ valid: boolean; affiliate?: Affiliate }> {
-    try {
-      const response = await api.get(`/affiliates/validate-code/${code}`);
-      return { valid: true, affiliate: response.data };
-    } catch (error) {
-      return { valid: false };
-    }
+  async validateAffiliateCode(code: string): Promise<{ valid: boolean; affiliateId?: string }> {
+    const response = await axios.get(`${API_BASE_URL}/validate-code/${code}`);
+    return response.data;
   },
 
-  // Track referral (called when someone registers with affiliate code)
-  async trackReferral(
-    affiliateCode: string,
-    userData: { email: string; name: string },
-    courseId: string,
-    courseTitle: string,
-    coursePrice: number
-  ): Promise<AffiliateReferral> {
-    const response = await api.post('/affiliates/track-referral', {
+  // Track referral
+  async trackReferral(affiliateCode: string, userData: { email: string; name: string }, courseId: string, courseTitle: string, coursePrice: number): Promise<{ success: boolean; referralId?: string }> {
+    const response = await axios.post(`${API_BASE_URL}/track-referral`, {
       affiliateCode,
       userData,
       courseId,
       courseTitle,
-      coursePrice,
+      coursePrice
     });
     return response.data;
   },
+
+  // Admin methods
+  async getAllApplications(): Promise<AffiliateApplication[]> {
+    const response = await axios.get('/admin/affiliates/applications');
+    return response.data;
+  },
+
+  async getAllAffiliates(): Promise<Affiliate[]> {
+    const response = await axios.get('/admin/affiliates');
+    return response.data;
+  },
+
+  async reviewApplication(applicationId: string, status: 'approved' | 'rejected', rejectionReason?: string): Promise<{
+    success: boolean;
+    affiliateId?: string;
+    affiliateCode?: string;
+    credentials?: { email: string; password: string };
+  }> {
+    const response = await axios.put(`/admin/affiliates/applications/${applicationId}/review`, {
+      status,
+      rejectionReason
+    });
+    return response.data;
+  },
+
+  // Alias methods for AdminAffiliates component
+  async getAdminApplications(): Promise<AffiliateApplication[]> {
+    return this.getAllApplications();
+  },
+
+  async getAdminAffiliates(): Promise<Affiliate[]> {
+    return this.getAllAffiliates();
+  }
 };

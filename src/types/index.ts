@@ -48,8 +48,21 @@ export interface Affiliate {
   id: string;
   userId: string;
   applicationId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  socialMediaHandles: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+  audienceSize: number;
+  audienceDescription: string;
+  motivation: string;
   affiliateCode: string;
-  commissionRate: number; // Percentage (e.g., 10 for 10%)
+  commissionRate: number; // Percentage (e.g., 0.15 for 15%)
   totalEarnings: number;
   totalReferrals: number;
   activeReferrals: number;
