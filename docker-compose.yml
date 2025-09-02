@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  affiliate-system:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - JWT_SECRET=${JWT_SECRET:-your-super-secure-jwt-secret-key-here}
+      - JWT_EXPIRES_IN=24h
+      - DATABASE_URL=./data/affiliate_system.db
+      - EMAIL_SERVICE=${EMAIL_SERVICE:-gmail}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - EMAIL_FROM=${EMAIL_FROM:-NBTA Affiliate System <noreply@nbta.com.ng>}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
+      - ADMIN_URL=${ADMIN_URL:-http://localhost:5173}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add Redis for session management and caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Optional: Add Nginx for reverse proxy and SSL termination
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - affiliate-system
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+
