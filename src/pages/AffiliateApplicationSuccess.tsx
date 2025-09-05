@@ -12,10 +12,10 @@ import {
 
 const AffiliateApplicationSuccess: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 pt-32">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 ">
           <Link 
             to="/" 
             className="inline-flex items-center space-x-2 text-primary hover:opacity-80 transition-opacity mb-4"

@@ -1,93 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const compression = require('compression');
-const morgan = require('morgan');
-
-// Import routes
-const authRoutes = require('./routes/auth');
-const adminRoutes = require('./routes/admin');
-const affiliateRoutes = require('./routes/affiliates');
+import express from 'express';
+import cors from 'cors';
+import { initializeDatabase } from './database/init.js';
+import authRoutes from './routes/auth.js';
+import affiliateRoutes from './routes/affiliates.js';
+import adminRoutes from './routes/admin.js';
 
 const app = express();
 
-// Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-    },
-  },
-}));
+// Initialize database
+await initializeDatabase();
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.',
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs for auth endpoints
-  message: 'Too many authentication attempts, please try again later.',
-});
-
-app.use(limiter);
-app.use('/api/auth', authLimiter);
-app.use('/api/admin', authLimiter);
-app.use('/api/affiliates', authLimiter);
-
-// Other middleware
-app.use(compression());
-app.use(morgan('combined'));
+// Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://your-domain.vercel.app',
-  credentials: true,
+  origin: ['https://nbta.institute', 'http://localhost:5173'],
+  credentials: true
 }));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/affiliates', affiliateRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development',
-    uptime: process.uptime(),
-  });
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// API routes
-app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/affiliates', affiliateRoutes);
-
-// 404 handler
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ error: 'API endpoint not found' });
-});
-
-// Global error handler
+// Error handling
 app.use((err, req, res, next) => {
-  console.error('Global error:', err);
-  
-  if (process.env.NODE_ENV === 'production') {
-    res.status(500).json({ error: 'Internal server error' });
-  } else {
-    res.status(500).json({ 
-      error: err.message,
-      stack: err.stack 
-    });
-  }
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// Export for Vercel
-module.exports = app;
-
+export default app;

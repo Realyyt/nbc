@@ -1,16 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const compression = require('compression');
-const morgan = require('morgan');
-const path = require('path');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import compression from 'compression';
+import morgan from 'morgan';
+import path from 'path';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 
-const { initializeDatabase } = require('./database/init');
-const authRoutes = require('./routes/auth');
-const affiliateRoutes = require('./routes/affiliates');
-const adminRoutes = require('./routes/admin');
+import { initializeDatabase } from './database/init.js';
+import authRoutes from './routes/auth.js';
+import affiliateRoutes from './routes/affiliates.js';
+import adminRoutes from './routes/admin.js';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;

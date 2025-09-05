@@ -114,7 +114,7 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-8 pt-32">
         <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
         <p className="text-gray-600 mt-1">
           Overview of your learning platform

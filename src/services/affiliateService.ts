@@ -66,12 +66,12 @@ export const affiliateService = {
   // Admin methods
   async getAllApplications(): Promise<AffiliateApplication[]> {
     const response = await axios.get('/admin/affiliates/applications');
-    return response.data;
+    return response.data.applications;
   },
 
   async getAllAffiliates(): Promise<Affiliate[]> {
     const response = await axios.get('/admin/affiliates');
-    return response.data;
+    return response.data.affiliates;
   },
 
   async reviewApplication(applicationId: string, status: 'approved' | 'rejected', rejectionReason?: string): Promise<{
