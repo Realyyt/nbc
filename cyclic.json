@@ -1,0 +1,16 @@
+{
+  "name": "nbta-backend",
+  "version": "1.0.0",
+  "description": "NBTA Affiliate System Backend",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "cd server && node index.js",
+    "dev": "cd server && node index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["affiliate", "system", "api"],
+  "author": "NBTA",
+  "license": "MIT"
+}
