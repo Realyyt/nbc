@@ -20,6 +20,7 @@ const AffiliateApplicationSuccess: React.FC = () => {
             to="/" 
             className="inline-flex items-center space-x-2 text-primary hover:opacity-80 transition-opacity mb-4"
           >
+        
             <BookOpen size={32} />
             <span className="font-heading font-bold text-xl">NBTA Learning</span>
           </Link>
