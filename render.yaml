@@ -1,11 +1,10 @@
 services:
   - type: web
-    name: nbc-affiliate-backend
+    name: nbta-backend
     env: node
     plan: free
     buildCommand: cd server && npm install
     startCommand: cd server && node index.js
-    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -16,6 +15,6 @@ services:
       - key: EMAIL_USER
         value: emmaisaac032@gmail.com
       - key: EMAIL_PASS
-        value: your-gmail-app-password
+        sync: false  # You'll need to set this manually
       - key: EMAIL_FROM
-        value: "NBTA Affiliate System <noreply@nbta.com.ng>"
+        value: NBTA Affiliate System <noreply@nbta.com.ng>
