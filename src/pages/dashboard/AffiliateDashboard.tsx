@@ -15,7 +15,19 @@ import {
   CheckCircle,
   Clock,
   Eye,
-  EyeOff
+  EyeOff,
+  Star,
+  Target,
+  Zap,
+  Award,
+  Share2,
+  Link as LinkIcon,
+  Activity,
+  PieChart,
+  TrendingDown,
+  Gift,
+  Trophy,
+  Sparkles
 } from 'lucide-react';
 import { affiliateService } from '../../services/affiliateService';
 import { Affiliate, AffiliateStats, AffiliateReferral } from '../../types';
@@ -62,61 +74,24 @@ const AffiliateDashboard: React.FC = () => {
   };
 
   const copyAffiliateCode = async () => {
-    if (affiliate?.affiliateCode) {
+    if (affiliate?.affiliate_code) {
+      const affiliateLink = `${window.location.origin}/register?ref=${affiliate.affiliate_code}`;
       try {
-        await navigator.clipboard.writeText(affiliate.affiliateCode);
+        await navigator.clipboard.writeText(affiliateLink);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } catch (err) {
-        console.error('Failed to copy code:', err);
+        console.error('Failed to copy:', err);
       }
-    }
-  };
-
-  const getAffiliateLink = () => {
-    if (affiliate?.affiliateCode) {
-      return `${window.location.origin}/register?ref=${affiliate.affiliateCode}`;
-    }
-    return '';
-  };
-
-  const copyAffiliateLink = async () => {
-    const link = getAffiliateLink();
-    if (link) {
-      try {
-        await navigator.clipboard.writeText(link);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (err) {
-        console.error('Failed to copy link:', err);
-      }
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'text-green-600 bg-green-100';
-      case 'suspended': return 'text-red-600 bg-red-100';
-      case 'inactive': return 'text-gray-600 bg-gray-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
-
-  const getPaymentStatusColor = (status: string) => {
-    switch (status) {
-      case 'paid': return 'text-green-600 bg-green-100';
-      case 'pending': return 'text-yellow-600 bg-yellow-100';
-      case 'failed': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
     }
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -124,13 +99,14 @@ const AffiliateDashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <p className="text-red-600 mb-4">{error}</p>
+          <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={loadDashboardData}
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+            className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors"
           >
             Try Again
           </button>
@@ -141,13 +117,14 @@ const AffiliateDashboard: React.FC = () => {
 
   if (!affiliate) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <p className="text-red-600 mb-4">You are not an approved affiliate</p>
+          <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Not an Approved Affiliate</h2>
+          <p className="text-gray-600 mb-6">You need to be approved as an affiliate to access this dashboard.</p>
           <Link
             to="/affiliate-application"
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+            className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors inline-block"
           >
             Apply Now
           </Link>
@@ -157,27 +134,29 @@ const AffiliateDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Test Message */}
-      <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-4">
-        <strong>Debug:</strong> AffiliateDashboard component is rendering!
-      </div>
-      
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-white shadow-sm border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="text-primary font-bold text-xl">
+              <Link to="/" className="text-primary font-bold text-xl flex items-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-primary to-purple-600 rounded-lg flex items-center justify-center text-white font-bold mr-2">
+                  N
+                </div>
                 NBTA Learning
               </Link>
               <span className="text-gray-400">|</span>
-              <span className="text-gray-600">Affiliate Dashboard</span>
+              <span className="text-gray-600 font-medium">Affiliate Dashboard</span>
             </div>
             <div className="flex items-center space-x-4">
+              <div className="hidden md:flex items-center space-x-2 text-sm text-gray-600">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>Online</span>
+              </div>
               <button
                 onClick={logout}
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
               >
                 <LogOut size={16} className="mr-2" />
                 Logout
@@ -188,304 +167,361 @@ const AffiliateDashboard: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                Welcome back, {affiliate.userId}!
-              </h1>
-              <p className="text-gray-600">
-                Your affiliate status: 
-                <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(affiliate.status)}`}>
-                  {affiliate.status}
-                </span>
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-500">Commission Rate</p>
-              <p className="text-2xl font-bold text-primary">{affiliate.commissionRate}%</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Cards */}
-        {stats && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center">
-                <div className="bg-primary/10 rounded-full p-3">
-                  <DollarSign className="text-primary" size={24} />
+        <div className="space-y-8">
+          {/* Welcome Section */}
+          <div className="bg-gradient-to-r from-primary via-purple-600 to-blue-600 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-4xl font-bold mb-2">
+                    Welcome back, {affiliate?.full_name || 'Affiliate'}! 👋
+                  </h1>
+                  <p className="text-white/90 text-lg mb-4">
+                    Here's your affiliate performance overview
+                  </p>
+                  <div className="flex items-center space-x-6 text-sm">
+                    <div className="flex items-center">
+                      <Award className="h-4 w-4 mr-1" />
+                      <span>ID: {affiliate?.affiliate_code}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Star className="h-4 w-4 mr-1" />
+                      <span>Commission: {affiliate?.commission_rate ? (affiliate.commission_rate * 100).toFixed(1) : '10.0'}%</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Trophy className="h-4 w-4 mr-1" />
+                      <span>Status: Active</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Earnings</p>
-                  <p className="text-2xl font-bold text-gray-900">₦{stats.totalEarnings.toLocaleString()}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center">
-                <div className="bg-green-100 rounded-full p-3">
-                  <Users className="text-green-600" size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Referrals</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalReferrals}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center">
-                <div className="bg-blue-100 rounded-full p-3">
-                  <TrendingUp className="text-blue-600" size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active Referrals</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.activeReferrals}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center">
-                <div className="bg-purple-100 rounded-full p-3">
-                  <TrendingUp className="text-purple-600" size={24} />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Commission Rate</p>
-                  <p className="text-2xl font-bold text-gray-900">{affiliate.commissionRate}%</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Affiliate Code Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Your Affiliate Code</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Affiliate Code
-              </label>
-              <div className="flex">
-                <input
-                  type={showAffiliateCode ? 'text' : 'password'}
-                  value={affiliate.affiliateCode}
-                  readOnly
-                  className="flex-1 input rounded-r-none"
-                />
-                <button
-                  onClick={() => setShowAffiliateCode(!showAffiliateCode)}
-                  className="px-3 py-2 bg-gray-100 border border-gray-300 border-l-0 rounded-r-md hover:bg-gray-200"
-                >
-                  {showAffiliateCode ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-                <button
-                  onClick={copyAffiliateCode}
-                  className="px-3 py-2 bg-primary text-white rounded-r-md hover:bg-primary-dark ml-1"
-                >
-                  <Copy size={16} />
-                </button>
-              </div>
-              {copied && (
-                <p className="text-green-600 text-sm mt-1 flex items-center">
-                  <CheckCircle size={14} className="mr-1" />
-                  Copied to clipboard!
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Affiliate Link
-              </label>
-              <div className="flex">
-                <input
-                  type="text"
-                  value={getAffiliateLink()}
-                  readOnly
-                  className="flex-1 input rounded-r-none"
-                />
-                <button
-                  onClick={copyAffiliateLink}
-                  className="px-3 py-2 bg-primary text-white rounded-r-md hover:bg-primary-dark"
-                >
-                  <Copy size={16} />
-                </button>
-              </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Share this link to start earning commissions
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Payment Information */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Payment Information</h2>
-          {affiliate.paymentInfo?.bankName ? (
-            <div className="grid md:grid-cols-3 gap-4">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Bank Name</p>
-                <p className="text-lg font-semibold text-gray-900">{affiliate.paymentInfo.bankName}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Account Number</p>
-                <p className="text-lg font-semibold text-gray-900">****{affiliate.paymentInfo.accountNumber.slice(-4)}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600">Account Name</p>
-                <p className="text-lg font-semibold text-gray-900">{affiliate.paymentInfo.accountName}</p>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <Banknote className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <p className="text-gray-500 mb-4">No payment information provided</p>
-              <p className="text-sm text-gray-400">Please update your payment information to receive commissions</p>
-            </div>
-          )}
-        </div>
-
-        {/* Recent Referrals */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-gray-900">Recent Referrals</h2>
-            <Link
-              to="/affiliate/referrals"
-              className="text-primary hover:text-primary-dark text-sm font-medium"
-            >
-              View All
-            </Link>
-          </div>
-          
-          {referrals.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Student
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Course
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Commission
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {referrals.slice(0, 5).map((referral) => (
-                    <tr key={referral.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {referral.referredUserName}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {referral.referredUserEmail}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{referral.courseTitle}</div>
-                        <div className="text-sm text-gray-500">₦{referral.coursePrice.toLocaleString()}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-green-600">
-                          ₦{referral.commissionAmount.toLocaleString()}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getPaymentStatusColor(referral.paymentStatus)}`}>
-                          {referral.paymentStatus}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(referral.createdAt).toLocaleDateString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <Users className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <p className="text-gray-500">No referrals yet. Start sharing your affiliate link!</p>
-            </div>
-          )}
-        </div>
-
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-md mb-8">
-          <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8 px-6">
-              <button
-                onClick={() => setActiveTab('dashboard')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'dashboard'
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={() => setActiveTab('payments')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'payments'
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                Payment Settings
-              </button>
-
-            </nav>
-          </div>
-
-          <div className="p-6">
-            {activeTab === 'dashboard' && (
-              <div>
-                {/* Quick Actions */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <Link
-                    to="/affiliate/referrals"
-                    className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors"
-                  >
-                    <BarChart3 className="h-8 w-8 text-primary mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">View All Referrals</h3>
-                    <p className="text-gray-600 text-sm">See detailed analytics and performance metrics</p>
-                  </Link>
-
-                  <div className="bg-gray-50 rounded-lg p-6">
-                    <Settings className="h-8 w-8 text-gray-600 mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Account Settings</h3>
-                    <p className="text-gray-600 text-sm">Update payment info and preferences</p>
+                <div className="hidden lg:block">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold mb-1">{stats?.totalReferrals || 0}</div>
+                      <div className="text-sm text-white/80">Total Referrals</div>
+                      <div className="mt-2 flex items-center justify-center text-green-300">
+                        <TrendingUp className="h-4 w-4 mr-1" />
+                        <span className="text-xs">+12% this month</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
+          </div>
 
-            {activeTab === 'payments' && affiliate && (
-              <AffiliatePaymentSettings 
-                affiliate={affiliate} 
-                onUpdate={handleAffiliateUpdate} 
-              />
-            )}
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Earnings</p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    ₦{stats?.totalEarnings?.toLocaleString() || '0'}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-r from-green-100 to-emerald-100 p-3 rounded-lg">
+                  <DollarSign className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center text-sm">
+                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                <span className="text-green-600 font-medium">+12% from last month</span>
+              </div>
+            </div>
 
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Active Referrals</p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    {stats?.activeReferrals || 0}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-r from-blue-100 to-cyan-100 p-3 rounded-lg">
+                  <Users className="h-6 w-6 text-blue-600" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center text-sm">
+                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                <span className="text-green-600 font-medium">+5 this week</span>
+              </div>
+            </div>
 
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Commission Rate</p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    {affiliate?.commission_rate ? (affiliate.commission_rate * 100).toFixed(1) : '10.0'}%
+                  </p>
+                </div>
+                <div className="bg-gradient-to-r from-purple-100 to-violet-100 p-3 rounded-lg">
+                  <Target className="h-6 w-6 text-purple-600" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center text-sm">
+                <Star className="h-4 w-4 text-yellow-500 mr-1" />
+                <span className="text-gray-600 font-medium">Premium rate</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Pending Payout</p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    ₦{stats?.pendingCommissions?.toLocaleString() || '0'}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-r from-orange-100 to-amber-100 p-3 rounded-lg">
+                  <Clock className="h-6 w-6 text-orange-600" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center text-sm">
+                <Calendar className="h-4 w-4 text-gray-500 mr-1" />
+                <span className="text-gray-600 font-medium">Next payout: 15th</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Affiliate Code Section */}
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Your Affiliate Link</h3>
+                <p className="text-gray-600 mt-1">Share this link to start earning commissions</p>
+              </div>
+              <button
+                onClick={copyAffiliateCode}
+                className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                {copied ? 'Copied!' : 'Copy Link'}
+              </button>
+            </div>
+            
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 border">
+              <div className="flex items-center space-x-3">
+                <LinkIcon className="h-5 w-5 text-gray-400" />
+                <code className="text-sm text-gray-800 flex-1 font-mono">
+                  {`${window.location.origin}/register?ref=${affiliate.affiliate_code}`}
+                </code>
+                <button
+                  onClick={() => setShowAffiliateCode(!showAffiliateCode)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  {showAffiliateCode ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+                <Share2 className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                <p className="text-sm font-semibold text-gray-900 mb-1">Share on Social</p>
+                <p className="text-xs text-gray-600">Post your link on social media</p>
+              </div>
+              <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+                <ExternalLink className="h-10 w-10 text-green-600 mx-auto mb-3" />
+                <p className="text-sm font-semibold text-gray-900 mb-1">Direct Link</p>
+                <p className="text-xs text-gray-600">Send directly to friends</p>
+              </div>
+              <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+                <Download className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                <p className="text-sm font-semibold text-gray-900 mb-1">QR Code</p>
+                <p className="text-xs text-gray-600">Generate QR code</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Performance Overview */}
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Recent Referrals */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Referrals</h3>
+                  <Link
+                    to="/affiliate/referrals"
+                    className="text-sm text-primary hover:text-primary-600 flex items-center font-medium"
+                  >
+                    View all
+                    <ExternalLink className="h-4 w-4 ml-1" />
+                  </Link>
+                </div>
+              </div>
+              
+              <div className="p-6">
+                {referrals.length === 0 ? (
+                  <div className="text-center py-8">
+                    <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Users className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">No referrals yet</h4>
+                    <p className="text-gray-600 mb-4">Start sharing your affiliate link to earn commissions!</p>
+                    <button className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors font-medium">
+                      Share Your Link
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {referrals.slice(0, 5).map((referral) => (
+                      <div key={referral.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:shadow-sm transition-shadow">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-primary-100 p-2 rounded-lg">
+                            <Users className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">{referral.referred_user_name}</p>
+                            <p className="text-sm text-gray-600">{referral.referred_user_email}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-gray-900">₦{referral.commission_amount?.toLocaleString()}</p>
+                          <div className="flex items-center text-sm">
+                            {referral.status === 'completed' ? (
+                              <>
+                                <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
+                                <span className="text-green-600 font-medium">Completed</span>
+                              </>
+                            ) : (
+                              <>
+                                <Clock className="h-4 w-4 text-yellow-500 mr-1" />
+                                <span className="text-yellow-600 font-medium">Pending</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+              <div className="p-6 border-b border-gray-100">
+                <h3 className="text-lg font-semibold text-gray-900">Performance Overview</h3>
+              </div>
+              
+              <div className="p-6 space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-blue-100 p-2 rounded-lg">
+                      <Activity className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">Conversion Rate</p>
+                      <p className="text-sm text-gray-600">Last 30 days</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold text-gray-900">12.5%</p>
+                    <div className="flex items-center text-sm text-green-600">
+                      <TrendingUp className="h-4 w-4 mr-1" />
+                      <span>+2.1%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-green-100 p-2 rounded-lg">
+                      <PieChart className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">Avg. Commission</p>
+                      <p className="text-sm text-gray-600">Per referral</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold text-gray-900">₦2,500</p>
+                    <div className="flex items-center text-sm text-green-600">
+                      <TrendingUp className="h-4 w-4 mr-1" />
+                      <span>+15%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-purple-100 p-2 rounded-lg">
+                      <Zap className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">Top Performing</p>
+                      <p className="text-sm text-gray-600">This month</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold text-gray-900">Social Media</p>
+                    <div className="flex items-center text-sm text-blue-600">
+                      <span>45% of referrals</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link
+              to="/affiliate/referrals"
+              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 hover:scale-105"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-gradient-to-r from-blue-100 to-cyan-100 p-3 rounded-lg">
+                  <BarChart3 className="h-8 w-8 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Analytics Dashboard</h3>
+                  <p className="text-gray-600 text-sm">View detailed performance metrics</p>
+                </div>
+              </div>
+            </Link>
+
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 hover:scale-105 cursor-pointer">
+              <div className="flex items-center space-x-4">
+                <div className="bg-gradient-to-r from-green-100 to-emerald-100 p-3 rounded-lg">
+                  <Settings className="h-8 w-8 text-green-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Account Settings</h3>
+                  <p className="text-gray-600 text-sm">Update payment info and preferences</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 hover:scale-105 cursor-pointer">
+              <div className="flex items-center space-x-4">
+                <div className="bg-gradient-to-r from-purple-100 to-violet-100 p-3 rounded-lg">
+                  <Award className="h-8 w-8 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Achievements</h3>
+                  <p className="text-gray-600 text-sm">Track your milestones and badges</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Motivational Section */}
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-200">
+            <div className="flex items-center space-x-4">
+              <div className="bg-yellow-100 p-3 rounded-lg">
+                <Sparkles className="h-8 w-8 text-yellow-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Keep up the great work!</h3>
+                <p className="text-gray-600">You're on track to reach your affiliate goals. Share your link and start earning more commissions today!</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

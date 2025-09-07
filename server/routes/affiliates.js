@@ -102,8 +102,10 @@ router.get('/applications/status/:email', async (req, res) => {
 // Get affiliate profile (protected route)
 router.get('/profile', verifyToken, requireAffiliate, async (req, res) => {
   try {
+    console.log('Getting profile for user:', req.user);
+    
     const affiliate = await getQuery(
-      `SELECT a.*, ac.full_name, ac.email, ac.phone
+      `SELECT a.*, ac.full_name, ac.email, ac.phone, ac.website, ac.audience_size, ac.audience_description, ac.social_media_handles
        FROM affiliates a 
        JOIN affiliate_applications ac ON a.application_id = ac.id 
        WHERE a.id = ?`,
@@ -111,9 +113,11 @@ router.get('/profile', verifyToken, requireAffiliate, async (req, res) => {
     );
 
     if (!affiliate) {
+      console.log('No affiliate found for ID:', req.user.id);
       return res.status(404).json({ error: 'Affiliate not found' });
     }
 
+    console.log('Found affiliate:', affiliate);
     res.json(affiliate);
 
   } catch (error) {
