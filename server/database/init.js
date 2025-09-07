@@ -194,7 +194,7 @@ export async function initializeDatabase() {
     await runQuery('CREATE INDEX IF NOT EXISTS idx_admin_users_email ON admin_users(email)');
 
     // Insert default admin user if not exists, or update password if exists
-    const adminExists = await getQuery('SELECT id FROM admin_users WHERE email = ?', ['admin@nbta.com.ng']);
+    const adminExists = await getQuery('SELECT id FROM admin_users WHERE email = ?', ['wecanhelp@nbta.institute']);
     
     if (!adminExists) {
       const hashedPassword = await bcrypt.hash('jChiegil!@$', 12);
@@ -203,7 +203,7 @@ export async function initializeDatabase() {
         VALUES (?, ?, ?, ?, ?)
       `, [
         generateId(),
-        'admin@nbta.com.ng',
+        'wecanhelp@nbta.institute',
         hashedPassword,
         'System Administrator',
         'super_admin'
@@ -216,7 +216,7 @@ export async function initializeDatabase() {
         UPDATE admin_users 
         SET password_hash = ?, updated_at = CURRENT_TIMESTAMP 
         WHERE email = ?
-      `, [hashedPassword, 'admin@nbta.com.ng']);
+      `, [hashedPassword, 'wecanhelp@nbta.institute']);
       console.log('✅ Admin password updated to new secure password');
     }
 
