@@ -94,7 +94,14 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
 
         // Send approval email with real credentials
         await sendAffiliateApproval({
-          ...application,
+          fullName: application.full_name,
+          email: application.email,
+          phone: application.phone,
+          website: application.website,
+          audienceSize: application.audience_size,
+          audienceDescription: application.audience_description,
+          motivation: application.motivation,
+          socialMediaHandles: application.social_media_handles,
           affiliateCode,
           commissionRate: 10.0,
           password: generated.password

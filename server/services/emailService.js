@@ -407,8 +407,9 @@ export async function verifyAffiliateCredentials(email, password) {
   const credential = await getQuery(
     `SELECT ac.user_id as id, ac.password_hash as password_hash
      FROM affiliates a
+     JOIN affiliate_applications app ON a.application_id = app.id
      JOIN affiliate_credentials ac ON ac.affiliate_id = a.id
-     WHERE a.email = ? AND a.status = 'active'`,
+     WHERE app.email = ? AND a.status = 'active'`,
     [email]
   );
   if (!credential) return null;
