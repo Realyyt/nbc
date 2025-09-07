@@ -173,6 +173,19 @@ router.get('/stats', verifyToken, requireAffiliate, async (req, res) => {
     );
     console.log('affiliate_referrals table exists:', !!tableExists);
 
+    if (!tableExists) {
+      console.log('affiliate_referrals table does not exist, returning zero stats');
+      return res.json({
+        totalEarnings: 0,
+        totalReferrals: 0,
+        activeReferrals: 0,
+        pendingCommissions: 0,
+        paidCommissions: 0,
+        monthlyEarnings: 0,
+        monthlyReferrals: 0
+      });
+    }
+
     // Get total referrals
     const totalReferrals = await getQuery(
       'SELECT COUNT(*) as count FROM affiliate_referrals WHERE affiliate_id = ?',
