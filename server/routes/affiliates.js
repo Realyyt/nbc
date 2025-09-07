@@ -165,12 +165,20 @@ router.put('/payment-info', verifyToken, requireAffiliate, async (req, res) => {
 router.get('/stats', verifyToken, requireAffiliate, async (req, res) => {
   try {
     const affiliateId = req.user.id;
+    console.log('Getting stats for affiliate ID:', affiliateId);
+
+    // Check if affiliate_referrals table exists
+    const tableExists = await getQuery(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='affiliate_referrals'"
+    );
+    console.log('affiliate_referrals table exists:', !!tableExists);
 
     // Get total referrals
     const totalReferrals = await getQuery(
       'SELECT COUNT(*) as count FROM affiliate_referrals WHERE affiliate_id = ?',
       [affiliateId]
     );
+    console.log('Total referrals query result:', totalReferrals);
 
     // Get active referrals (completed)
     const activeReferrals = await getQuery(
