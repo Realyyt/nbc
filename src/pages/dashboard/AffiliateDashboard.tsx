@@ -52,29 +52,18 @@ const AffiliateDashboard: React.FC = () => {
   const loadDashboardData = async () => {
     try {
       setIsLoading(true);
-      console.log('Loading dashboard data...');
-      
-      console.log('Calling getAffiliateProfile...');
-      const affiliateData = await affiliateService.getAffiliateProfile();
-      console.log('Profile data:', affiliateData);
-      
-      console.log('Calling getAffiliateStats...');
-      const statsData = await affiliateService.getAffiliateStats();
-      console.log('Stats data:', statsData);
-      
-      console.log('Calling getAffiliateReferrals...');
-      const referralsData = await affiliateService.getAffiliateReferrals();
-      console.log('Referrals data:', referralsData);
+      const [affiliateData, statsData, referralsData] = await Promise.all([
+        affiliateService.getAffiliateProfile(),
+        affiliateService.getAffiliateStats(),
+        affiliateService.getAffiliateReferrals()
+      ]);
 
       setAffiliate(affiliateData);
       setStats(statsData);
       setReferrals(referralsData.referrals);
-      console.log('Dashboard data loaded successfully');
     } catch (err) {
       setError('Failed to load dashboard data');
       console.error('Dashboard load error:', err);
-      console.error('Error details:', err.response?.data);
-      console.error('Error status:', err.response?.status);
     } finally {
       setIsLoading(false);
     }
@@ -204,7 +193,7 @@ const AffiliateDashboard: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <Trophy className="h-4 w-4 mr-1" />
-                      <span>Status: Active</span>
+                      <span>Status: {affiliate?.status || 'Active'}</span>
                     </div>
                   </div>
                 </div>
@@ -215,7 +204,7 @@ const AffiliateDashboard: React.FC = () => {
                       <div className="text-sm text-white/80">Total Referrals</div>
                       <div className="mt-2 flex items-center justify-center text-green-300">
                         <TrendingUp className="h-4 w-4 mr-1" />
-                        <span className="text-xs">+12% this month</span>
+                        <span className="text-xs">+{stats?.monthlyReferrals || 0} this month</span>
                       </div>
                     </div>
                   </div>
@@ -240,7 +229,7 @@ const AffiliateDashboard: React.FC = () => {
               </div>
               <div className="mt-4 flex items-center text-sm">
                 <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-                <span className="text-green-600 font-medium">+12% from last month</span>
+                <span className="text-green-600 font-medium">₦{stats?.monthlyEarnings?.toLocaleString() || '0'} this month</span>
               </div>
             </div>
 
@@ -258,7 +247,7 @@ const AffiliateDashboard: React.FC = () => {
               </div>
               <div className="mt-4 flex items-center text-sm">
                 <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-                <span className="text-green-600 font-medium">+5 this week</span>
+                <span className="text-green-600 font-medium">{stats?.activeReferrals || 0} completed</span>
               </div>
             </div>
 
@@ -276,7 +265,7 @@ const AffiliateDashboard: React.FC = () => {
               </div>
               <div className="mt-4 flex items-center text-sm">
                 <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                <span className="text-gray-600 font-medium">Premium rate</span>
+                <span className="text-gray-600 font-medium">Standard rate</span>
               </div>
             </div>
 
@@ -294,7 +283,7 @@ const AffiliateDashboard: React.FC = () => {
               </div>
               <div className="mt-4 flex items-center text-sm">
                 <Calendar className="h-4 w-4 text-gray-500 mr-1" />
-                <span className="text-gray-600 font-medium">Next payout: 15th</span>
+                <span className="text-gray-600 font-medium">₦{stats?.paidCommissions?.toLocaleString() || '0'} paid</span>
               </div>
             </div>
           </div>
@@ -432,10 +421,12 @@ const AffiliateDashboard: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900">12.5%</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {stats?.totalReferrals > 0 ? ((stats?.activeReferrals / stats?.totalReferrals) * 100).toFixed(1) : '0'}%
+                    </p>
                     <div className="flex items-center text-sm text-green-600">
                       <TrendingUp className="h-4 w-4 mr-1" />
-                      <span>+2.1%</span>
+                      <span>{stats?.activeReferrals || 0} completed</span>
                     </div>
                   </div>
                 </div>
@@ -451,10 +442,12 @@ const AffiliateDashboard: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900">₦2,500</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      ₦{stats?.totalReferrals > 0 ? (stats?.totalEarnings / stats?.totalReferrals).toFixed(0) : '0'}
+                    </p>
                     <div className="flex items-center text-sm text-green-600">
                       <TrendingUp className="h-4 w-4 mr-1" />
-                      <span>+15%</span>
+                      <span>per referral</span>
                     </div>
                   </div>
                 </div>
@@ -465,14 +458,14 @@ const AffiliateDashboard: React.FC = () => {
                       <Zap className="h-5 w-5 text-purple-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">Top Performing</p>
-                      <p className="text-sm text-gray-600">This month</p>
+                      <p className="font-medium text-gray-900">Affiliate Code</p>
+                      <p className="text-sm text-gray-600">Your unique code</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900">Social Media</p>
+                    <p className="text-2xl font-bold text-gray-900">{affiliate?.affiliate_code || 'N/A'}</p>
                     <div className="flex items-center text-sm text-blue-600">
-                      <span>45% of referrals</span>
+                      <span>Your affiliate code</span>
                     </div>
                   </div>
                 </div>
