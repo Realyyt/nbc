@@ -52,18 +52,29 @@ const AffiliateDashboard: React.FC = () => {
   const loadDashboardData = async () => {
     try {
       setIsLoading(true);
-      const [affiliateData, statsData, referralsData] = await Promise.all([
-        affiliateService.getAffiliateProfile(),
-        affiliateService.getAffiliateStats(),
-        affiliateService.getAffiliateReferrals()
-      ]);
+      console.log('Loading dashboard data...');
+      
+      console.log('Calling getAffiliateProfile...');
+      const affiliateData = await affiliateService.getAffiliateProfile();
+      console.log('Profile data:', affiliateData);
+      
+      console.log('Calling getAffiliateStats...');
+      const statsData = await affiliateService.getAffiliateStats();
+      console.log('Stats data:', statsData);
+      
+      console.log('Calling getAffiliateReferrals...');
+      const referralsData = await affiliateService.getAffiliateReferrals();
+      console.log('Referrals data:', referralsData);
 
       setAffiliate(affiliateData);
       setStats(statsData);
       setReferrals(referralsData.referrals);
+      console.log('Dashboard data loaded successfully');
     } catch (err) {
       setError('Failed to load dashboard data');
       console.error('Dashboard load error:', err);
+      console.error('Error details:', err.response?.data);
+      console.error('Error status:', err.response?.status);
     } finally {
       setIsLoading(false);
     }
