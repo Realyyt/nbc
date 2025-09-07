@@ -8,9 +8,9 @@ const sqlite3 = sqlite3pkg.verbose();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Database file path - use /tmp for production environments like Render
+// Database file path - use persistent storage for production environments
 const dbPath = process.env.NODE_ENV === 'production' 
-  ? path.join('/tmp', 'affiliate_system.db')
+  ? path.join(process.env.HOME || '/tmp', 'affiliate_system.db')
   : path.join(__dirname, '../../affiliate_system.db');
 
 // Create database connection
@@ -236,9 +236,59 @@ export async function initializeDatabase() {
       `, [key, value, description]);
     }
 
+    // Add sample affiliate applications to preserve data
+    const sampleApplications = [
+      {
+        id: 'sample-app-1',
+        fullName: 'John Doe',
+        email: 'john.doe@example.com',
+        phone: '+2348012345678',
+        website: 'https://johndoe.com',
+        audienceSize: 5000,
+        audienceDescription: 'Tech enthusiasts and developers',
+        motivation: 'Want to help people learn programming',
+        socialMediaHandles: JSON.stringify({ twitter: '@johndoe', instagram: '@johndoe_dev' })
+      },
+      {
+        id: 'sample-app-2',
+        fullName: 'Sarah Johnson',
+        email: 'sarah.johnson@example.com',
+        phone: '+2348023456789',
+        website: 'https://sarahjohnson.com',
+        audienceSize: 3000,
+        audienceDescription: 'Digital marketing professionals',
+        motivation: 'Passionate about helping businesses grow',
+        socialMediaHandles: JSON.stringify({ twitter: '@sarahjohnson', linkedin: 'sarah-johnson' })
+      },
+      {
+        id: 'sample-app-3',
+        fullName: 'Michael Brown',
+        email: 'michael.brown@example.com',
+        phone: '+2348034567890',
+        website: 'https://michaelbrown.com',
+        audienceSize: 8000,
+        audienceDescription: 'Entrepreneurs and business owners',
+        motivation: 'Love sharing knowledge and helping others succeed',
+        socialMediaHandles: JSON.stringify({ twitter: '@michaelbrown', youtube: 'Michael Brown Business' })
+      }
+    ];
+
+    for (const app of sampleApplications) {
+      await runQuery(`
+        INSERT OR IGNORE INTO affiliate_applications (
+          id, full_name, email, phone, website, audience_size, 
+          audience_description, motivation, social_media_handles, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        app.id, app.fullName, app.email, app.phone, app.website, app.audienceSize,
+        app.audienceDescription, app.motivation, app.socialMediaHandles, 'pending'
+      ]);
+    }
+
     console.log('✅ Database schema initialized successfully');
     console.log('✅ Indexes created for optimal performance');
     console.log('✅ Default system settings configured');
+    console.log('✅ Sample affiliate applications added');
 
   } catch (error) {
     console.error('❌ Database initialization failed:', error);
