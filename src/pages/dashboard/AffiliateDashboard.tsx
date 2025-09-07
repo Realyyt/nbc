@@ -55,7 +55,7 @@ const AffiliateDashboard: React.FC = () => {
       const [affiliateData, statsData, referralsData] = await Promise.all([
         affiliateService.getAffiliateProfile(),
         affiliateService.getAffiliateStats(),
-        affiliateService.getReferrals()
+        affiliateService.getAffiliateReferrals()
       ]);
 
       setAffiliate(affiliateData);

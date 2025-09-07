@@ -40,7 +40,7 @@ export const affiliateService = {
   },
 
   // Get affiliate referrals
-  async getAffiliateReferrals(): Promise<AffiliateReferral[]> {
+  async getAffiliateReferrals(): Promise<{ referrals: AffiliateReferral[], total: number, page: number, totalPages: number }> {
     const response = await axios.get(`${API_BASE_URL}/referrals`);
     return response.data;
   },
