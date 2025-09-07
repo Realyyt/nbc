@@ -174,16 +174,41 @@ router.get('/stats', verifyToken, requireAffiliate, async (req, res) => {
     console.log('affiliate_referrals table exists:', !!tableExists);
 
     if (!tableExists) {
-      console.log('affiliate_referrals table does not exist, returning zero stats');
-      return res.json({
-        totalEarnings: 0,
-        totalReferrals: 0,
-        activeReferrals: 0,
-        pendingCommissions: 0,
-        paidCommissions: 0,
-        monthlyEarnings: 0,
-        monthlyReferrals: 0
-      });
+      console.log('affiliate_referrals table does not exist, creating it...');
+      try {
+        // Create the affiliate_referrals table
+        await runQuery(`
+          CREATE TABLE IF NOT EXISTS affiliate_referrals (
+            id TEXT PRIMARY KEY,
+            affiliate_id TEXT NOT NULL,
+            referred_user_id TEXT NOT NULL,
+            referred_user_email TEXT NOT NULL,
+            referred_user_name TEXT,
+            course_id TEXT,
+            course_title TEXT,
+            course_price REAL DEFAULT 0.00,
+            commission_amount REAL DEFAULT 0.00,
+            status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'paid')),
+            payment_status TEXT DEFAULT 'pending' CHECK (payment_status IN ('pending', 'paid')),
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            confirmed_at DATETIME,
+            paid_at DATETIME,
+            FOREIGN KEY (affiliate_id) REFERENCES affiliates (id) ON DELETE CASCADE
+          )
+        `);
+        console.log('affiliate_referrals table created successfully');
+      } catch (createError) {
+        console.error('Failed to create affiliate_referrals table:', createError);
+        return res.json({
+          totalEarnings: 0,
+          totalReferrals: 0,
+          activeReferrals: 0,
+          pendingCommissions: 0,
+          paidCommissions: 0,
+          monthlyEarnings: 0,
+          monthlyReferrals: 0
+        });
+      }
     }
 
     // Get total referrals
