@@ -1,16 +1,41 @@
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcryptjs';
+import { Resend } from 'resend';
 import { runQuery, getQuery } from '../database/init.js';
 
-// Email configuration
-export const emailConfig = {
-  service: process.env.EMAIL_SERVICE || 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  from: process.env.EMAIL_FROM || 'NBTA Affiliate System <noreply@nbta.com.ng>'
-};
+// Generate unique ID
+function generateId() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+// Email configuration (supports both "service" and raw SMTP)
+const smtpHost = process.env.SMTP_HOST;
+const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : undefined;
+const smtpSecure = typeof process.env.SMTP_SECURE === 'string'
+  ? process.env.SMTP_SECURE.toLowerCase() === 'true'
+  : undefined;
+
+const emailService = process.env.EMAIL_SERVICE; // e.g., 'gmail'
+const emailUser = process.env.SMTP_USER || process.env.EMAIL_USER;
+const emailPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+
+export const emailConfig = smtpHost
+  ? {
+      host: smtpHost,
+      port: smtpPort ?? 587,
+      secure: smtpSecure ?? (smtpPort === 465),
+      auth: emailUser && emailPass ? { user: emailUser, pass: emailPass } : undefined,
+      from: process.env.EMAIL_FROM || 'NBTA Affiliate System <noreply@nbta.com.ng>'
+    }
+  : {
+      service: emailService || 'gmail',
+      auth: emailUser && emailPass ? { user: emailUser, pass: emailPass } : undefined,
+      from: process.env.EMAIL_FROM || 'NBTA Affiliate System <noreply@nbta.com.ng>'
+    };
 
 // Create transporter
 let transporter;
@@ -19,6 +44,10 @@ try {
 } catch (error) {
   console.warn('Email service not configured:', error.message);
 }
+
+// Optional Resend provider (preferred when RESEND_API_KEY is set)
+const resendApiKey = process.env.RESEND_API_KEY;
+const resendClient = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Email templates
 const emailTemplates = {
@@ -249,7 +278,7 @@ export async function generateAffiliateCredentials(affiliateId, email) {
     await runQuery(`
       INSERT INTO affiliate_credentials (id, affiliate_id, user_id, password_hash)
       VALUES (?, ?, ?, ?)
-    `, [cryptoRandomId(), affiliateId, userId, passwordHash]);
+    `, [generateId(), affiliateId, userId, passwordHash]);
 
     return {
       email,
@@ -274,13 +303,37 @@ function generatePassword() {
 
 // Send email with retry logic
 async function sendEmailWithRetry(to, template, data, maxRetries = 3) {
+  const emailData = template(data);
+
+  // Prefer Resend if configured
+  if (resendClient) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const { data: result, error } = await resendClient.emails.send({
+          from: emailConfig.from,
+          to: [to],
+          subject: emailData.subject,
+          html: emailData.html
+        });
+        if (error) throw new Error(error.message || 'Resend send failed');
+        console.log(`✅ Email sent via Resend to ${to} (attempt ${attempt})`);
+        return { success: true, messageId: result?.id };
+      } catch (error) {
+        console.error(`❌ Resend attempt ${attempt} failed:`, error.message);
+        if (attempt === maxRetries) {
+          return { success: false, error: error.message };
+        }
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
+      }
+    }
+  }
+
+  // Fallback to SMTP transporter
   if (!transporter) {
     console.warn('Email service not configured, skipping email send');
     return { success: false, reason: 'Email service not configured' };
   }
 
-  const emailData = template(data);
-  
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const result = await transporter.sendMail({
@@ -289,19 +342,14 @@ async function sendEmailWithRetry(to, template, data, maxRetries = 3) {
         subject: emailData.subject,
         html: emailData.html
       });
-      
       console.log(`✅ Email sent successfully to ${to} (attempt ${attempt})`);
       return { success: true, messageId: result.messageId };
-      
     } catch (error) {
       console.error(`❌ Email send attempt ${attempt} failed:`, error.message);
-      
       if (attempt === maxRetries) {
         console.error(`❌ All email attempts failed for ${to}`);
         return { success: false, error: error.message };
       }
-      
-      // Wait before retry (exponential backoff)
       await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
     }
   }

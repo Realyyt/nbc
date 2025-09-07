@@ -1,7 +1,7 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { runQuery, getQuery, allQuery } from '../database/init.js';
-import { sendAffiliateApproval, sendAffiliateRejection } from '../services/emailService.js';
+import { sendAffiliateApproval, sendAffiliateRejection, generateAffiliateCredentials } from '../services/emailService.js';
 import { verifyToken, requireAdmin } from './auth.js';
 
 const router = express.Router();
@@ -87,17 +87,22 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
         ]
       );
 
-      // Generate affiliate credentials
+      // Generate and persist affiliate credentials
       let credentials = null;
       try {
-        credentials = await sendAffiliateApproval({
+        const generated = await generateAffiliateCredentials(affiliateId, application.email);
+
+        // Send approval email with real credentials
+        await sendAffiliateApproval({
           ...application,
           affiliateCode,
           commissionRate: 10.0,
-          password: 'temp123' // Temporary password
+          password: generated.password
         });
+
+        credentials = { email: generated.email, password: generated.password, userId: generated.userId };
       } catch (emailError) {
-        console.error('Approval email failed:', emailError);
+        console.error('Approval email or credential generation failed:', emailError);
         // Don't fail the request if email fails
       }
 
