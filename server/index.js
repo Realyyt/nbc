@@ -27,8 +27,10 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:"],
+      workerSrc: ["'self'", "blob:"],
       imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https:"],
     },
   },
   crossOriginEmbedderPolicy: false,
