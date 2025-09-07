@@ -404,6 +404,8 @@ export async function verifyEmailService() {
 
 // Verify affiliate credentials for login
 export async function verifyAffiliateCredentials(email, password) {
+  console.log('Verifying credentials for email:', email);
+  
   const credential = await getQuery(
     `SELECT ac.user_id as id, ac.password_hash as password_hash
      FROM affiliates a
@@ -412,8 +414,17 @@ export async function verifyAffiliateCredentials(email, password) {
      WHERE app.email = ? AND a.status = 'active'`,
     [email]
   );
-  if (!credential) return null;
+  
+  console.log('Found credential:', credential ? 'yes' : 'no');
+  
+  if (!credential) {
+    console.log('No credential found for email:', email);
+    return null;
+  }
+  
   const isValid = await bcrypt.compare(password, credential.password_hash);
+  console.log('Password valid:', isValid);
+  
   if (!isValid) return null;
   return { id: credential.id };
 }
