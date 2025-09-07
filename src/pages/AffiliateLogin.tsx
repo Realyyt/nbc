@@ -30,9 +30,13 @@ const AffiliateLogin: React.FC = () => {
 
       const { token, user } = response.data;
       
+      console.log('Affiliate login successful:', { token: token ? 'exists' : 'missing', user });
+      
       // Store token and user info
       localStorage.setItem('affiliateToken', token);
       localStorage.setItem('affiliateUser', JSON.stringify(user));
+      
+      console.log('Stored affiliate data, navigating to dashboard...');
       
       // Redirect to affiliate dashboard
       navigate('/affiliate/dashboard');

@@ -75,10 +75,11 @@ router.post('/affiliate/login', async (req, res) => {
 
     // Get affiliate data
     const affiliate = await getQuery(
-      `SELECT a.*, ac.email, ac.full_name 
+      `SELECT a.*, app.email, app.full_name 
        FROM affiliates a 
-       JOIN affiliate_applications ac ON a.application_id = ac.id 
-       WHERE a.user_id = ?`,
+       JOIN affiliate_applications app ON a.application_id = app.id 
+       JOIN affiliate_credentials cred ON cred.affiliate_id = a.id
+       WHERE cred.user_id = ?`,
       [credential.id]
     );
 
