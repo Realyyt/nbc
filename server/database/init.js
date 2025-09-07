@@ -8,15 +8,18 @@ const sqlite3 = sqlite3pkg.verbose();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Database file path
-const dbPath = path.join(__dirname, '../../affiliate_system.db');
+// Database file path - use /tmp for production environments like Render
+const dbPath = process.env.NODE_ENV === 'production' 
+  ? path.join('/tmp', 'affiliate_system.db')
+  : path.join(__dirname, '../../affiliate_system.db');
 
 // Create database connection
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
+    console.error('Database path:', dbPath);
   } else {
-    console.log('Connected to SQLite database');
+    console.log('Connected to SQLite database at:', dbPath);
   }
 });
 
