@@ -34,6 +34,7 @@ export interface RegistrationFormData {
   courseOfInterest?: string;
   preferredLocation?: string;
   availability?: string;
+  affiliateCode?: string;
 
   // Section 5: Experience
   hasExperience?: boolean;
@@ -84,6 +85,7 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
     courseOfInterest: course.title,
     preferredLocation: '',
     availability: '',
+    affiliateCode: '',
     hasExperience: false,
     experienceDetails: '',
     isEmployed: false,
@@ -377,6 +379,19 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
                 <option value="Yola, Adamawa">Yola, Adamawa</option>
               </select>
               <p className="text-sm text-gray-500 mt-1">Physical training is currently available only in Jalingo and Yola</p>
+            </div>
+            <div>
+              <label htmlFor="affiliateCode" className="block text-sm font-medium text-gray-700 mb-1">Affiliate Ambassador Code (Optional)</label>
+              <input 
+                type="text" 
+                id="affiliateCode" 
+                name="affiliateCode" 
+                value={formData.affiliateCode || ''} 
+                onChange={handleChange} 
+                placeholder="Enter your affiliate code if you have one"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+              />
+              <p className="text-sm text-gray-500 mt-1">If you were referred by an NBTA affiliate, enter their code here</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Availability for On-the-Job Training *</label>
