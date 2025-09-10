@@ -303,7 +303,7 @@ const Home = () => {
                 
                 <div className="mt-2 flex items-center text-gray-600">
                   <MapPin size={18} className="mr-2" />
-                  <span>NBTA Training Center, Lagos</span>
+                  <span>NBTA Training Center, Jalingo</span>
                 </div>
                 
                 <div className="mt-6 flex justify-between items-center">
@@ -334,7 +334,7 @@ const Home = () => {
                 
                 <div className="mt-2 flex items-center text-gray-600">
                   <MapPin size={18} className="mr-2" />
-                  <span>NBTA Training Center, Abuja</span>
+                  <span>NBTA Training Center, Yola</span>
                 </div>
                 
                 <div className="mt-6 flex justify-between items-center">

@@ -181,7 +181,7 @@ router.get('/affiliates', verifyAdminToken, async (req, res) => {
 router.post('/applications/:id/review', verifyAdminToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, commissionRate = 0.15 } = req.body;
+    const { status, commissionRate = 0.10 } = req.body;
 
     if (!['approved', 'rejected'].includes(status)) {
       return res.status(400).json({ error: 'Invalid status' });

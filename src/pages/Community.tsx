@@ -8,7 +8,7 @@ const Community = () => {
       id: 1,
       title: 'NBTA Annual Conference 2024',
       date: 'June 15-17, 2024',
-      location: 'Lagos, Nigeria',
+      location: 'Jalingo, Nigeria',
       description: 'Join industry leaders for three days of networking, learning, and innovation.',
       attendees: 500,
       type: 'Conference',
@@ -18,7 +18,7 @@ const Community = () => {
       id: 2,
       title: 'Travel Management Workshop',
       date: 'April 20, 2024',
-      location: 'Abuja, Nigeria',
+      location: 'Yola, Nigeria',
       description: 'Hands-on workshop for travel managers to enhance their skills.',
       attendees: 200,
       type: 'Workshop',
@@ -28,7 +28,7 @@ const Community = () => {
       id: 3,
       title: 'Networking Mixer',
       date: 'May 5, 2024',
-      location: 'Port Harcourt, Nigeria',
+      location: 'Jalingo, Nigeria',
       description: 'Connect with fellow travel professionals in a casual setting.',
       attendees: 150,
       type: 'Networking',
@@ -39,24 +39,24 @@ const Community = () => {
   const chapters = [
     {
       id: 1,
-      name: 'Lagos Chapter',
+      name: 'Jalingo Chapter',
       members: 250,
       nextEvent: 'April 15, 2024',
-      location: 'Lagos, Nigeria'
+      location: 'Jalingo, Nigeria'
     },
     {
       id: 2,
-      name: 'Abuja Chapter',
+      name: 'Yola Chapter',
       members: 180,
       nextEvent: 'April 20, 2024',
-      location: 'Abuja, Nigeria'
+      location: 'Yola, Nigeria'
     },
     {
       id: 3,
-      name: 'Port Harcourt Chapter',
+      name: 'Jalingo Chapter',
       members: 120,
       nextEvent: 'April 25, 2024',
-      location: 'Port Harcourt, Nigeria'
+      location: 'Jalingo, Nigeria'
     }
   ];
 

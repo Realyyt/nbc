@@ -147,7 +147,7 @@ export const brevoService = {
           <h3>Your Affiliate Details:</h3>
           <ul>
             <li><strong>Affiliate Code:</strong> <code style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px;">${affiliateData.affiliateCode}</code></li>
-            <li><strong>Commission Rate:</strong> ${affiliateData.commissionRate}%</li>
+            <li><strong>Commission Rate:</strong> ${(affiliateData.commissionRate * 100).toFixed(1)}%</li>
             <li><strong>Dashboard Access:</strong> <a href="${window.location.origin}/affiliate/dashboard" style="color: #2563eb;">Click here to access your dashboard</a></li>
           </ul>
           

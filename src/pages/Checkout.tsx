@@ -22,7 +22,7 @@ const Checkout = () => {
     phone: '',
     address: '',
     city: '',
-    state: 'Lagos',
+    state: 'Taraba',
     paymentMethod: 'card',
     cardName: '',
     cardNumber: '',
@@ -335,8 +335,8 @@ const Checkout = () => {
                           onChange={handleInputChange}
                           className="input w-full"
                         >
-                          <option value="Lagos">Lagos</option>
-                          <option value="Abuja">Abuja</option>
+                          <option value="Taraba">Taraba</option>
+                          <option value="Adamawa">Adamawa</option>
                           <option value="Rivers">Rivers</option>
                           <option value="Kano">Kano</option>
                           <option value="Oyo">Oyo</option>

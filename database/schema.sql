@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS affiliates (
     audience_description TEXT NOT NULL,
     motivation TEXT NOT NULL,
     affiliate_code VARCHAR(50) UNIQUE NOT NULL,
-    commission_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1500 CHECK (commission_rate >= 0 AND commission_rate <= 1),
+    commission_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1000 CHECK (commission_rate >= 0 AND commission_rate <= 1),
     status VARCHAR(50) NOT NULL DEFAULT 'approved' CHECK (status IN ('approved', 'suspended')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -122,7 +122,7 @@ VALUES (
 
 -- Insert default system settings
 INSERT INTO system_settings (setting_key, setting_value, description) VALUES
-('default_commission_rate', '0.1500', 'Default commission rate for new affiliates (15%)'),
+('default_commission_rate', '0.1000', 'Default commission rate for new affiliates (10%)'),
 ('min_commission_amount', '10.00', 'Minimum commission amount for payout'),
 ('affiliate_approval_required', 'true', 'Whether affiliate applications require manual approval'),
 ('max_affiliate_code_length', '8', 'Maximum length of affiliate codes')

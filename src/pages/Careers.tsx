@@ -1,60 +1,9 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Briefcase, Clock, Users, GraduationCap, BookOpen } from 'lucide-react';
+import { Users, GraduationCap, BookOpen } from 'lucide-react';
 import JobApplicationForm from '../components/JobApplicationForm';
 
 const Careers = () => {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<number | null>(null);
-
-  const jobListings = [
-    {
-      id: 1,
-      title: 'Senior Training Instructor',
-      department: 'Training',
-      location: 'Lagos, Nigeria',
-      type: 'Full-time',
-      description: 'Lead physical training sessions and develop curriculum for business travel professionals.',
-      requirements: [
-        '5+ years of experience in business travel management',
-        'Strong presentation and facilitation skills',
-        'Experience in curriculum development',
-        'Excellent communication skills'
-      ]
-    },
-    {
-      id: 2,
-      title: 'Community Manager',
-      department: 'Community',
-      location: 'Abuja, Nigeria',
-      type: 'Full-time',
-      description: 'Build and nurture our community of business travel professionals through events and engagement.',
-      requirements: [
-        '3+ years of community management experience',
-        'Strong event planning and execution skills',
-        'Experience in professional networking',
-        'Excellent interpersonal skills'
-      ]
-    },
-    {
-      id: 3,
-      title: 'Training Coordinator',
-      department: 'Training',
-      location: 'Port Harcourt, Nigeria',
-      type: 'Full-time',
-      description: 'Coordinate physical training sessions and manage training logistics.',
-      requirements: [
-        '2+ years of training coordination experience',
-        'Strong organizational skills',
-        'Experience in event management',
-        'Attention to detail'
-      ]
-    }
-  ];
-
-  const handleApplyClick = (jobId: number) => {
-    setSelectedJob(jobId);
-    setShowApplicationForm(true);
-  };
 
   const handleFormSubmit = async (formData: any) => {
     // Here you would typically send the form data to your backend
@@ -107,78 +56,98 @@ const Careers = () => {
           </div>
         </div>
 
-       
-
-        {/* Search Section */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search jobs..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+        {/* Locations Section */}
+        <div className="max-w-6xl mx-auto mb-16">
+          <h2 className="text-center text-2xl font-bold mb-8">Our Training Locations</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Jalingo Location */}
+            <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-sm border border-primary/20">
+              <div className="flex items-center mb-4">
+                <div className="bg-primary rounded-full p-3 mr-4">
+                  <BookOpen size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900">Jalingo Training Center</h3>
+                  <p className="text-primary font-medium">Taraba State</p>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <select className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option value="">All Departments</option>
-                  <option value="training">Training</option>
-                  <option value="community">Community</option>
-                  <option value="operations">Operations</option>
-                </select>
-                <select className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option value="">All Locations</option>
-                  <option value="lagos">Lagos</option>
-                  <option value="abuja">Abuja</option>
-                  <option value="port-harcourt">Port Harcourt</option>
-                </select>
+              <div className="space-y-3">
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                  <span>Main training facility with full equipment</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                  <span>Hands-on vocational skills training</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                  <span>Professional instructors and mentors</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                  <span>Modern workshop facilities</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Yola Location */}
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-sm border border-green-200">
+              <div className="flex items-center mb-4">
+                <div className="bg-green-600 rounded-full p-3 mr-4">
+                  <BookOpen size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900">Yola Training Center</h3>
+                  <p className="text-green-600 font-medium">Adamawa State</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-3"></span>
+                  <span>Comprehensive skill development programs</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-3"></span>
+                  <span>Specialized training workshops</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-3"></span>
+                  <span>Industry-standard equipment</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-3"></span>
+                  <span>Certified training programs</span>
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* Additional Info */}
+          <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+            <h4 className="text-lg font-semibold text-blue-900 mb-2">Physical Training Availability</h4>
+            <p className="text-blue-700">
+              All hands-on training programs are conducted exclusively at our Jalingo and Yola training centers. 
+              We also offer online courses for students who cannot attend physical sessions.
+            </p>
+          </div>
         </div>
 
-        {/* Job Listings */}
+        {/* Application Section */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-2xl font-bold mb-6">Open Positions</h2>
-          <div className="space-y-6">
-            {jobListings.map(job => (
-              <div key={job.id} className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
-                <div className="flex flex-wrap gap-4 mb-4">
-                  <div className="flex items-center text-gray-600">
-                    <Briefcase size={16} className="mr-2" />
-                    {job.department}
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <MapPin size={16} className="mr-2" />
-                    {job.location}
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <Clock size={16} className="mr-2" />
-                    {job.type}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">{job.description}</p>
-                <div>
-                  <h4 className="font-medium mb-2">Requirements:</h4>
-                  <ul className="list-disc list-inside text-gray-600">
-                    {job.requirements.map((req, index) => (
-                      <li key={index}>{req}</li>
-                    ))}
-                  </ul>
-                </div>
-                <button 
-                  className="btn-primary mt-4"
-                  onClick={() => handleApplyClick(job.id)}
-                >
-                  Apply Now
-                </button>
-              </div>
-            ))}
+          <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+            <h2 className="text-2xl font-bold mb-4">Ready to Join Our Team?</h2>
+            <p className="text-gray-600 mb-6">
+              We're always looking for passionate individuals who want to make a difference in vocational education. 
+              Whether you're interested in training, community management, operations, or any other role, 
+              we'd love to hear from you.
+            </p>
+            <button 
+              className="btn-primary"
+              onClick={() => setShowApplicationForm(true)}
+            >
+              Apply Now
+            </button>
           </div>
         </div>
         <div className="text-center mb-16">

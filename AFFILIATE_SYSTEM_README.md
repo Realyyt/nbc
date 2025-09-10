@@ -141,7 +141,7 @@ CREATE TABLE affiliates (
   user_id UUID REFERENCES users(id),
   application_id UUID REFERENCES affiliate_applications(id),
   affiliate_code VARCHAR(8) UNIQUE NOT NULL,
-  commission_rate DECIMAL(5,2) DEFAULT 10.00,
+  commission_rate DECIMAL(5,2) DEFAULT 0.10,
   total_earnings DECIMAL(10,2) DEFAULT 0.00,
   total_referrals INTEGER DEFAULT 0,
   active_referrals INTEGER DEFAULT 0,

@@ -21,7 +21,7 @@ export const mockEnrollments = [
     title: 'Complete Web Development Bootcamp',
     instructor: 'Oluwaseun Adebayo',
     startDate: 'March 15, 2024',
-    location: 'Lagos Training Center',
+    location: 'Jalingo Training Center',
     image: 'https://img-c.udemycdn.com/course/750x422/1565838_e54e_16.jpg',
   },
   {

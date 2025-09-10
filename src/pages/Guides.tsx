@@ -10,7 +10,7 @@ const Guides = () => {
       description: 'Comprehensive physical training program covering all aspects of business travel management.',
       duration: '5 days',
       level: 'Beginner to Advanced',
-      location: 'Lagos Training Center',
+      location: 'Jalingo Training Center',
       seats: 20,
       image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
     },
@@ -20,7 +20,7 @@ const Guides = () => {
       description: 'Hands-on workshop for creating and implementing effective travel policies.',
       duration: '3 days',
       level: 'Intermediate',
-      location: 'Abuja Training Center',
+      location: 'Yola Training Center',
       seats: 15,
       image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
     },
@@ -30,7 +30,7 @@ const Guides = () => {
       description: 'Advanced techniques for managing complex business travel scenarios.',
       duration: '4 days',
       level: 'Advanced',
-      location: 'Port Harcourt Training Center',
+      location: 'Jalingo Training Center',
       seats: 12,
       image: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
     }

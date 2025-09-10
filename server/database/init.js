@@ -99,7 +99,7 @@ export async function initializeDatabase() {
         audience_size INTEGER,
         audience_description TEXT,
         affiliate_code TEXT UNIQUE NOT NULL,
-        commission_rate REAL DEFAULT 0.15,
+        commission_rate REAL DEFAULT 0.10,
         total_earnings REAL DEFAULT 0.00,
         total_referrals INTEGER DEFAULT 0,
         status TEXT DEFAULT 'active' CHECK (status IN ('active', 'suspended', 'inactive')),
@@ -222,7 +222,7 @@ export async function initializeDatabase() {
 
     // Insert default system settings
     const settings = [
-      ['default_commission_rate', '0.15', 'Default commission rate for affiliates'],
+      ['default_commission_rate', '0.10', 'Default commission rate for affiliates'],
       ['min_commission_amount', '1000', 'Minimum commission amount before payment'],
       ['affiliate_code_length', '8', 'Length of affiliate codes'],
       ['max_affiliate_applications', '1000', 'Maximum number of affiliate applications'],

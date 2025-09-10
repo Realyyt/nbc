@@ -83,7 +83,7 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
         [
           affiliateId, id, application.full_name, application.email, application.phone,
           application.social_media_handles, application.audience_size, 
-          application.audience_description, affiliateCode, 10.0
+          application.audience_description, affiliateCode, 0.10
         ]
       );
 
@@ -103,7 +103,7 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
           motivation: application.motivation,
           socialMediaHandles: application.social_media_handles,
           affiliateCode,
-          commissionRate: 10.0,
+          commissionRate: 0.10,
           password: generated.password
         });
 

@@ -62,7 +62,7 @@ export interface Affiliate {
   audienceDescription: string;
   motivation: string;
   affiliateCode: string;
-  commissionRate: number; // Percentage (e.g., 0.15 for 15%)
+  commissionRate: number; // Percentage (e.g., 0.10 for 10%)
   totalEarnings: number;
   totalReferrals: number;
   activeReferrals: number;
