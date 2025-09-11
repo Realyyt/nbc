@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import api from '../lib/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,20 +18,15 @@ const Contact = () => {
     setStatus('loading');
     setError('');
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to send message');
+      const response = await api.post('/contact', formData);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error(response.data?.error || 'Failed to send message');
       }
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err: any) {
       setStatus('error');
-      setError(err.message || 'Failed to send message');
+      setError(err.response?.data?.error || err.message || 'Failed to send message');
     }
   };
 
