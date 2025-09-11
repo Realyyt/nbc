@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 const ProgramDetail = () => {
   // This is specifically for the NBTA Free Skill Training Program
@@ -27,7 +26,7 @@ const ProgramDetail = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800">Program Not Found</h2>
           <p className="mt-4 text-gray-600">The program you're looking for doesn't exist or has been removed.</p>
-          <Link to="/courses" className="btn-primary mt-8">
+          <Link to="/programs" className="btn-primary mt-8">
             Browse Programs
           </Link>
         </div>

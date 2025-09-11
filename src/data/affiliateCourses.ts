@@ -1,4 +1,4 @@
-export interface Course {
+export interface Program {
   id: number;
   title: string;
   platform: 'udemy' | 'google' | 'coursera' | 'other';
@@ -11,8 +11,8 @@ export interface Course {
   isFree: boolean;
 }
 
-const courses: Course[] = [
-  // Udemy Courses
+const programs: Program[] = [
+  // Udemy Programs
   {
     id: 1,
     title: "Complete Web Development Bootcamp",
@@ -28,4 +28,8 @@ const courses: Course[] = [
   // ... rest of the courses ...
 ];
 
-export { courses }; 
+// Backward-compatibility aliases
+export type Course = Program;
+export const courses = programs;
+
+export { programs };

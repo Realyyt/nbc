@@ -56,7 +56,7 @@ const CoursesPage: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Courses</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Programs</h2>
           <p className="text-gray-600">{error}</p>
         </div>
       </div>
@@ -65,14 +65,14 @@ const CoursesPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Recommended Courses</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Recommended Programs</h1>
       
       {/* Filters */}
       <div className="mb-8 space-y-4 md:space-y-0 md:flex md:items-center md:space-x-4">
         <div className="relative flex-1">
           <input
             type="text"
-            placeholder="Search courses..."
+            placeholder="Search programs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="input w-full pl-10 pr-4 py-2"
@@ -105,7 +105,7 @@ const CoursesPage: React.FC = () => {
 
       {/* Results count */}
       <p className="text-gray-600 mb-6">
-        Showing {filteredCourses.length} of {courses.length} courses
+        Showing {filteredCourses.length} of {courses.length} programs
       </p>
 
       {/* Course Grid */}
@@ -129,7 +129,7 @@ const CoursesPage: React.FC = () => {
       {filteredCourses.length === 0 && (
         <div className="text-center py-12">
           <Filter size={48} className="mx-auto text-gray-400 mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">No courses found</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">No programs found</h3>
           <p className="text-gray-600">Try adjusting your filters or search terms</p>
         </div>
       )}

@@ -15,7 +15,7 @@ const Sidebar = () => {
     {
       label: 'My Programs',
       icon: <BookOpen size={20} />,
-      href: '/dashboard/courses',
+      href: '/dashboard/programs',
     },
     {
       label: 'Profile',
@@ -73,7 +73,7 @@ const Sidebar = () => {
         </button>
         
         <Link 
-          to="/courses" 
+          to="/programs" 
           className="mt-4 block text-center text-sm text-primary font-medium hover:underline"
         >
           Browse Programs

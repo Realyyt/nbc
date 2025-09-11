@@ -15,13 +15,13 @@ const CourseRegistration: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800">Course Not Found</h2>
-          <p className="mt-4 text-gray-600">The course you're looking for doesn't exist or has been removed.</p>
+          <h2 className="text-2xl font-bold text-gray-800">Program Not Found</h2>
+          <p className="mt-4 text-gray-600">The program you're looking for doesn't exist or has been removed.</p>
           <button
-            onClick={() => navigate('/courses')}
+            onClick={() => navigate('/programs')}
             className="mt-6 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
           >
-            Browse Courses
+            Browse Programs
           </button>
         </div>
       </div>
@@ -47,7 +47,7 @@ const CourseRegistration: React.FC = () => {
             </div>
             <CourseRegistrationForm
               course={course}
-              onClose={() => navigate('/courses')}
+              onClose={() => navigate('/programs')}
               onSubmit={() => navigate('/registration-success')}
               isSubmitting={isSubmitting}
             />

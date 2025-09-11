@@ -79,7 +79,7 @@ const UserDashboard = () => {
         {enrolledCourses.length === 0 ? (
           <div className="p-6 text-center">
             <p className="text-gray-500">You haven't enrolled in any programs yet.</p>
-            <Link to="/courses" className="text-primary hover:underline mt-2 inline-block">
+            <Link to="/programs" className="text-primary hover:underline mt-2 inline-block">
               Browse Programs
             </Link>
           </div>
@@ -101,7 +101,7 @@ const UserDashboard = () => {
                   </p>
                 </div>
                 <Link
-                  to={`/courses/${enrollment.course_id}`}
+                  to={`/programs/${enrollment.course_id}`}
                   className="text-primary hover:underline text-sm"
                 >
                   Continue Learning

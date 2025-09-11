@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BookOpen, Menu, X, Search, ShoppingCart, User } from 'lucide-react';
+import { Menu, X, Search, ShoppingCart, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/courses?search=${encodeURIComponent(searchQuery)}`);
+      navigate(`/programs?search=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
       setIsMenuOpen(false);
     }
@@ -85,7 +85,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link 
-              to="/courses" 
+              to="/programs" 
               className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
             >
               Programs
@@ -94,7 +94,7 @@ const Navbar = () => {
               to="/affiliate-courses" 
               className={`${textColorClass} text-sm font-medium hover:text-primary transition-colors`}
             >
-              Affiliate Courses
+              Affiliate Programs
             </Link>
             <Link 
               to="/affiliate-application" 
@@ -176,7 +176,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link 
-              to="/courses" 
+              to="/programs" 
               className="text-foreground text-base font-medium hover:text-primary"
               onClick={() => setIsMenuOpen(false)}
             >

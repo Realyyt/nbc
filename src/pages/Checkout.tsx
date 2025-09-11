@@ -78,7 +78,7 @@ const Checkout = () => {
       
       // Redirect to dashboard after successful payment
       setTimeout(() => {
-        navigate('/dashboard/courses');
+        navigate('/dashboard/programs');
       }, 3000);
     } catch (err: any) {
       setError(err.message || 'Payment processing failed. Please try again.');
@@ -140,19 +140,19 @@ const Checkout = () => {
   const tax = subtotal * 0.075; // 7.5% VAT in Nigeria
   const total = subtotal + tax;
   
-  // If cart is empty, redirect to courses
+  // If cart is empty, redirect to programs
   if (cartItems.length === 0 && !success) {
     return (
       <div className="min-h-screen pt-24 pb-16 px-4">
         <div className="container-custom max-w-3xl mx-auto">
           <div className="bg-white shadow-md rounded-lg p-8 text-center">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Add some courses to your cart before proceeding to checkout.</p>
+            <p className="text-gray-600 mb-6">Add some programs to your cart before proceeding to checkout.</p>
             <button
-              onClick={() => navigate('/courses')}
+              onClick={() => navigate('/programs')}
               className="btn-primary"
             >
-              Browse Courses
+              Browse Programs
             </button>
           </div>
         </div>
@@ -171,14 +171,14 @@ const Checkout = () => {
             </div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Payment Successful!</h2>
             <p className="text-gray-600 mb-6">
-              Thank you for your purchase. Your enrollment has been confirmed for the selected course(s).
+              Thank you for your purchase. Your enrollment has been confirmed for the selected program(s).
               You will receive a confirmation email shortly with all the details.
             </p>
             <button
-              onClick={() => navigate('/dashboard/courses')}
+              onClick={() => navigate('/dashboard/programs')}
               className="btn-primary"
             >
-              Go to My Courses
+              Go to My Programs
             </button>
           </div>
         </div>

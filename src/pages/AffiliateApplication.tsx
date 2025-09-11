@@ -164,7 +164,7 @@ const AffiliateApplicationPage: React.FC = () => {
                 <span className="text-primary font-bold text-lg">10%</span>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Earn 10% Commission</h3>
-              <p className="text-gray-600 text-sm">Get 10% commission on every successful course enrollment</p>
+              <p className="text-gray-600 text-sm">Get 10% commission on every successful program enrollment</p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">

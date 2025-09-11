@@ -54,8 +54,8 @@ const App = () => {
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/press" element={<Press />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/courses/:id" element={<CourseDetail />} />
+            <Route path="/programs" element={<Courses />} />
+            <Route path="/programs/:id" element={<CourseDetail />} />
             <Route path="/affiliate-courses" element={<CoursesPage />} />
             <Route path="/register/:courseId" element={<CourseRegistration />} />
             <Route path="/registration-success" element={<RegistrationSuccess />} />

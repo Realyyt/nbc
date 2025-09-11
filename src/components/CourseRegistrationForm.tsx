@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Program } from '../lib/supabase';
+import React, { useMemo, useState } from 'react';
+import { Program } from '../services/programService';
 import { paystackService } from '../services/paystackService';
+import { NBC_FEES, TrainingLevel, getTotalFee, LEVEL_TO_DURATION, formatCurrency } from '../data/nbcPricing';
 
 interface CourseRegistrationFormProps {
   course: Program;
@@ -103,6 +104,9 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
   });
   const [step, setStep] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success' | 'failed'>('idle');
+  const [selectedLevel, setSelectedLevel] = useState<TrainingLevel>('beginner');
+
+  const totalFee = useMemo(() => getTotalFee(selectedLevel), [selectedLevel]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,12 +123,12 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
       // Initialize payment
       await paystackService.initializePayment({
         email: formData.emailAddress,
-        amount: course.price,
+        amount: course.mode === 'physical' ? totalFee : course.price,
         reference: paystackService.generateReference(),
         onSuccess: (reference) => {
           setPaymentStatus('success');
           // Submit form data after successful payment
-          onSubmit(formData);
+          onSubmit({ ...formData, courseOfInterest: `${course.title} - ${selectedLevel}` });
         },
         onCancel: () => {
           setPaymentStatus('failed');
@@ -370,6 +374,33 @@ const CourseRegistrationForm: React.FC<CourseRegistrationFormProps> = ({
             <div>
               <label htmlFor="courseOfInterest" className="block text-sm font-medium text-gray-700 mb-1">Course of Interest *</label>
               <input type="text" id="courseOfInterest" name="courseOfInterest" required value={formData.courseOfInterest || ''} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Select Training Level *</label>
+              <div className="flex flex-wrap gap-4">
+                {(['beginner','intermediate','advanced'] as TrainingLevel[]).map(lvl => (
+                  <label key={lvl} className="inline-flex items-center">
+                    <input type="radio" name="trainingLevel" value={lvl} checked={selectedLevel === lvl} onChange={() => setSelectedLevel(lvl)} className="form-radio" />
+                    <span className="ml-2 capitalize">{lvl} ({LEVEL_TO_DURATION[lvl]})</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div className="border rounded-md p-4 bg-gray-50">
+              <h4 className="font-semibold mb-2">Fee Breakdown</h4>
+              <div className="grid grid-cols-2 gap-y-1 text-sm">
+                <span>Registration</span>
+                <span className="text-right">{formatCurrency(NBC_FEES[selectedLevel].registration)}</span>
+                <span>Tuition</span>
+                <span className="text-right">{formatCurrency(NBC_FEES[selectedLevel].tuition)}</span>
+                <span>Practical & Workshop</span>
+                <span className="text-right">{formatCurrency(NBC_FEES[selectedLevel].practical)}</span>
+                <span>Certification</span>
+                <span className="text-right">{formatCurrency(NBC_FEES[selectedLevel].certification)}</span>
+                <span className="font-semibold mt-2">Total</span>
+                <span className="text-right font-semibold mt-2">{formatCurrency(totalFee)}</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-2">Fees are standardized across all physical courses.</p>
             </div>
             <div>
               <label htmlFor="preferredLocation" className="block text-sm font-medium text-gray-700 mb-1">Preferred Location for Physical Training *</label>

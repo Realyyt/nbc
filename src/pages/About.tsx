@@ -171,7 +171,7 @@ const About = () => {
             </p>
             <div className="flex justify-center gap-6">
               <Link 
-                to="/courses" 
+                to="/programs" 
                 className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
               >
                 View Training Programs

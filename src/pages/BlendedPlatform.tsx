@@ -74,7 +74,7 @@ const HybridPlatform = () => {
             ))
           ) : (
             <div className="col-span-full text-center text-gray-500 py-12">
-              No courses found for this selection.
+              No programs found for this selection.
             </div>
           )}
         </div>

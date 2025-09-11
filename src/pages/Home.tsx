@@ -367,7 +367,7 @@ const Home = () => {
               practical training programs. Register today for upcoming classes.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link to="/courses" className="btn-accent text-foreground font-medium">
+              <Link to="/programs" className="btn-accent text-foreground font-medium">
                 Browse Programs
               </Link>
             </div>
