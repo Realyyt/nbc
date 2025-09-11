@@ -13,6 +13,7 @@ import { initializeDatabase } from './database/init.js';
 import authRoutes from './routes/auth.js';
 import affiliateRoutes from './routes/affiliates.js';
 import adminRoutes from './routes/admin.js';
+import contactRoutes from './routes/contact.js';
 
 dotenv.config();
 
@@ -82,6 +83,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/affiliates', affiliateRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {

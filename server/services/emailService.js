@@ -267,6 +267,58 @@ const emailTemplates = {
   })
 };
 
+// Contact/Partnership inquiry template
+const contactTemplate = (data) => ({
+  subject: `[NBTA Contact] ${data.subject || 'New Message'}`,
+  html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: #0f172a; color: white; padding: 20px; text-align: center;">
+        <h2 style="margin: 0;">New Contact Message</h2>
+      </div>
+      <div style="padding: 20px; background: #f8fafc;">
+        <p style="margin: 0 0 12px 0; color: #334155;"><strong>Name:</strong> ${data.name}</p>
+        <p style="margin: 0 0 12px 0; color: #334155;"><strong>Email:</strong> ${data.email}</p>
+        ${data.phone ? `<p style="margin: 0 0 12px 0; color: #334155;"><strong>Phone:</strong> ${data.phone}</p>` : ''}
+        <p style="margin: 0 0 12px 0; color: #334155;"><strong>Subject:</strong> ${data.subject}</p>
+        <div style="background: white; border-left: 4px solid #2563eb; padding: 16px; border-radius: 6px; color: #0f172a;">
+          <p style="white-space: pre-wrap; margin: 0;">${(data.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        </div>
+      </div>
+      <div style="background: #e2e8f0; color: #0f172a; padding: 12px; text-align: center; font-size: 12px;">
+        <p style="margin: 0;">This message was sent from the NBTA website contact form.</p>
+      </div>
+    </div>
+  `
+});
+
+export async function sendContactMessage(data) {
+  // Always deliver contact messages to the specified support inbox
+  const recipient = 'wecanhelp@nbta.institute';
+
+  // If a dedicated contact API key is provided, use it exclusively for contact emails
+  const contactApiKey = process.env.RESEND_CONTACT_API_KEY;
+  if (contactApiKey) {
+    try {
+      const contactResend = new Resend(contactApiKey);
+      const emailData = contactTemplate(data);
+      const { data: result, error } = await contactResend.emails.send({
+        from: emailConfig.from,
+        to: [recipient],
+        subject: emailData.subject,
+        html: emailData.html
+      });
+      if (error) throw new Error(error.message || 'Resend send failed');
+      return { success: true, messageId: result?.id };
+    } catch (error) {
+      console.error('Contact Resend send failed, falling back:', error.message);
+      // fall through to the standard retry flow below
+    }
+  }
+
+  // Fallback to the standard mechanism (global Resend if set, else SMTP)
+  return sendEmailWithRetry(recipient, contactTemplate, data);
+}
+
 // Generate affiliate credentials
 export async function generateAffiliateCredentials(affiliateId, email) {
   try {

@@ -9,10 +9,29 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [error, setError] = useState<string>('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setStatus('loading');
+    setError('');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to send message');
+      }
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err: any) {
+      setStatus('error');
+      setError(err.message || 'Failed to send message');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -44,8 +63,7 @@ const Contact = () => {
                   <Mail size={20} className="text-primary mt-1 mr-4" />
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600">wecanhelp@nbta.com.ng</p>
-                    <p className="text-gray-600">press@nbta.com.ng</p>
+                    <p className="text-gray-600">wecanhelp@nbta.institute</p>
                   </div>
                 </div>
                 <div className="flex items-start">
