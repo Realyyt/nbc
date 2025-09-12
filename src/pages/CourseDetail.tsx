@@ -69,14 +69,6 @@ const ProgramDetail = () => {
             <h2 className="text-xl font-semibold mb-4">Program Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-medium text-gray-900">Duration</h3>
-                <p className="text-gray-600">{program.duration}</p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-medium text-gray-900">Level</h3>
-                <p className="text-gray-600 capitalize">{program.level}</p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
                 <h3 className="font-medium text-gray-900">Platform</h3>
                 <p className="text-gray-600">{program.platform}</p>
               </div>
