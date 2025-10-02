@@ -6,6 +6,22 @@ import { verifyToken, requireAffiliate } from './auth.js';
 
 const router = express.Router();
 
+// Public: List published affiliate programs
+router.get('/programs', async (req, res) => {
+  try {
+    const programs = await allQuery(
+      `SELECT id, title, description, platform, image_url as imageUrl, affiliate_link as affiliateLink, price, rating, instructor, mode, price_type as priceType
+       FROM affiliate_programs
+       WHERE is_published = 1
+       ORDER BY created_at DESC`
+    );
+    res.json({ programs });
+  } catch (error) {
+    console.error('Public programs list error:', error);
+    res.status(500).json({ error: 'Failed to fetch programs' });
+  }
+});
+
 // Submit affiliate application
 router.post('/applications', async (req, res) => {
   try {

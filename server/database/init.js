@@ -174,6 +174,26 @@ export async function initializeDatabase() {
       )
     `);
 
+    // Create affiliate_programs table
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS affiliate_programs (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT,
+        platform TEXT,
+        image_url TEXT,
+        affiliate_link TEXT NOT NULL,
+        price REAL,
+        rating REAL,
+        instructor TEXT,
+        mode TEXT DEFAULT 'online',
+        price_type TEXT DEFAULT 'paid',
+        is_published INTEGER DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     // Create system_settings table
     await runQuery(`
       CREATE TABLE IF NOT EXISTS system_settings (

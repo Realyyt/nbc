@@ -28,6 +28,7 @@ import AffiliateApplication from './pages/AffiliateApplication';
 import AffiliateApplicationSuccess from './pages/AffiliateApplicationSuccess';
 import AffiliateDashboard from './pages/dashboard/AffiliateDashboard';
 import AdminAffiliates from './pages/admin/AdminAffiliates';
+import AdminPrograms from './pages/admin/AdminPrograms';
 import AdminLogin from './pages/AdminLogin';
 import AffiliateLogin from './pages/AffiliateLogin';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
@@ -79,6 +80,11 @@ const App = () => {
             <Route path="/admin/affiliates" element={
               <ProtectedAdminRoute>
                 <AdminAffiliates />
+              </ProtectedAdminRoute>
+            } />
+            <Route path="/admin/programs" element={
+              <ProtectedAdminRoute>
+                <AdminPrograms />
               </ProtectedAdminRoute>
             } />
           </Routes>

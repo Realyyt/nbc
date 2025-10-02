@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, CreditCard, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CreditCard, Settings, LogOut, BookOpen } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const AdminSidebar = () => {
@@ -16,6 +16,11 @@ const AdminSidebar = () => {
       label: 'Users',
       icon: <Users size={20} />,
       href: '/admin/users',
+    },
+    {
+      label: 'Programs',
+      icon: <BookOpen size={20} />,
+      href: '/admin/programs',
     },
     {
       label: 'Payments',

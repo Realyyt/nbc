@@ -106,6 +106,26 @@ export async function initializeDatabase() {
       )
     `);
 
+    // Create affiliate_programs table
+    await runQuery(`
+      CREATE TABLE IF NOT EXISTS affiliate_programs (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        platform VARCHAR(50),
+        image_url TEXT,
+        affiliate_link TEXT NOT NULL,
+        price NUMERIC,
+        rating NUMERIC,
+        instructor VARCHAR(255),
+        mode VARCHAR(20) DEFAULT 'online',
+        price_type VARCHAR(20) DEFAULT 'paid',
+        is_published BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      )
+    `);
+
     // Create affiliate_credentials table
     await runQuery(`
       CREATE TABLE IF NOT EXISTS affiliate_credentials (

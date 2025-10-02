@@ -1,14 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
 import { Filter, Search, Loader2 } from 'lucide-react';
-import { fetchAllCourses } from '../services/courseApi';
-import { Course } from '../data/affiliateCourses';
+import { affiliateProgramsApi, type AffiliateProgram } from '../services/affiliatePrograms';
 
 const CoursesPage: React.FC = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<string>('all');
   const [priceFilter, setPriceFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<AffiliateProgram[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +15,7 @@ const CoursesPage: React.FC = () => {
     const loadCourses = async () => {
       try {
         setIsLoading(true);
-        const fetchedCourses = await fetchAllCourses();
+        const fetchedCourses = await affiliateProgramsApi.listPublic();
         setCourses(fetchedCourses);
         setError(null);
       } catch (err) {
@@ -33,12 +32,14 @@ const CoursesPage: React.FC = () => {
   // Filter courses based on selected filters
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
-      const matchesPlatform = selectedPlatform === 'all' || course.platform === selectedPlatform;
+      const platformValue = (course.platform || 'other').toLowerCase();
+      const isFree = (course.priceType || '').toLowerCase() === 'free' || course.price === 0 || course.price === 'Free';
+      const matchesPlatform = selectedPlatform === 'all' || platformValue === selectedPlatform;
       const matchesPrice = priceFilter === 'all' || 
-        (priceFilter === 'free' && course.isFree) || 
-        (priceFilter === 'paid' && !course.isFree);
+        (priceFilter === 'free' && isFree) || 
+        (priceFilter === 'paid' && !isFree);
       const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchQuery.toLowerCase());
+        (course.description || '').toLowerCase().includes(searchQuery.toLowerCase());
 
       return matchesPlatform && matchesPrice && matchesSearch;
     });
@@ -114,11 +115,11 @@ const CoursesPage: React.FC = () => {
           <CourseCard
             key={course.id}
             title={course.title}
-            platform={course.platform}
-            description={course.description}
-            imageUrl={course.imageUrl}
+            platform={(course.platform as any) || 'other'}
+            description={course.description || ''}
+            imageUrl={course.imageUrl || ''}
             affiliateLink={course.affiliateLink}
-            price={course.price}
+            price={typeof course.price === 'number' ? `₦${course.price.toLocaleString()}` : (course.price as string | undefined)}
             rating={course.rating}
             instructor={course.instructor}
           />
