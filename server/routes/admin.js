@@ -201,8 +201,8 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
       try {
         const generated = await generateAffiliateCredentials(affiliateId, application.email);
 
-        // Send approval email with real credentials
-        await sendAffiliateApproval({
+        // Send approval email with real credentials (non-blocking)
+        sendAffiliateApproval({
           fullName: application.full_name,
           email: application.email,
           phone: application.phone,
@@ -214,12 +214,15 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
           affiliateCode,
           commissionRate: 0.10,
           password: generated.password
+        }).catch(emailError => {
+          console.error('Approval email failed (non-blocking):', emailError.message);
         });
 
         credentials = { email: generated.email, password: generated.password, userId: generated.userId };
-      } catch (emailError) {
-        console.error('Approval email or credential generation failed:', emailError);
-        // Don't fail the request if email fails
+      } catch (credentialError) {
+        console.error('Credential generation failed:', credentialError);
+        // Still proceed with approval even if credentials fail
+        credentials = { email: application.email, password: 'Generated but not sent', userId: 'N/A' };
       }
 
       res.json({
@@ -230,13 +233,10 @@ router.put('/affiliates/applications/:id/review', verifyToken, requireAdmin, asy
       });
 
     } else {
-      // Send rejection email
-      try {
-        await sendAffiliateRejection(application, rejectionReason);
-      } catch (emailError) {
-        console.error('Rejection email failed:', emailError);
-        // Don't fail the request if email fails
-      }
+      // Send rejection email (non-blocking)
+      sendAffiliateRejection(application, rejectionReason).catch(emailError => {
+        console.error('Rejection email failed (non-blocking):', emailError.message);
+      });
 
       res.json({
         message: 'Application rejected successfully'
