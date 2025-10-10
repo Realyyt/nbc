@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   CheckCircle, 
   XCircle, 
@@ -9,6 +9,7 @@ import {
   Users, 
   Calendar,
   Shield,
+  BookOpen,
   AlertCircle,
   Loader2
 } from 'lucide-react';
@@ -164,13 +165,22 @@ const AdminAffiliates: React.FC = () => {
               <h1 className="text-2xl font-bold text-gray-900">Welcome, Admin</h1>
               <p className="text-gray-600">Manage affiliate applications and approved affiliates</p>
             </div>
-            <button
-              onClick={handleLogout}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2"
-            >
-              <Shield className="h-4 w-4" />
-              Logout
-            </button>
+            <div className="flex items-center gap-3">
+              <Link
+                to="/admin/programs"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+              >
+                <BookOpen className="h-4 w-4" />
+                Affiliate Programs
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2"
+              >
+                <Shield className="h-4 w-4" />
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>

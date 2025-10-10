@@ -5,22 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cd server && npm install",
+    "build": "vite build",
     "build:app": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "server": "node server/index.js",
-    "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
-    "start": "node server/index.js",
+    "server": "echo 'server removed'",
+    "dev:full": "vite",
+    "start": "vite preview",
     "docker:build": "docker build -t nbc-affiliate-system .",
     "docker:run": "docker run -p 3001:3001 --env-file .env nbc-affiliate-system",
     "docker:compose": "docker-compose up -d",
     "docker:compose:down": "docker-compose down",
     "docker:compose:logs": "docker-compose logs -f",
     "deploy:prod": "npm run build && npm run docker:build && npm run docker:compose",
-    "test:api": "curl -f http://localhost:3001/api/health || exit 1",
-    "migrate": "node server/database/migrate.js",
-    "seed": "node server/database/seed.js"
+    "test:api": "curl -f $VITE_API_URL/health || exit 1"
   },
   "dependencies": {
     "axios": "^1.6.0",
