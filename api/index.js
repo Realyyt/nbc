@@ -1,14 +1,25 @@
 import express from 'express';
 import cors from 'cors';
 import { initializeDatabase } from './database/init.js';
+import { pgInitializeDatabase } from './database/pgInit.js';
 import authRoutes from './routes/auth.js';
 import affiliateRoutes from './routes/affiliates.js';
 import adminRoutes from './routes/admin.js';
 
 const app = express();
 
-// Initialize database
-await initializeDatabase();
+// Initialize database (prefer Postgres if DATABASE_URL is set)
+if (process.env.DATABASE_URL) {
+  try {
+    await pgInitializeDatabase();
+    console.log('✅ PostgreSQL schema ensured');
+  } catch (e) {
+    console.error('PostgreSQL init failed, falling back to SQLite:', e.message);
+    await initializeDatabase();
+  }
+} else {
+  await initializeDatabase();
+}
 
 // Middleware
 app.use(cors({
