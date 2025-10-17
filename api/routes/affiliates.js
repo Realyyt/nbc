@@ -23,6 +23,24 @@ const runQuery = async (query, params = []) => {
   }
 };
 
+// Public: List published affiliate programs
+router.get('/programs', async (req, res) => {
+  try {
+    const result = await runQuery(
+      `SELECT id, title, description, platform, image_url as "imageUrl", affiliate_link as "affiliateLink",
+              price, rating, instructor, mode, price_type as "priceType", is_published as "isPublished",
+              created_at as "createdAt"
+       FROM affiliate_programs
+       WHERE is_published = true
+       ORDER BY created_at DESC`
+    );
+    res.json({ programs: result.rows });
+  } catch (error) {
+    console.error('Public programs list error:', error);
+    res.status(500).json({ error: 'Failed to fetch programs' });
+  }
+});
+
 // Middleware to verify affiliate token
 const verifyAffiliateToken = async (req, res, next) => {
   try {
@@ -106,8 +124,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Submit affiliate application
-router.post('/apply', async (req, res) => {
+// Submit affiliate application (primary path used by frontend)
+router.post('/applications', async (req, res) => {
   try {
     const {
       fullName,
@@ -181,6 +199,25 @@ router.post('/apply', async (req, res) => {
   } catch (error) {
     console.error('Submit application error:', error);
     res.status(500).json({ error: 'Failed to submit application' });
+  }
+});
+
+// Back-compat alias
+router.post('/apply', async (req, res) => {
+  req.url = '/applications';
+  return router.handle(req, res);
+});
+
+// Check application status by email
+router.get('/applications/status/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const result = await runQuery('SELECT id, status, created_at FROM affiliate_applications WHERE email = $1', [email]);
+    if (result.rows.length === 0) return res.status(404).json({ error: 'Application not found' });
+    res.json({ id: result.rows[0].id, status: result.rows[0].status, createdAt: result.rows[0].created_at });
+  } catch (error) {
+    console.error('Check application status error:', error);
+    res.status(500).json({ error: 'Failed to check application status' });
   }
 });
 
@@ -311,6 +348,50 @@ router.put('/payment-settings', verifyAffiliateToken, async (req, res) => {
   } catch (error) {
     console.error('Update payment settings error:', error);
     res.status(500).json({ error: 'Failed to update payment settings' });
+  }
+});
+
+// Alias to match frontend service
+router.put('/payment-info', verifyAffiliateToken, async (req, res) => {
+  req.url = '/payment-settings';
+  return router.handle(req, res);
+});
+
+// Affiliate profile (basic details)
+router.get('/profile', verifyAffiliateToken, async (req, res) => {
+  try {
+    const affiliateId = req.affiliate.id;
+    const result = await runQuery(
+      `SELECT full_name, email, phone, social_media_handles, audience_size, audience_description, motivation,
+              affiliate_code, commission_rate, status, created_at
+       FROM affiliates WHERE id = $1`,
+      [affiliateId]
+    );
+    if (result.rows.length === 0) return res.status(404).json({ error: 'Affiliate not found' });
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Get affiliate profile error:', error);
+    res.status(500).json({ error: 'Failed to get profile' });
+  }
+});
+
+// Affiliate statistics (counts)
+router.get('/stats', verifyAffiliateToken, async (req, res) => {
+  try {
+    const affiliateId = req.affiliate.id;
+    const stats = await runQuery(
+      `SELECT 
+         COUNT(*)::int as total,
+         COUNT(CASE WHEN status='completed' THEN 1 END)::int as completed,
+         COUNT(CASE WHEN status='pending' THEN 1 END)::int as pending
+       FROM affiliate_referrals WHERE affiliate_id = $1`,
+      [affiliateId]
+    );
+    const row = stats.rows[0] || { total: 0, completed: 0, pending: 0 };
+    res.json({ totalReferrals: row.total, completedReferrals: row.completed, pendingReferrals: row.pending });
+  } catch (error) {
+    console.error('Get stats error:', error);
+    res.status(500).json({ error: 'Failed to get stats' });
   }
 });
 

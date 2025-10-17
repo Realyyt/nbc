@@ -103,6 +103,117 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Affiliate Programs - Admin CRUD
+router.get('/programs', verifyAdminToken, async (req, res) => {
+  try {
+    const result = await runQuery(
+      'SELECT * FROM affiliate_programs ORDER BY created_at DESC'
+    );
+    res.json({ programs: result.rows });
+  } catch (error) {
+    console.error('Get programs error:', error);
+    res.status(500).json({ error: 'Failed to fetch programs' });
+  }
+});
+
+router.post('/programs', verifyAdminToken, async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      platform,
+      imageUrl,
+      affiliateLink,
+      price,
+      rating,
+      instructor,
+      mode,
+      priceType,
+      isPublished
+    } = req.body;
+
+    if (!title || !affiliateLink) {
+      return res.status(400).json({ error: 'Title and affiliateLink are required' });
+    }
+
+    const insert = await runQuery(
+      `INSERT INTO affiliate_programs (
+        title, description, platform, image_url, affiliate_link, price, rating, instructor, mode, price_type, is_published
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+      RETURNING *`,
+      [
+        title, description || null, platform || null, imageUrl || null, affiliateLink,
+        price ?? null, rating ?? null, instructor || null, mode || 'online', priceType || 'paid',
+        typeof isPublished === 'boolean' ? isPublished : true
+      ]
+    );
+    res.status(201).json({ program: insert.rows[0] });
+  } catch (error) {
+    console.error('Create program error:', error);
+    res.status(500).json({ error: 'Failed to create program' });
+  }
+});
+
+router.put('/programs/:id', verifyAdminToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      title,
+      description,
+      platform,
+      imageUrl,
+      affiliateLink,
+      price,
+      rating,
+      instructor,
+      mode,
+      priceType,
+      isPublished
+    } = req.body;
+
+    const update = await runQuery(
+      `UPDATE affiliate_programs SET
+        title = COALESCE($1, title),
+        description = COALESCE($2, description),
+        platform = COALESCE($3, platform),
+        image_url = COALESCE($4, image_url),
+        affiliate_link = COALESCE($5, affiliate_link),
+        price = COALESCE($6, price),
+        rating = COALESCE($7, rating),
+        instructor = COALESCE($8, instructor),
+        mode = COALESCE($9, mode),
+        price_type = COALESCE($10, price_type),
+        is_published = COALESCE($11, is_published),
+        updated_at = NOW()
+      WHERE id = $12
+      RETURNING *`,
+      [
+        title ?? null, description ?? null, platform ?? null, imageUrl ?? null, affiliateLink ?? null,
+        price ?? null, rating ?? null, instructor ?? null, mode ?? null, priceType ?? null,
+        typeof isPublished === 'boolean' ? isPublished : null,
+        id
+      ]
+    );
+
+    if (update.rows.length === 0) return res.status(404).json({ error: 'Program not found' });
+    res.json({ program: update.rows[0] });
+  } catch (error) {
+    console.error('Update program error:', error);
+    res.status(500).json({ error: 'Failed to update program' });
+  }
+});
+
+router.delete('/programs/:id', verifyAdminToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await runQuery('DELETE FROM affiliate_programs WHERE id = $1', [id]);
+    res.json({ message: 'Program deleted' });
+  } catch (error) {
+    console.error('Delete program error:', error);
+    res.status(500).json({ error: 'Failed to delete program' });
+  }
+});
+
 // Get all affiliate applications
 router.get('/applications', verifyAdminToken, async (req, res) => {
   try {
