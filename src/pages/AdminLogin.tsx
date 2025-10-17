@@ -23,7 +23,7 @@ const AdminLogin: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await api.post('/auth/admin/login', {
+      const response = await api.post('/admin/login', {
         email,
         password
       });
