@@ -65,7 +65,7 @@ export const affiliateService = {
 
   // Admin methods
   async getAllApplications(): Promise<AffiliateApplication[]> {
-    const response = await axios.get('/admin/affiliates/applications');
+    const response = await axios.get('/admin/applications');
     return response.data.applications;
   },
 
@@ -80,7 +80,7 @@ export const affiliateService = {
     affiliateCode?: string;
     credentials?: { email: string; password: string };
   }> {
-    const response = await axios.put(`/admin/affiliates/applications/${applicationId}/review`, {
+    const response = await axios.post(`/admin/applications/${applicationId}/review`, {
       status,
       rejectionReason
     });
