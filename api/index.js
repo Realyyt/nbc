@@ -1,11 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { createRequire } from 'module';
 import { pgInitializeDatabase } from './database/pgInit.js';
-const require = createRequire(import.meta.url);
-const authRoutes = require('./routes/auth.js');
-const affiliateRoutes = require('./routes/affiliates.js');
-const adminRoutes = require('./routes/admin.js');
+import authRoutes from './routes/auth.js';
+import affiliateRoutes from './routes/affiliates.js';
+import adminRoutes from './routes/admin.js';
 
 const app = express();
 

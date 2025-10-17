@@ -1,9 +1,9 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
-const { v4: uuidv4 } = require('uuid');
-const nodemailer = require('nodemailer');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { Pool } from 'pg';
+import { v4 as uuidv4 } from 'uuid';
+import nodemailer from 'nodemailer';
 
 const router = express.Router();
 
@@ -310,5 +310,5 @@ router.post('/applications/:id/review', verifyAdminToken, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
 
