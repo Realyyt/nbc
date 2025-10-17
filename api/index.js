@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { initializeDatabase } from './database/init.js';
 import { pgInitializeDatabase } from './database/pgInit.js';
 import authRoutes from './routes/auth.js';
 import affiliateRoutes from './routes/affiliates.js';
@@ -15,9 +14,11 @@ if (process.env.DATABASE_URL) {
     console.log('✅ PostgreSQL schema ensured');
   } catch (e) {
     console.error('PostgreSQL init failed, falling back to SQLite:', e.message);
+    const { initializeDatabase } = await import('./database/init.js');
     await initializeDatabase();
   }
 } else {
+  const { initializeDatabase } = await import('./database/init.js');
   await initializeDatabase();
 }
 
