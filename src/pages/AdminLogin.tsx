@@ -28,11 +28,11 @@ const AdminLogin: React.FC = () => {
         password
       });
 
-      const { token, user } = response.data;
+      const { token, admin } = response.data;
       
       // Store token and user info
       localStorage.setItem('adminToken', token);
-      localStorage.setItem('adminUser', JSON.stringify(user));
+      localStorage.setItem('adminUser', JSON.stringify(admin));
       
       // Redirect to admin panel
       navigate('/admin/affiliates');
